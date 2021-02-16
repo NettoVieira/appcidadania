@@ -11,8 +11,9 @@ const App: React.FC = () => {
   return (
     <NavigationContainer>
       <StatusBar barStyle="dark-content" backgroundColor="#fff" />
-      <View style={{backgroundColor: '#fff'}} />
-      <Routes />
+      <View style={{flex: 1, backgroundColor: '#fff'}}>
+        <Routes />
+      </View>
     </NavigationContainer>
   );
 };

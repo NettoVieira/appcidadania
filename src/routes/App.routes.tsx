@@ -3,6 +3,10 @@ import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 
 import Welcome from '../pages/Welcome';
+import Passoroutes from './Passo.routes';
+import Appcidadania from '../pages/Appcidadania';
+import Appcidadania1 from '../pages/Appcidadania1';
+import Appcidadania2 from '../pages/Appcidadania2';
 
 const App = createStackNavigator();
 
@@ -11,12 +15,15 @@ const Approutes: React.FC = () => {
     <App.Navigator
       screenOptions={{
         headerShown: false,
-        headerTransparent: true,
-        headerTitle: '',
+
         cardStyle: {backgroundColor: '#fff'},
         // eslint-disable-next-line react/jsx-closing-bracket-location
       }}>
       <App.Screen name="Welcome" component={Welcome} />
+      <App.Screen name="Appcidadania" component={Appcidadania} />
+      <App.Screen name="Appcidadania1" component={Appcidadania1} />
+      <App.Screen name="Appcidadania2" component={Appcidadania2} />
+      <App.Screen name="Passoroutes" component={Passoroutes} />
     </App.Navigator>
   );
 };
