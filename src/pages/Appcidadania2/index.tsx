@@ -40,7 +40,7 @@ const Appcidadania: React.FC = () => {
       </Container>
       <ButtonContinue
         onPress={() => {
-          navigation.navigate('Passoroutes');
+          navigation.navigate('Dashboardroutes');
         }}>
         <ButtonContinueText>Começar agora</ButtonContinueText>
       </ButtonContinue>

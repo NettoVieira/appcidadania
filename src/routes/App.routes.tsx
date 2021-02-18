@@ -3,7 +3,7 @@ import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 
 import Welcome from '../pages/Welcome';
-import Passoroutes from './Passo.routes';
+import Dashboardroutes from './Dashboard/Dashboard.routes';
 import Appcidadania from '../pages/Appcidadania';
 import Appcidadania1 from '../pages/Appcidadania1';
 import Appcidadania2 from '../pages/Appcidadania2';
@@ -23,7 +23,7 @@ const Approutes: React.FC = () => {
       <App.Screen name="Appcidadania" component={Appcidadania} />
       <App.Screen name="Appcidadania1" component={Appcidadania1} />
       <App.Screen name="Appcidadania2" component={Appcidadania2} />
-      <App.Screen name="Passoroutes" component={Passoroutes} />
+      <App.Screen name="Dashboardroutes" component={Dashboardroutes} />
     </App.Navigator>
   );
 };
