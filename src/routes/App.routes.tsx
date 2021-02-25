@@ -7,6 +7,7 @@ import Dashboardroutes from './Dashboard/Dashboard.routes';
 import Appcidadania from '../pages/Appcidadania';
 import Appcidadania1 from '../pages/Appcidadania1';
 import Appcidadania2 from '../pages/Appcidadania2';
+import Passosroutes from './Passos/Passos.routes';
 
 const App = createStackNavigator();
 
@@ -24,6 +25,7 @@ const Approutes: React.FC = () => {
       <App.Screen name="Appcidadania1" component={Appcidadania1} />
       <App.Screen name="Appcidadania2" component={Appcidadania2} />
       <App.Screen name="Dashboardroutes" component={Dashboardroutes} />
+      <App.Screen name="Passosroutes" component={Passosroutes} />
     </App.Navigator>
   );
 };
