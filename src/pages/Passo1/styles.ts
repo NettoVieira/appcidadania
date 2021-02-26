@@ -25,6 +25,7 @@ export const SubTitle = styled.Text`
   font-size: 20px;
   font-family: 'Poppins-SemiBold';
   color: #172239;
+  margin-top: 10px;
   margin-bottom: 10px;
 `;
 
@@ -38,6 +39,7 @@ export const GoBack = styled.TouchableOpacity`
   flex-direction: row;
   align-items: center;
   margin-top: 28px;
+  margin-bottom: 28px;
 `;
 
 export const ButtonHelpText = styled.Text`
