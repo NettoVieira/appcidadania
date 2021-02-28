@@ -8,11 +8,24 @@ import {
   ContainerTitle,
   SubTitle,
   Paragraph,
-  ButtonHelpText,
   GoBack,
   GoBackIcon,
   Text,
+  Button,
+  ButtonImg,
+  ButtonContinua,
+  ButtonText,
+  Status,
 } from './styles';
+
+import Planob from '../../assets/plano_b.png';
+import Oportunidade from '../../assets/oportunidade.png';
+import Emprego from '../../assets/emprego.png';
+import Estudo from '../../assets/estudo.png';
+import Beneficios from '../../assets/beneficios.png';
+import Facilidade from '../../assets/facilidade.png';
+import heranca from '../../assets/heranca.png';
+import Aposentadoria from '../../assets/aposentadoria.png';
 
 const Passo1: React.FC = () => {
   return (
@@ -32,7 +45,8 @@ const Passo1: React.FC = () => {
 
         <GoBack>
           <Text>Ler introdução completa</Text>
-          <GoBackIcon name="chevron-right" size={30} color="#db822b" />
+          <GoBackIcon name="chevron-right" size={25} color="#db822b" />
+          <Status>Pendente</Status>
         </GoBack>
 
         <SubTitle>Como "pedir a cidadania italiana"</SubTitle>
@@ -60,6 +74,44 @@ const Passo1: React.FC = () => {
           e se tiver filhos ou pretende ter, para eles também. Vou listar alguns
           aqui pra te dar uma ideia:
         </Paragraph>
+        <Button>
+          <ButtonImg source={Planob} />
+        </Button>
+        <Button>
+          <ButtonImg source={Oportunidade} />
+        </Button>
+        <Button>
+          <ButtonImg source={Emprego} />
+        </Button>
+        <Button>
+          <ButtonImg source={Estudo} />
+        </Button>
+        <Button>
+          <ButtonImg source={Beneficios} />
+        </Button>
+        <Button>
+          <ButtonImg source={Facilidade} />
+        </Button>
+        <Button>
+          <ButtonImg source={heranca} />
+        </Button>
+        <Button>
+          <ButtonImg source={Aposentadoria} />
+        </Button>
+
+        <SubTitle>
+          Antes de você iniciar os passos práticos: que tal esclarecermos alguns
+          mitos?
+        </SubTitle>
+        <GoBack>
+          <Text>Entenda os principais mitos</Text>
+          <GoBackIcon name="chevron-right" size={25} color="#db822b" />
+          <Status>Pendente</Status>
+        </GoBack>
+
+        <ButtonContinua>
+          <ButtonText>Concluir etapa</ButtonText>
+        </ButtonContinua>
       </Scroll>
     </Container>
   );

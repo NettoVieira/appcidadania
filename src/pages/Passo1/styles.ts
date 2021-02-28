@@ -3,8 +3,8 @@ import Icon from 'react-native-vector-icons/Feather';
 
 export const Container = styled.View`
   margin-top: 15%;
+  padding: 5%;
   flex: 1;
-  padding: 6%;
 `;
 
 export const ContainerTitle = styled.View`
@@ -22,38 +22,71 @@ export const Title = styled.Text`
 `;
 
 export const SubTitle = styled.Text`
-  font-size: 20px;
+  font-size: 18px;
   font-family: 'Poppins-SemiBold';
   color: #172239;
-  margin-top: 10px;
+  margin-top: 20px;
   margin-bottom: 10px;
 `;
 
 export const Paragraph = styled.Text`
   color: #6d6d78;
-  font-size: 14px;
+  font-size: 13px;
   font-family: 'Poppins-Regular';
 `;
 
 export const GoBack = styled.TouchableOpacity`
   flex-direction: row;
   align-items: center;
-  margin-top: 28px;
-  margin-bottom: 28px;
-`;
-
-export const ButtonHelpText = styled.Text`
-  font-size: 14px;
-  color: #db822b;
-  font-family: 'Poppins-Medium';
+  margin-top: 20px;
+  margin-bottom: 20px;
 `;
 
 export const Text = styled.Text`
-  font-size: 18px;
+  font-size: 15px;
   color: #f09d4c;
   font-family: 'Poppins-Regular';
 `;
 
 export const GoBackIcon = styled(Icon)`
   margin-left: 2%;
+`;
+
+export const Button = styled.TouchableOpacity`
+  margin-top: 15px;
+
+  align-items: center;
+  width: 100%;
+`;
+
+export const ButtonImg = styled.Image`
+  height: 90px;
+  width: 410px;
+`;
+
+export const ButtonContinua = styled.TouchableOpacity`
+  background-color: #f09d4c;
+  justify-content: center;
+  align-items: center;
+  height: 55px;
+  border-radius: 10px;
+  margin-top: 32px;
+`;
+
+export const ButtonText = styled.Text`
+  font-size: 18px;
+  color: #fff;
+  font-family: 'Poppins-Medium';
+`;
+
+export const Status = styled.Text`
+  font-family: 'Poppins-Medium';
+  font-size: 10px;
+  color: #ff0000;
+  background-color: #fae8e8;
+  border-radius: 20px;
+  text-align: center;
+  margin-left: 30px;
+  width: 65px;
+  height: 16px;
 `;
