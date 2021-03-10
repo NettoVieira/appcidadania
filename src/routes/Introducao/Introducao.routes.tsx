@@ -3,7 +3,9 @@ import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import {useNavigation} from '@react-navigation/native';
 
-import Passo1 from '../../pages/Passo1';
+import Introducao from '../../pages/Passo1/Introducao';
+import Introducao2 from '../../pages/Passo1/Introducao2';
+import Introducao3 from '../../pages/Passo1/Introducao3';
 
 import {
   Container,
@@ -25,7 +27,7 @@ const Headerleft: React.FC = (a) => {
           navigation.goBack();
         }}>
         <GoBackIcon name="chevron-left" size={35} color="#db822b" />
-        <Text>Passo 1</Text>
+        <Text>Passo 1 - Introdução</Text>
       </GoBack>
     </Container>
   );
@@ -41,7 +43,7 @@ const Headerright: React.FC = () => {
   );
 };
 
-const Passosroutes: React.FC = () => {
+const Intruducaoroutes: React.FC = () => {
   return (
     <App.Navigator
       screenOptions={{
@@ -66,9 +68,11 @@ const Passosroutes: React.FC = () => {
         cardStyle: {backgroundColor: '#fff'},
         // eslint-disable-next-line react/jsx-closing-bracket-location
       }}>
-      <App.Screen name="Passo 1" component={Passo1} />
+      <App.Screen name="Introducao" component={Introducao} />
+      <App.Screen name="Introducao2" component={Introducao2} />
+      <App.Screen name="Introducao3" component={Introducao3} />
     </App.Navigator>
   );
 };
 
-export default Passosroutes;
+export default Intruducaoroutes;

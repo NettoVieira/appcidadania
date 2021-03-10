@@ -43,7 +43,7 @@ export const GoBack = styled.TouchableOpacity`
 `;
 
 export const Text = styled.Text`
-  font-size: 15px;
+  font-size: 16px;
   color: #f09d4c;
   font-family: 'Poppins-Regular';
 `;

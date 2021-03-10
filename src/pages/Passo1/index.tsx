@@ -1,5 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
-import React from 'react';
+import React, {useCallback} from 'react';
+import {useNavigation} from '@react-navigation/native';
 
 import {
   Container,
@@ -28,6 +29,12 @@ import heranca from '../../assets/heranca.png';
 import Aposentadoria from '../../assets/aposentadoria.png';
 
 const Passo1: React.FC = () => {
+  const navigation = useNavigation();
+
+  const handleIntroducao = useCallback(() => {
+    navigation.navigate('Introducao', {introducao: 'Introducao'});
+  }, [navigation]);
+
   return (
     <Container>
       <Scroll>
@@ -43,7 +50,7 @@ const Passo1: React.FC = () => {
           dele tinha vindo da Itália”, então este App foi feito pra você.
         </Paragraph>
 
-        <GoBack>
+        <GoBack onPress={handleIntroducao}>
           <Text>Ler introdução completa</Text>
           <GoBackIcon name="chevron-right" size={25} color="#db822b" />
           <Status>Pendente</Status>
