@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-closing-bracket-location */
 /* eslint-disable react/no-unescaped-entities */
 import React, {useCallback} from 'react';
 import {useNavigation} from '@react-navigation/native';
@@ -81,7 +82,10 @@ const Passo1: React.FC = () => {
           e se tiver filhos ou pretende ter, para eles também. Vou listar alguns
           aqui pra te dar uma ideia:
         </Paragraph>
-        <Button>
+        <Button
+          onPress={() => {
+            navigation.navigate('Planob');
+          }}>
           <ButtonImg source={Planob} />
         </Button>
         <Button>

@@ -4,6 +4,8 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {useNavigation} from '@react-navigation/native';
 
 import Passo1 from '../../pages/Passo1';
+import Planob from '../../pages/Passo1/Planob';
+import Oportunidade from '../../pages/Passo1/Oportunidade';
 
 import {
   Container,
@@ -67,6 +69,8 @@ const Passosroutes: React.FC = () => {
         // eslint-disable-next-line react/jsx-closing-bracket-location
       }}>
       <App.Screen name="Passo 1" component={Passo1} />
+      <App.Screen name="Planob" component={Planob} />
+      <App.Screen name="Oportunidade" component={Oportunidade} />
     </App.Navigator>
   );
 };

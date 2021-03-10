@@ -11,7 +11,7 @@ import {
 } from './styles';
 
 import Barprogress from '../../../assets/progressbar3.png';
-import {ButtonContinua, ButtonText, GoBack, GoBackIcon, Text} from '../styles';
+import {ButtonContinua, ButtonText} from '../styles';
 
 const Introducao3: React.FC = () => {
   const navigation = useNavigation();
