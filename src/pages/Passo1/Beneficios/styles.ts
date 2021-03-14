@@ -1,8 +1,9 @@
 import styled from 'styled-components/native';
+import Icon from 'react-native-vector-icons/Feather';
 
 export const Container = styled.View`
   flex: 1;
-  margin-top: 18%;
+  margin-top: 25%;
 `;
 
 export const Subtitle = styled.Text`
@@ -12,11 +13,40 @@ export const Subtitle = styled.Text`
   font-size: 20px;
 `;
 
-export const ContainerImage = styled.View`
+export const ContainerHeader = styled.View`
   margin-left: 5%;
   margin-right: 5%;
-  flex: 1;
 `;
+
+export const ContainerBody = styled.View`
+  margin-top: 10%;
+  margin-left: 5%;
+  margin-right: 5%;
+`;
+
+export const ContainerFooter = styled.View`
+  margin-left: 5%;
+  margin-right: 5%;
+`;
+
+export const GoBack = styled.TouchableOpacity`
+  flex-direction: row;
+  align-items: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+`;
+
+export const Text = styled.Text`
+  font-size: 16px;
+  color: #f09d4c;
+  font-family: 'Poppins-Regular';
+`;
+
+export const GoBackIcon = styled(Icon)`
+  margin-left: 2%;
+`;
+
+export const Image = styled.Image``;
 
 export const Progresbar = styled.Image`
   width: 100%;
@@ -38,6 +68,7 @@ export const Paragraph = styled.Text`
 `;
 
 export const Title = styled.Text`
-  font-family: 'Poppins-Regular';
-  font-size: 30px;
+  font-family: 'Poppins-SemiBold';
+  font-size: 24px;
+  color: #172239;
 `;

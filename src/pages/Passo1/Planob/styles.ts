@@ -3,7 +3,7 @@ import Icon from 'react-native-vector-icons/Feather';
 
 export const Container = styled.View`
   flex: 1;
-  margin-top: 18%;
+  margin-top: 25%;
 `;
 
 export const Subtitle = styled.Text`

@@ -88,25 +88,46 @@ const Passo1: React.FC = () => {
           }}>
           <ButtonImg source={Planob} />
         </Button>
-        <Button>
+        <Button
+          onPress={() => {
+            navigation.navigate('Oportunidade');
+          }}>
           <ButtonImg source={Oportunidade} />
         </Button>
-        <Button>
+        <Button
+          onPress={() => {
+            navigation.navigate('Emprego');
+          }}>
           <ButtonImg source={Emprego} />
         </Button>
-        <Button>
+        <Button
+          onPress={() => {
+            navigation.navigate('Ensino');
+          }}>
           <ButtonImg source={Estudo} />
         </Button>
-        <Button>
+        <Button
+          onPress={() => {
+            navigation.navigate('Beneficios');
+          }}>
           <ButtonImg source={Beneficios} />
         </Button>
-        <Button>
+        <Button
+          onPress={() => {
+            navigation.navigate('Facilidade');
+          }}>
           <ButtonImg source={Facilidade} />
         </Button>
-        <Button>
+        <Button
+          onPress={() => {
+            navigation.navigate('Heranca');
+          }}>
           <ButtonImg source={heranca} />
         </Button>
-        <Button>
+        <Button
+          onPress={() => {
+            navigation.navigate('Aposentadoria');
+          }}>
           <ButtonImg source={Aposentadoria} />
         </Button>
 
