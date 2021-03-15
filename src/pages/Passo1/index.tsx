@@ -135,7 +135,10 @@ const Passo1: React.FC = () => {
           Antes de você iniciar os passos práticos: que tal esclarecermos alguns
           mitos?
         </SubTitle>
-        <GoBack>
+        <GoBack
+          onPress={() => {
+            navigation.navigate('Mitos');
+          }}>
           <Text>Entenda os principais mitos</Text>
           <GoBackIcon name="chevron-right" size={25} color="#db822b" />
           <Status>Pendente</Status>
