@@ -47,6 +47,8 @@ import {
   ButtonFooterText,
   ButtonFooterTextBold,
   ContainerImage,
+  ContainerTitle,
+  Status,
 } from './styles';
 
 interface Usuario extends Object {
@@ -94,14 +96,20 @@ const Home: React.FC = () => {
               }}>
               <ImagemPasso1 source={Lupadisable} />
               <ContainerHeader>
-                <PassoText>Passo 1</PassoText>
+                <ContainerTitle>
+                  <PassoText>Passo 1</PassoText>
+                  <Status>Pendente</Status>
+                </ContainerTitle>
                 <PassoTextContainer>
                   <PassoTextBold>Cidadania Italiana</PassoTextBold>
                 </PassoTextContainer>
                 <TextFooter>Entenda como funciona</TextFooter>
               </ContainerHeader>
             </ContainerPasso>
-            <ContainerPasso>
+            <ContainerPasso
+              onPress={() => {
+                navigation.navigate('Passos2routes');
+              }}>
               <ImagemPasso1 source={IlustrationDisable} />
               <ContainerHeader>
                 <PassoText>Passo 2</PassoText>

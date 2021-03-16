@@ -144,7 +144,10 @@ const Passo1: React.FC = () => {
           <Status>Pendente</Status>
         </GoBack>
 
-        <ButtonContinua>
+        <ButtonContinua
+          onPress={() => {
+            navigation.navigate('Dashboardroutes');
+          }}>
           <ButtonText>Concluir etapa</ButtonText>
         </ButtonContinua>
       </Scroll>

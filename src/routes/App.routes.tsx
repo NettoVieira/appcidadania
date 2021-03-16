@@ -10,6 +10,7 @@ import Appcidadania2 from '../pages/Appcidadania2';
 import Passosroutes from './Passos/Passos.routes';
 import Introducao from './Introducao/Introducao.routes';
 import Mitos from './Mitos/Mitos.routes';
+import Passos2routes from './Passos2/Passos.routes';
 
 const App = createStackNavigator();
 
@@ -30,6 +31,7 @@ const Approutes: React.FC = () => {
       <App.Screen name="Passosroutes" component={Passosroutes} />
       <App.Screen name="Introducao" component={Introducao} />
       <App.Screen name="Mitos" component={Mitos} />
+      <App.Screen name="Passos2routes" component={Passos2routes} />
     </App.Navigator>
   );
 };

@@ -28,13 +28,29 @@ export const ContainerPasso = styled.TouchableOpacity`
   width: 97%;
 `;
 
+export const ContainerTitle = styled.View`
+  flex-direction: row;
+`;
+
+export const Status = styled.Text`
+  font-family: 'Poppins-Medium';
+  font-size: 10px;
+  color: #ff0000;
+  background-color: #fae8e8;
+  border-radius: 20px;
+  text-align: center;
+  margin-left: 35%;
+  width: 65px;
+  height: 16px;
+`;
+
 export const MarcadorText1 = styled.Image`
   height: 10px;
   margin: 2px;
   margin-top: 50px;
   width: 10px;
   border-radius: 50px;
-  background-color: #e6e6e6;
+  background-color: #ff0000;
 `;
 
 export const MarcadorText2 = styled.Image`
