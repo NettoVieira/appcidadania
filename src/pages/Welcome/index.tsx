@@ -32,7 +32,7 @@ const Welcome: React.FC = () => {
     const response = await api.post('updateUser', data);
 
     await AsyncStorage.multiSet([
-      ['@appcidadania:user', JSON.stringify(response.data)],
+      ['@appcidadania:response', JSON.stringify(response.data)],
     ]);
 
     navigate.navigate('Appcidadania');

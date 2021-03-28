@@ -17,6 +17,9 @@ import IconeDiario from '../../assets/icone-diario.png';
 import IconeStatus from '../../assets/icon_status.png';
 import ImageChat from '../../assets/image_chat.png';
 import ImageConsulta from '../../assets/image_consulta.png';
+import Api from '../../services/api';
+
+import Load from '../../Components/Loading';
 
 import {
   Container,
@@ -57,25 +60,34 @@ interface Usuario extends Object {
 
 const Home: React.FC = () => {
   const navigation = useNavigation();
-  const [name, setName] = useState<Usuario>();
+  const [view, setView] = useState<Usuario>();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function getUser() {
-      const [user] = await AsyncStorage.multiGet(['@appcidadania:user']);
+      const [response] = await AsyncStorage.multiGet([
+        '@appcidadania:response',
+      ]);
 
-      const User = JSON.parse(user[1] || '{}');
+      const Response = JSON.parse(response[1] || '{}');
 
-      setName(User.User);
+      setView(Response.User);
+
+      setLoading(false);
     }
 
     getUser();
   }, []);
 
+  if (loading) {
+    return <Load />;
+  }
+
   return (
     <Container>
       <ContainerView>
         <Ciao>Ciao,</Ciao>
-        <Name>{name?.Name}. 👋</Name>
+        <Name>{view?.Name}. 👋</Name>
         <ContainerPassos>
           <ContainerMarcador>
             <Text

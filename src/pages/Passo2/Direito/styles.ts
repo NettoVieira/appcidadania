@@ -13,6 +13,21 @@ export const Subtitle = styled.Text`
   font-size: 20px;
 `;
 
+export const ButtonContinua = styled.TouchableOpacity`
+  background-color: #f09d4c;
+  justify-content: center;
+  align-items: center;
+  height: 55px;
+  border-radius: 10px;
+  margin-top: 32px;
+`;
+
+export const ButtonText = styled.Text`
+  font-size: 18px;
+  color: #fff;
+  font-family: 'Poppins-Medium';
+`;
+
 export const ContainerHeader = styled.View`
   margin-left: 5%;
   margin-right: 5%;
@@ -25,6 +40,7 @@ export const ContainerBody = styled.View`
 `;
 
 export const ContainerFooter = styled.View`
+  margin-top: 25%;
   margin-left: 5%;
   margin-right: 5%;
 `;

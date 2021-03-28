@@ -9,13 +9,11 @@ import {
   Title,
   ContainerHeader,
   ContainerBody,
-  Image,
   Paragraph,
   ContainerFooter,
   TitleOpacity,
-  GoBack,
-  Text,
-  GoBackIcon,
+  ButtonContinua,
+  ButtonText,
 } from './styles';
 import {Subtitle} from '../../Passo1/Planob/styles';
 
@@ -28,9 +26,7 @@ const Direito: React.FC = () => {
         <Title>Tenho direito?</Title>
       </ContainerHeader>
       <ContainerBody>
-        <Subtitle>
-          Sei que tenho, mas não sei onde estão os documentos.
-        </Subtitle>
+        <Subtitle>Não faço ideia, mas quero saber.</Subtitle>
         <Paragraph>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vel
           velit nisl. Pellentesque ornare sed urna a elementum. In condimentum
@@ -41,7 +37,14 @@ const Direito: React.FC = () => {
           ut ultricies pharetra.
         </Paragraph>
       </ContainerBody>
-      <ContainerFooter />
+      <ContainerFooter>
+        <ButtonContinua
+          onPress={() => {
+            navigation.navigate('Dashboardroutes');
+          }}>
+          <ButtonText>Concluir etapa</ButtonText>
+        </ButtonContinua>
+      </ContainerFooter>
     </Container>
   );
 };
