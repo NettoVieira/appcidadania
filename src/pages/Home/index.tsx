@@ -1,11 +1,12 @@
+/* eslint-disable no-nested-ternary */
 /* eslint-disable react/jsx-closing-bracket-location */
 /* eslint-disable react/jsx-one-expression-per-line */
 /* eslint-disable react/jsx-indent */
 /* eslint-disable react/jsx-closing-tag-location */
 // eslint-disable-next-line react/jsx-one-expression-per-line
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import React, {useEffect, useState} from 'react';
-import {useNavigation} from '@react-navigation/native';
+import React, {useCallback, useEffect, useState} from 'react';
+import {useFocusEffect, useNavigation} from '@react-navigation/native';
 
 import Lupadisable from '../../assets/lupa_disable.png';
 import IlustrationDisable from '../../assets/illustration_disable.png';
@@ -15,9 +16,12 @@ import IconeLapis from '../../assets/icone-lapis.png';
 import IconeMoeda from '../../assets/icone-moeda.png';
 import IconeDiario from '../../assets/icone-diario.png';
 import IconeStatus from '../../assets/icon_status.png';
+import IconeStatusConcluido from '../../assets/status_complete.png';
 import ImageChat from '../../assets/image_chat.png';
+import Ilustration from '../../assets/illustration.png';
 import ImageConsulta from '../../assets/image_consulta.png';
-import Api from '../../services/api';
+import Dna from '../../assets/illustration_dna.png';
+import api from '../../services/api';
 
 import Load from '../../Components/Loading';
 
@@ -32,6 +36,7 @@ import {
   MarcadorText1,
   MarcadorText2,
   MarcadorText3,
+  MarcadorText2Disable,
   Text,
   ImagemPasso1,
   PassoText,
@@ -52,32 +57,97 @@ import {
   ContainerImage,
   ContainerTitle,
   Status,
+  StatusConcluido,
+  StatusPendente,
+  MarcadorText2Pendente,
 } from './styles';
 
 interface Usuario extends Object {
   Name: string;
 }
 
+interface Steps extends Object {
+  Step1: {
+    Name: string;
+    Description: string;
+    Status: number;
+    StartTime: string;
+    EndTime: string;
+    Task1: {
+      Name: string;
+      Status: number;
+      StartTime: string;
+      EndTime: string;
+    };
+    Task2: {
+      Name: string;
+      Status: number;
+      StartTime: string;
+      EndTime: string;
+    };
+    Task3: {
+      Name: string;
+      Status: number;
+      StartTime: string;
+      EndTime: string;
+    };
+  };
+  Step2: {
+    Name: string;
+    Description: string;
+    Status: number;
+    Option: number;
+    StartTime: string;
+    EndTime: string;
+  };
+  Step3: {
+    Name: string;
+    Description: string;
+    Status: number;
+    StartTime: string;
+    EndTime: string;
+  };
+}
+
 const Home: React.FC = () => {
   const navigation = useNavigation();
   const [view, setView] = useState<Usuario>();
   const [loading, setLoading] = useState(true);
+  const [step, setStep] = useState<Steps>();
 
-  useEffect(() => {
-    async function getUser() {
-      const [response] = await AsyncStorage.multiGet([
-        '@appcidadania:response',
-      ]);
+  useFocusEffect(
+    useCallback(() => {
+      async function getUser() {
+        const [response] = await AsyncStorage.multiGet([
+          '@appcidadania:response',
+        ]);
 
-      const Response = JSON.parse(response[1] || '{}');
+        const Response = JSON.parse(response[1] || '{}');
 
-      setView(Response.User);
+        setView(Response.User);
 
-      setLoading(false);
-    }
+        const [Items] = await AsyncStorage.multiGet(['@appcidadania:response']);
+        const req = JSON.parse(Items[1] || '{}');
 
-    getUser();
-  }, []);
+        const data = {
+          Token: req.Request.Token,
+          TokenDevice: req.Request.TokenDevice,
+        };
+
+        try {
+          const res = await api.post('getUser', data);
+          setStep(res.data.User);
+
+          setLoading(false);
+        } catch (err) {
+          setLoading(false);
+          console.log(err);
+        }
+      }
+
+      getUser();
+    }, []),
+  );
 
   if (loading) {
     return <Load />;
@@ -97,34 +167,89 @@ const Home: React.FC = () => {
                 margin: 0,
               }}
             />
-            <MarcadorText1 source={IconeStatus} />
-            <MarcadorText2 source={IconeStatus} />
+            {step?.Step1.Status !== 2 ? (
+              <MarcadorText1 source={IconeStatus} />
+            ) : (
+              <MarcadorText1 source={IconeStatusConcluido} />
+            )}
+
+            {step?.Step2.Status === 2 ? (
+              <MarcadorText2Pendente source={IconeStatusConcluido} />
+            ) : step?.Step1.Status === 2 ? (
+              <MarcadorText2 source={IconeStatus} />
+            ) : (
+              <MarcadorText2Disable source={IconeStatus} />
+            )}
+
             <MarcadorText3 source={IconeStatus} />
           </ContainerMarcador>
           <Container>
-            <ContainerPasso
-              onPress={() => {
-                navigation.navigate('Passosroutes');
-              }}>
-              <ImagemPasso1 source={Lupadisable} />
-              <ContainerHeader>
-                <ContainerTitle>
-                  <PassoText>Passo 1</PassoText>
-                  <Status>Pendente</Status>
-                </ContainerTitle>
-                <PassoTextContainer>
-                  <PassoTextBold>Cidadania Italiana</PassoTextBold>
-                </PassoTextContainer>
-                <TextFooter>Entenda como funciona</TextFooter>
-              </ContainerHeader>
-            </ContainerPasso>
+            {step?.Step1.Status !== 2 ? (
+              <ContainerPasso
+                onPress={() => {
+                  navigation.navigate('Passosroutes');
+                }}>
+                <ImagemPasso1 source={Lupadisable} />
+                <ContainerHeader>
+                  <ContainerTitle>
+                    <PassoText>Passo 1</PassoText>
+                    <StatusPendente>Pendente</StatusPendente>
+                  </ContainerTitle>
+                  <PassoTextContainer>
+                    <PassoTextBold>Cidadania Italiana</PassoTextBold>
+                  </PassoTextContainer>
+                  <TextFooter>Entenda como funciona</TextFooter>
+                </ContainerHeader>
+              </ContainerPasso>
+            ) : (
+              <ContainerPasso
+                onPress={() => {
+                  navigation.navigate('Passosroutes');
+                }}>
+                <ImagemPasso1
+                  source={Dna}
+                  style={{backgroundColor: '#edf6fa'}}
+                />
+                <ContainerHeader>
+                  <ContainerTitle>
+                    <PassoText>Passo 1</PassoText>
+                    <StatusConcluido>Concluido</StatusConcluido>
+                  </ContainerTitle>
+                  <PassoTextContainer>
+                    <PassoTextBold>Cidadania Italiana</PassoTextBold>
+                  </PassoTextContainer>
+                  <TextFooter>Entenda como funciona</TextFooter>
+                </ContainerHeader>
+              </ContainerPasso>
+            )}
+
             <ContainerPasso
               onPress={() => {
                 navigation.navigate('Passos2routes');
               }}>
-              <ImagemPasso1 source={IlustrationDisable} />
+              {step?.Step2.Status === 2 ? (
+                <ImagemPasso1
+                  source={Ilustration}
+                  style={{backgroundColor: '#edf6fa'}}
+                />
+              ) : (
+                <ImagemPasso1 source={IlustrationDisable} />
+              )}
+
               <ContainerHeader>
-                <PassoText>Passo 2</PassoText>
+                {step?.Step1.Status === 2 ? (
+                  <ContainerTitle>
+                    <PassoText>Passo 2</PassoText>
+                    {step?.Step2.Status !== 2 ? (
+                      <StatusPendente>Pendente</StatusPendente>
+                    ) : (
+                      <StatusConcluido>Concluido</StatusConcluido>
+                    )}
+                  </ContainerTitle>
+                ) : (
+                  <PassoText>Passo 2</PassoText>
+                )}
+
                 <PassoTextContainer>
                   <PassoTextBold>Tenho direito?</PassoTextBold>
                 </PassoTextContainer>

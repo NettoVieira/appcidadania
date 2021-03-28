@@ -45,28 +45,48 @@ export const Status = styled.Text`
 `;
 
 export const MarcadorText1 = styled.Image`
-  height: 10px;
-  margin: 2px;
+  height: 13px;
+  margin: 1px;
   margin-top: 50px;
-  width: 10px;
+  width: 13px;
   border-radius: 50px;
   background-color: #ff0000;
 `;
 
 export const MarcadorText2 = styled.Image`
-  margin: 2px;
-  height: 10px;
+  margin: 1px;
+  height: 13px;
   margin-top: 140px;
-  width: 10px;
+  width: 13px;
+  border-radius: 50px;
+
+  background-color: #ff0000;
+`;
+
+export const MarcadorText2Disable = styled.Image`
+  margin: 1px;
+  height: 13px;
+  margin-top: 140px;
+  width: 13px;
   border-radius: 50px;
 
   background-color: #e6e6e6;
 `;
 
+export const MarcadorText2Pendente = styled.Image`
+  margin: 1px;
+  height: 13px;
+  margin-top: 140px;
+  width: 13px;
+  border-radius: 50px;
+
+  background-color: #ff0000;
+`;
+
 export const MarcadorText3 = styled.Image`
-  margin: 2px;
-  height: 10px;
-  width: 10px;
+  margin: 1px;
+  height: 13px;
+  width: 13px;
   margin-top: 130px;
   border-radius: 50px;
   background-color: #e6e6e6;
@@ -210,4 +230,28 @@ export const ButtonFooterTextBold = styled.Text`
   color: #172239;
   font-family: 'Poppins-SemiBold';
   margin-left: 16px;
+`;
+
+export const StatusConcluido = styled.Text`
+  font-family: 'Poppins-Medium';
+  font-size: 10px;
+  color: #15b200;
+  background-color: #dbe9ee;
+  border-radius: 20px;
+  text-align: center;
+  margin-left: 5%;
+  width: 65px;
+  height: 16px;
+`;
+
+export const StatusPendente = styled.Text`
+  font-family: 'Poppins-Medium';
+  font-size: 10px;
+  color: #ff0000;
+  background-color: #fae8e8;
+  border-radius: 20px;
+  text-align: center;
+  margin-left: 5%;
+  width: 65px;
+  height: 16px;
 `;

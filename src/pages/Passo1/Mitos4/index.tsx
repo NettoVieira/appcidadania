@@ -1,7 +1,8 @@
 /* eslint-disable react/jsx-closing-bracket-location */
-import React from 'react';
+import React, {useCallback, useState} from 'react';
 
 import {useNavigation} from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   Container,
   Progresbar,
@@ -15,10 +16,41 @@ import {
 } from './styles';
 
 import Barprogress from '../../../assets/progressbar-mito4.png';
-import {GoBack, GoBackIcon, Text} from '../styles';
+import Load from '../../../Components/Loading';
+import api from '../../../services/api';
 
 const Mitos4: React.FC = () => {
   const navigation = useNavigation();
+  const [loading, setLoading] = useState(false);
+
+  const handleConcluirEtapa = useCallback(async () => {
+    setLoading(true);
+    const [Items] = await AsyncStorage.multiGet(['@appcidadania:response']);
+    const {Request, User} = JSON.parse(Items[1] || '{}');
+
+    const data = {
+      Token: Request.Token,
+      TokenDevice: Request.TokenDevice,
+      Name: User.Name,
+      Step: 1,
+      Task: 3,
+      Status: 2,
+    };
+
+    try {
+      await api.post('updateUser', data);
+
+      setLoading(false);
+      navigation.navigate('Passosroutes');
+    } catch (err) {
+      console.log(err);
+    }
+  }, [navigation]);
+
+  if (loading) {
+    return <Load />;
+  }
+
   return (
     <Container>
       <ContainerImage>
@@ -39,10 +71,7 @@ const Mitos4: React.FC = () => {
           normalmente, que no momento certo cuidarei de você.
         </Paragraph>
 
-        <ButtonContinua
-          onPress={() => {
-            navigation.navigate('Passosroutes');
-          }}>
+        <ButtonContinua onPress={handleConcluirEtapa}>
           <ButtonText>Concluir etapa</ButtonText>
         </ButtonContinua>
       </ContainerImage>

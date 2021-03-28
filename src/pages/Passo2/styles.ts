@@ -30,18 +30,18 @@ export const ContainerImage = styled.View`
 `;
 
 export const ImageLapis = styled.Image`
-  margin-top: -5%;
-  margin-right: 9.5%;
-  height: 240px;
-  width: 260px;
+  margin-top: 20.5%;
+
+  position: absolute;
+  height: 230px;
+  width: 270px;
 `;
 
 export const Backgroudimg = styled.Image`
   width: 100%;
-  height: 260px;
-  position: absolute;
-
   border-radius: 20px;
+  height: 330px;
+  position: absolute;
 `;
 
 export const ContainerOptions = styled.View`
@@ -75,6 +75,7 @@ export const SubTitle = styled.Text`
 
 export const ContainerBodyModal = styled.View`
   width: 100%;
+  margin-top: 75%;
   padding-right: 3%;
   padding-left: 3%;
 `;
