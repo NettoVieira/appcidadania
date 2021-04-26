@@ -8,7 +8,12 @@ import Animacao from '../../assets/Animacoes/lf30_wda3ea4c.json';
 const Loading: React.FC = () => {
   return (
     <Container>
-      <LottieView source={Animacao} autoPlay loop />
+      <LottieView
+        source={Animacao}
+        autoPlay
+        loop
+        style={{width: 80, height: 80}}
+      />
     </Container>
   );
 };

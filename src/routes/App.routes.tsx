@@ -11,6 +11,8 @@ import Passosroutes from './Passos/Passos.routes';
 import Introducao from './Introducao/Introducao.routes';
 import Mitos from './Mitos/Mitos.routes';
 import Passos2routes from './Passos2/Passos.routes';
+import Passos3routes, {Headerleft, Headerright} from './Passos3/Passos.routes';
+import Emissoes from '../pages/Passo3/Emissoes';
 
 const App = createStackNavigator();
 
@@ -32,6 +34,22 @@ const Approutes: React.FC = () => {
       <App.Screen name="Introducao" component={Introducao} />
       <App.Screen name="Mitos" component={Mitos} />
       <App.Screen name="Passos2routes" component={Passos2routes} />
+      <App.Screen name="Passos3routes" component={Passos3routes} />
+      <App.Screen
+        name="Emissoes"
+        component={Emissoes}
+        options={{
+          headerShown: true,
+          headerTitle: '',
+          headerTransparent: true,
+          headerLeft: () => {
+            return <Headerleft />;
+          },
+          headerRight: () => {
+            return <Headerright />;
+          },
+        }}
+      />
     </App.Navigator>
   );
 };

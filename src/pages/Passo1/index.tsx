@@ -39,6 +39,7 @@ import {
   ButtonContinuaModal,
   ButtonTextModal,
   ContainerAnimacao,
+  ContainerButton,
 } from './styles';
 
 import Planob from '../../assets/plano_b.png';
@@ -224,53 +225,54 @@ const Passo1: React.FC = () => {
           e se tiver filhos ou pretende ter, para eles também. Vou listar alguns
           aqui pra te dar uma ideia:
         </Paragraph>
+
         <Button
           onPress={() => {
             navigation.navigate('Planob');
           }}>
-          <ButtonImg source={Planob} />
+          <ButtonImg source={Planob} style={{width: 410, height: 80}} />
         </Button>
         <Button
           onPress={() => {
             navigation.navigate('Oportunidade');
           }}>
-          <ButtonImg source={Oportunidade} />
+          <ButtonImg source={Oportunidade} style={{width: 410, height: 80}} />
         </Button>
         <Button
           onPress={() => {
             navigation.navigate('Emprego');
           }}>
-          <ButtonImg source={Emprego} />
+          <ButtonImg source={Emprego} style={{width: 410, height: 80}} />
         </Button>
         <Button
           onPress={() => {
             navigation.navigate('Ensino');
           }}>
-          <ButtonImg source={Estudo} />
+          <ButtonImg source={Estudo} style={{width: 410, height: 80}} />
         </Button>
         <Button
           onPress={() => {
             navigation.navigate('Beneficios');
           }}>
-          <ButtonImg source={Beneficios} />
+          <ButtonImg source={Beneficios} style={{width: 410, height: 80}} />
         </Button>
         <Button
           onPress={() => {
             navigation.navigate('Facilidade');
           }}>
-          <ButtonImg source={Facilidade} />
+          <ButtonImg source={Facilidade} style={{width: 410, height: 80}} />
         </Button>
         <Button
           onPress={() => {
             navigation.navigate('Heranca');
           }}>
-          <ButtonImg source={heranca} />
+          <ButtonImg source={heranca} style={{width: 410, height: 80}} />
         </Button>
         <Button
           onPress={() => {
             navigation.navigate('Aposentadoria');
           }}>
-          <ButtonImg source={Aposentadoria} />
+          <ButtonImg source={Aposentadoria} style={{width: 410, height: 80}} />
         </Button>
 
         <SubTitle>

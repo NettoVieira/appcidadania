@@ -1,3 +1,4 @@
+/* eslint-disable no-fallthrough */
 /* eslint-disable @typescript-eslint/no-use-before-define */
 /* eslint-disable react/jsx-closing-bracket-location */
 /* eslint-disable react/jsx-one-expression-per-line */
@@ -35,9 +36,36 @@ import {
 
 const Passo2: React.FC = () => {
   const [modalVisible, setModalVisible] = useState(false);
+  const [title, setTitle] = useState('');
+  const [corpo, setCorpo] = useState('');
   const navigation = useNavigation();
 
-  const handleSobeModal = useCallback(() => {
+  const handleSobeModal = useCallback((index: number) => {
+    switch (index) {
+      case 0:
+        setTitle('Não faço ideia, mas quero saber.');
+        setCorpo(
+          'Textos para cada situação anterior apresentada. Podemos iniciar uma breve explicação e mandar para os textos específicos de cadaitem anterior de perfil.',
+        );
+        break;
+      case 1:
+        setTitle('Sei que tenho, mas não sei onde estão os documentos.');
+        setCorpo(
+          'Textos para cada situação anterior apresentada. Podemos iniciar uma breve explicação e mandar para os textos específicos de cadaitem anterior de perfil.',
+        );
+      case 2:
+        setTitle('Sei que tenho e já tenho quase todos os documentos.');
+        setCorpo(
+          'Textos para cada situação anterior apresentada. Podemos iniciar uma breve explicação e mandar para os textos específicos de cadaitem anterior de perfil.',
+        );
+        break;
+      default:
+        setTitle('Não se preocupe, a gente te ajuda.');
+        setCorpo(
+          'Textos para cada situação anterior apresentada. Podemos iniciar uma breve explicação e mandar para os textos específicos de cadaitem anterior de perfil.',
+        );
+        break;
+    }
     setModalVisible(true);
   }, []);
 
@@ -66,15 +94,11 @@ const Passo2: React.FC = () => {
             </ContainerImage>
             <ContainerBodyModal>
               <ModalTitle>Não se preocupe, a gente te ajuda.</ModalTitle>
-              <ParagraphModal>
-                Textos para cada situação anterior apresentada. Podemos iniciar
-                uma breve explicação e mandar para os textos específicos de cada
-                item anterior de perfil.
-              </ParagraphModal>
+              <ParagraphModal>{corpo}</ParagraphModal>
               <ButtonContinuaModal
                 onPress={() => {
                   setModalVisible(false);
-                  navigation.navigate('Direito');
+                  navigation.navigate('Direito', {title, corpo});
                 }}>
                 <ButtonTextModal>Continuar</ButtonTextModal>
               </ButtonContinuaModal>
@@ -96,20 +120,20 @@ const Passo2: React.FC = () => {
         </Paragraph>
       </ContainerHeader>
       <ContainerOptions>
-        <ButtonContinua onPress={handleSobeModal}>
+        <ButtonContinua onPress={() => handleSobeModal(0)}>
           <ButtonText>Não faço ideia, mas quero saber.</ButtonText>
         </ButtonContinua>
-        <ButtonContinua onPress={handleSobeModal}>
+        <ButtonContinua onPress={() => handleSobeModal(1)}>
           <ButtonText>
             Sei que tenho, mas não sei onde estão os documentos.
           </ButtonText>
         </ButtonContinua>
-        <ButtonContinua onPress={handleSobeModal}>
+        <ButtonContinua onPress={() => handleSobeModal(2)}>
           <ButtonText>
             Sei que tenho e já tenho quase todos os documentos.
           </ButtonText>
         </ButtonContinua>
-        <ButtonContinua onPress={handleSobeModal}>
+        <ButtonContinua onPress={() => handleSobeModal(3)}>
           <ButtonText>Sei que tenho e já tenho tudo pronto.</ButtonText>
         </ButtonContinua>
       </ContainerOptions>

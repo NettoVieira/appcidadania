@@ -24,6 +24,7 @@ import Dna from '../../assets/illustration_dna.png';
 import api from '../../services/api';
 
 import Load from '../../Components/Loading';
+import ButtonsPasso3 from '../../Components/ButtonsPasso3';
 
 import {
   Container,
@@ -56,10 +57,12 @@ import {
   ButtonFooterTextBold,
   ContainerImage,
   ContainerTitle,
-  Status,
   StatusConcluido,
   StatusPendente,
   MarcadorText2Pendente,
+  MarcadorText3Pendente,
+  MarcadorText3Disable,
+  ContainerEmissoes,
 } from './styles';
 
 interface Usuario extends Object {
@@ -117,6 +120,7 @@ const Home: React.FC = () => {
 
   useFocusEffect(
     useCallback(() => {
+      console.log(step?.Step3);
       async function getUser() {
         const [response] = await AsyncStorage.multiGet([
           '@appcidadania:response',
@@ -181,7 +185,13 @@ const Home: React.FC = () => {
               <MarcadorText2Disable source={IconeStatus} />
             )}
 
-            <MarcadorText3 source={IconeStatus} />
+            {step?.Step3.Status === 2 ? (
+              <MarcadorText3 source={IconeStatusConcluido} />
+            ) : step?.Step2.Status === 2 ? (
+              <MarcadorText3Pendente source={IconeStatus} />
+            ) : (
+              <MarcadorText3Disable source={IconeStatus} />
+            )}
           </ContainerMarcador>
           <Container>
             {step?.Step1.Status !== 2 ? (
@@ -217,8 +227,9 @@ const Home: React.FC = () => {
                   </ContainerTitle>
                   <PassoTextContainer>
                     <PassoTextBold>Cidadania Italiana</PassoTextBold>
+
+                    <TextFooter>Entenda como funciona</TextFooter>
                   </PassoTextContainer>
-                  <TextFooter>Entenda como funciona</TextFooter>
                 </ContainerHeader>
               </ContainerPasso>
             )}
@@ -259,7 +270,18 @@ const Home: React.FC = () => {
             <ContainerPasso>
               <ImagemPasso1 source={LapisDisable} />
               <ContainerHeader>
-                <PassoText>Passo 3</PassoText>
+                {step?.Step2.Status === 2 ? (
+                  <ContainerTitle>
+                    <PassoText>Passo 3</PassoText>
+                    {step?.Step3.Status !== 2 ? (
+                      <StatusPendente>Pendente</StatusPendente>
+                    ) : (
+                      <StatusConcluido>Concluido</StatusConcluido>
+                    )}
+                  </ContainerTitle>
+                ) : (
+                  <PassoText>Passo 3</PassoText>
+                )}
                 <PassoTextContainer>
                   <PassoTextBold>Meus Documentos</PassoTextBold>
                 </PassoTextContainer>
@@ -268,6 +290,19 @@ const Home: React.FC = () => {
             </ContainerPasso>
           </Container>
         </ContainerPassos>
+        {step?.Step2.Status === 2 ? (
+          <ContainerEmissoes>
+            <ButtonsPasso3
+              Header="Emissões"
+              Text="Vamos iniciar a coleta de origem da cidadania"
+              onPress={() => {
+                navigation.navigate('Emissoes');
+              }}
+            />
+          </ContainerEmissoes>
+        ) : (
+          <></>
+        )}
         <ContainerButtons1>
           <ButtonsAjuda>
             <ImageIcone source={IconeLupa} />

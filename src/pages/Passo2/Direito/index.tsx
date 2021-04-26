@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 /* eslint-disable react/jsx-closing-bracket-location */
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -36,9 +36,16 @@ import {
 import {Subtitle} from '../../Passo1/Planob/styles';
 import api from '../../../services/api';
 
-const Direito: React.FC = () => {
+const Direito: React.FC = ({route}: any) => {
+  console.log(route);
+
   const navigation = useNavigation();
   const [modalVisible, setModalVisible] = useState(false);
+  const [title, setTitle] = useState('');
+
+  useEffect(() => {
+    setTitle(route.params.title);
+  }, [route.params]);
 
   const handleConcluirEtapa = useCallback(async () => {
     const [Items] = await AsyncStorage.multiGet(['@appcidadania:response']);
@@ -109,7 +116,7 @@ const Direito: React.FC = () => {
         <Title>Tenho direito?</Title>
       </ContainerHeader>
       <ContainerBody>
-        <Subtitle>Não faço ideia, mas quero saber.</Subtitle>
+        <Subtitle>{title}</Subtitle>
         <Paragraph>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vel
           velit nisl. Pellentesque ornare sed urna a elementum. In condimentum

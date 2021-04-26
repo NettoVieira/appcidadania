@@ -1,5 +1,6 @@
 import styled from 'styled-components/native';
 import Icon from 'react-native-vector-icons/Feather';
+import {Image} from 'react-native-elements';
 
 export const Container = styled.View`
   margin-top: 15%;
@@ -129,15 +130,11 @@ export const GoBackIcon = styled(Icon)`
 
 export const Button = styled.TouchableOpacity`
   margin-top: 15px;
-
   align-items: center;
-  width: 100%;
+  justify-content: center;
 `;
 
-export const ButtonImg = styled.Image`
-  height: 90px;
-  width: 410px;
-`;
+export const ButtonImg = styled(Image)``;
 
 export const ButtonContinua = styled.TouchableOpacity`
   background-color: #f09d4c;
@@ -177,3 +174,5 @@ export const StatusPendente = styled.Text`
   width: 65px;
   height: 16px;
 `;
+
+export const ContainerButton = styled.View``;

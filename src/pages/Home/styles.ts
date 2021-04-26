@@ -23,7 +23,7 @@ export const ContainerPasso = styled.TouchableOpacity`
   background-color: #f8f8f8;
   border-radius: 15px;
   margin-bottom: 25px;
-  height: 120px;
+  height: 28%;
   flex-direction: row;
   width: 97%;
 `;
@@ -126,13 +126,11 @@ export const PassoText = styled.Text`
   color: #6d6d78;
 `;
 
-export const PassoTextContainer = styled.View`
-  height: 20px;
-`;
+export const PassoTextContainer = styled.View``;
 
 export const ContainerHeader = styled.View`
-  flex: 1;
   margin-left: 10px;
+  flex: 1;
   justify-content: center;
 `;
 
@@ -145,7 +143,7 @@ export const TextFooter = styled.Text`
   font-size: 14px;
   font-family: 'Poppins-Regular';
   color: #6d6d78;
-  margin-top: 12px;
+
   margin-left: 2px;
 `;
 
@@ -158,7 +156,7 @@ export const ContainerButtons1 = styled.View`
 
 export const ButtonsAjuda = styled.TouchableOpacity`
   height: 80px;
-  background-color: #fff;
+  background-color: #fdf5ed;
   border: #f09d4c;
   width: 180px;
   margin: 5px;
@@ -254,4 +252,30 @@ export const StatusPendente = styled.Text`
   margin-left: 5%;
   width: 65px;
   height: 16px;
+`;
+
+export const MarcadorText3Pendente = styled.Image`
+  margin: 1px;
+  height: 13px;
+  width: 13px;
+  margin-top: 130px;
+  border-radius: 50px;
+
+  background-color: #ff0000;
+`;
+
+export const MarcadorText3Disable = styled.Image`
+  margin: 1px;
+  height: 13px;
+  width: 13px;
+  margin-top: 130px;
+  border-radius: 50px;
+
+  background-color: #e6e6e6;
+`;
+
+export const ContainerFooterPasso = styled.View``;
+
+export const ContainerEmissoes = styled.View`
+  width: 100%;
 `;
