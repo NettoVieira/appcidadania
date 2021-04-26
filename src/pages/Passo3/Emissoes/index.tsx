@@ -1,7 +1,9 @@
 /* eslint-disable react/jsx-closing-bracket-location */
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {List} from 'react-native-paper';
+import {Icon} from 'react-native-vector-icons/Icon';
+
 import api from '../../../services/api';
 
 import {
@@ -16,16 +18,34 @@ import {
   ContainerColums,
   ColumsTipo,
   ColumsSolicitado,
+  ItemsList,
+  Descricao,
+  ContainerFlatList,
+  AddDocs,
+  AddDocsText,
+  Switch,
+  ContainerSwitch,
+  ContainerDescricao,
 } from './styles';
 
 interface Usuario extends Object {
   Name: string;
 }
 
+export interface List {
+  Description: string;
+  DocumentId: number;
+  DocumentName: string;
+  IsCaught: boolean;
+  IsRequired: boolean;
+}
+
 const Emissoes: React.FC = () => {
   const [view, setView] = useState<Usuario>();
-  const [expanded, setExpanded] = useState<boolean>();
+  const [listvoce, setListvoce] = useState<List[]>([]);
   const [iconName, setIconName] = useState('chevron-down');
+
+  const [isEnabled, setIsEnabled] = useState(false);
 
   useEffect(() => {
     async function getItem() {
@@ -47,13 +67,49 @@ const Emissoes: React.FC = () => {
       try {
         const {data} = await api.post('getDocuments', params);
 
-        console.log(data.Kinships[0].Documents);
+        setListvoce(data.Kinships[0].Documents);
       } catch {
         console.log('erro');
       }
     }
     getItem();
   }, []);
+
+  const updateSwitch = useCallback(
+    (item: List, index: number, value: boolean) => {
+      const itensCopy = Array.from(listvoce);
+
+      const obj = {
+        Description: item.Description,
+        DocumentId: item.DocumentId,
+        DocumentName: item.DocumentName,
+        IsCaught: item.IsCaught,
+        IsRequired: value,
+      };
+
+      itensCopy.splice(index, 1, obj);
+      setListvoce(itensCopy);
+    },
+    [listvoce],
+  );
+
+  const updateSwitchIsCaught = useCallback(
+    (item: List, index: number, value: boolean) => {
+      const itensCopy = Array.from(listvoce);
+
+      const obj = {
+        Description: item.Description,
+        DocumentId: item.DocumentId,
+        DocumentName: item.DocumentName,
+        IsCaught: value,
+        IsRequired: item.IsRequired,
+      };
+
+      itensCopy.splice(index, 1, obj);
+      setListvoce(itensCopy);
+    },
+    [listvoce],
+  );
 
   const handleAlteraIcon = () => {};
 
@@ -81,8 +137,10 @@ const Emissoes: React.FC = () => {
             }}
             description={view?.Name}
             descriptionStyle={{fontSize: 14, fontFamily: 'Poppins-Regular'}}
-            onPress={() => {}}
-            right={(a) => (
+            onPress={() => {
+              console.log('teste');
+            }}
+            right={() => (
               <IconList name={iconName} size={25} color="#f09d4c" />
             )}>
             <ContainerColums>
@@ -90,6 +148,44 @@ const Emissoes: React.FC = () => {
               <ColumsSolicitado>Solicitado</ColumsSolicitado>
               <Colums>Em mãos</Colums>
             </ContainerColums>
+            <ItemsList
+              data={listvoce}
+              keyExtractor={(_, index) => index.toString()}
+              refreshing={false}
+              renderItem={({item}) => (
+                <ContainerFlatList>
+                  <ContainerDescricao>
+                    <Descricao>{item.DocumentName}</Descricao>
+                  </ContainerDescricao>
+                  <ContainerSwitch>
+                    <Switch
+                      trackColor={{false: '#767577', true: '#32d5a0'}}
+                      thumbColor="#f4f3f4"
+                      onValueChange={(value) => {
+                        const idx = listvoce.indexOf(item);
+
+                        updateSwitch(item, idx, value);
+                      }}
+                      value={item.IsRequired}
+                    />
+                    <Switch
+                      trackColor={{false: '#767577', true: '#32d5a0'}}
+                      thumbColor="#f4f3f4"
+                      onValueChange={(value) => {
+                        const idx = listvoce.indexOf(item);
+
+                        updateSwitchIsCaught(item, idx, value);
+                      }}
+                      value={item.IsCaught}
+                    />
+                  </ContainerSwitch>
+                </ContainerFlatList>
+              )}
+            />
+            <AddDocs>
+              <IconList name="plus-circle" size={20} color="#f09d4c" />
+              <AddDocsText>Adicionar certidão</AddDocsText>
+            </AddDocs>
           </List.Accordion>
 
           <List.Accordion
