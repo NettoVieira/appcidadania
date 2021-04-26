@@ -3,13 +3,14 @@ import Icon from 'react-native-vector-icons/Feather';
 import {FlatList} from 'react-native';
 import {List} from './index';
 
-export const Container = styled.View`
+export const Container = styled.ScrollView`
   flex: 1;
+  margin-top: 80px;
 `;
 
 export const ContainerHeader = styled.View`
   flex-direction: row;
-  margin-top: 80px;
+
   margin-left: 5%;
 `;
 
@@ -98,6 +99,36 @@ export const ContainerDescricao = styled.View`
   width: 60%;
   justify-content: center;
   margin-top: 8px;
+`;
+
+export const ButtonContinua = styled.TouchableOpacity`
+  background-color: #f09d4c;
+  justify-content: center;
+  align-items: center;
+  height: 55px;
+  border-radius: 10px;
+  margin: 16px 20px 20px 16px;
+`;
+
+export const ButtonFechar = styled.TouchableOpacity`
+  background-color: #fae8e8;
+  justify-content: center;
+  align-items: center;
+  height: 55px;
+  border-radius: 10px;
+  margin: 0 20px 20px 16px;
+`;
+
+export const ButtonText = styled.Text`
+  font-size: 18px;
+  color: #fff;
+  font-family: 'Poppins-Medium';
+`;
+
+export const ButtonTextFechar = styled.Text`
+  font-size: 18px;
+  color: #f09d4c;
+  font-family: 'Poppins-Medium';
 `;
 
 export const IconList = styled(Icon)``;

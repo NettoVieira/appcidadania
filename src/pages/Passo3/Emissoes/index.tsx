@@ -26,6 +26,10 @@ import {
   Switch,
   ContainerSwitch,
   ContainerDescricao,
+  ButtonContinua,
+  ButtonText,
+  ButtonFechar,
+  ButtonTextFechar,
 } from './styles';
 
 interface Usuario extends Object {
@@ -43,6 +47,7 @@ export interface List {
 const Emissoes: React.FC = () => {
   const [view, setView] = useState<Usuario>();
   const [listvoce, setListvoce] = useState<List[]>([]);
+  const [listpai, setListpai] = useState<List[]>([]);
   const [iconName, setIconName] = useState('chevron-down');
 
   const [isEnabled, setIsEnabled] = useState(false);
@@ -68,6 +73,7 @@ const Emissoes: React.FC = () => {
         const {data} = await api.post('getDocuments', params);
 
         setListvoce(data.Kinships[0].Documents);
+        setListpai(data.Kinships[1].Documents);
       } catch {
         console.log('erro');
       }
@@ -78,6 +84,7 @@ const Emissoes: React.FC = () => {
   const updateSwitch = useCallback(
     (item: List, index: number, value: boolean) => {
       const itensCopy = Array.from(listvoce);
+      const intesCopypai = Array.from(listpai);
 
       const obj = {
         Description: item.Description,
@@ -89,13 +96,17 @@ const Emissoes: React.FC = () => {
 
       itensCopy.splice(index, 1, obj);
       setListvoce(itensCopy);
+
+      intesCopypai.splice(index, 1, obj);
+      setListpai(intesCopypai);
     },
-    [listvoce],
+    [listpai, listvoce],
   );
 
   const updateSwitchIsCaught = useCallback(
     (item: List, index: number, value: boolean) => {
       const itensCopy = Array.from(listvoce);
+      const intesCopyvoce = Array.from(listpai);
 
       const obj = {
         Description: item.Description,
@@ -107,8 +118,11 @@ const Emissoes: React.FC = () => {
 
       itensCopy.splice(index, 1, obj);
       setListvoce(itensCopy);
+
+      intesCopyvoce.splice(index, 1, obj);
+      setListpai(intesCopyvoce);
     },
-    [listvoce],
+    [listpai, listvoce],
   );
 
   const handleAlteraIcon = () => {};
@@ -210,8 +224,44 @@ const Emissoes: React.FC = () => {
             right={(a) => (
               <IconList name={iconName} size={25} color="#f09d4c" />
             )}>
-            <List.Item title="First item" />
-            <List.Item title="Second item" />
+            <ItemsList
+              data={listpai}
+              keyExtractor={(_, index) => index.toString()}
+              refreshing={false}
+              renderItem={({item}) => (
+                <ContainerFlatList>
+                  <ContainerDescricao>
+                    <Descricao>{item.DocumentName}</Descricao>
+                  </ContainerDescricao>
+                  <ContainerSwitch>
+                    <Switch
+                      trackColor={{false: '#767577', true: '#32d5a0'}}
+                      thumbColor="#f4f3f4"
+                      onValueChange={(value) => {
+                        const idx = listpai.indexOf(item);
+
+                        updateSwitch(item, idx, value);
+                      }}
+                      value={item.IsRequired}
+                    />
+                    <Switch
+                      trackColor={{false: '#767577', true: '#32d5a0'}}
+                      thumbColor="#f4f3f4"
+                      onValueChange={(value) => {
+                        const idx = listvoce.indexOf(item);
+
+                        updateSwitchIsCaught(item, idx, value);
+                      }}
+                      value={item.IsCaught}
+                    />
+                  </ContainerSwitch>
+                </ContainerFlatList>
+              )}
+            />
+            <AddDocs>
+              <IconList name="plus-circle" size={20} color="#f09d4c" />
+              <AddDocsText>Adicionar certidão</AddDocsText>
+            </AddDocs>
           </List.Accordion>
 
           <List.Accordion
@@ -293,6 +343,12 @@ const Emissoes: React.FC = () => {
           </List.Accordion>
         </List.Section>
       </ContainerList>
+      <ButtonContinua>
+        <ButtonText>Gerar relatório completo</ButtonText>
+      </ButtonContinua>
+      <ButtonFechar>
+        <ButtonTextFechar>Fechar</ButtonTextFechar>
+      </ButtonFechar>
     </Container>
   );
 };
