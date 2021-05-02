@@ -131,4 +131,22 @@ export const ButtonTextFechar = styled.Text`
   font-family: 'Poppins-Medium';
 `;
 
+export const TextTitleList = styled.Text`
+  font-size: 16px;
+  font-family: 'Poppins-SemiBold';
+  color: #000;
+`;
+
+export const ContainerTitles = styled.TouchableOpacity``;
+
+export const Adicionar = styled.TouchableOpacity`
+  justify-content: center;
+  align-items: center;
+`;
+
+export const AdicionarText = styled.Text`
+  font-size: 14;
+  font-family: 'Poppins-Regular';
+`;
+
 export const IconList = styled(Icon)``;

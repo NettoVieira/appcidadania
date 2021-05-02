@@ -1,8 +1,8 @@
 /* eslint-disable react/jsx-closing-bracket-location */
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, {useCallback, useEffect, useState} from 'react';
+import {LogBox, Text} from 'react-native';
 import {List} from 'react-native-paper';
-import {Icon} from 'react-native-vector-icons/Icon';
 
 import api from '../../../services/api';
 
@@ -48,11 +48,16 @@ const Emissoes: React.FC = () => {
   const [view, setView] = useState<Usuario>();
   const [listvoce, setListvoce] = useState<List[]>([]);
   const [listpai, setListpai] = useState<List[]>([]);
+  const [listavo, setListavo] = useState<List[]>([]);
+  const [listbisavo, setListBisavo] = useState<List[]>([]);
+  const [listtrisavo, setListtrisavo] = useState<List[]>([]);
+
   const [iconName, setIconName] = useState('chevron-down');
 
   const [isEnabled, setIsEnabled] = useState(false);
 
   useEffect(() => {
+    LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
     async function getItem() {
       const [response] = await AsyncStorage.multiGet([
         '@appcidadania:response',
@@ -74,6 +79,9 @@ const Emissoes: React.FC = () => {
 
         setListvoce(data.Kinships[0].Documents);
         setListpai(data.Kinships[1].Documents);
+        setListavo(data.Kinships[2].Documents);
+        setListBisavo(data.Kinships[3].Documents);
+        setListtrisavo(data.Kinships[4].Documents);
       } catch {
         console.log('erro');
       }
@@ -81,10 +89,13 @@ const Emissoes: React.FC = () => {
     getItem();
   }, []);
 
-  const updateSwitch = useCallback(
-    (item: List, index: number, value: boolean) => {
+  const updateSwitchIsRequired = useCallback(
+    (item: List, index: number, value: boolean, Documents: string) => {
       const itensCopy = Array.from(listvoce);
       const intesCopypai = Array.from(listpai);
+      const itensCopyavo = Array.from(listavo);
+      const intesCopybisavo = Array.from(listbisavo);
+      const intesCopytrisavo = Array.from(listtrisavo);
 
       const obj = {
         Description: item.Description,
@@ -94,19 +105,33 @@ const Emissoes: React.FC = () => {
         IsRequired: value,
       };
 
-      itensCopy.splice(index, 1, obj);
-      setListvoce(itensCopy);
-
-      intesCopypai.splice(index, 1, obj);
-      setListpai(intesCopypai);
+      if (Documents === 'voce') {
+        itensCopy.splice(index, 1, obj);
+        setListvoce(itensCopy);
+      } else if (Documents === 'pai') {
+        intesCopypai.splice(index, 1, obj);
+        setListpai(intesCopypai);
+      } else if (Documents === 'avo') {
+        itensCopyavo.splice(index, 1, obj);
+        setListavo(itensCopyavo);
+      } else if (Documents === 'bisavo') {
+        intesCopybisavo.splice(index, 1, obj);
+        setListBisavo(intesCopybisavo);
+      } else if (Documents === 'trisavo') {
+        intesCopytrisavo.splice(index, 1, obj);
+        setListBisavo(intesCopytrisavo);
+      }
     },
-    [listpai, listvoce],
+    [listavo, listbisavo, listpai, listtrisavo, listvoce],
   );
 
   const updateSwitchIsCaught = useCallback(
-    (item: List, index: number, value: boolean) => {
+    (item: List, index: number, value: boolean, Documents: string) => {
       const itensCopy = Array.from(listvoce);
-      const intesCopyvoce = Array.from(listpai);
+      const intesCopypai = Array.from(listpai);
+      const itensCopyavo = Array.from(listavo);
+      const intesCopybisavo = Array.from(listbisavo);
+      const intesCopytrisavo = Array.from(listtrisavo);
 
       const obj = {
         Description: item.Description,
@@ -116,16 +141,25 @@ const Emissoes: React.FC = () => {
         IsRequired: item.IsRequired,
       };
 
-      itensCopy.splice(index, 1, obj);
-      setListvoce(itensCopy);
-
-      intesCopyvoce.splice(index, 1, obj);
-      setListpai(intesCopyvoce);
+      if (Documents === 'voce') {
+        itensCopy.splice(index, 1, obj);
+        setListvoce(itensCopy);
+      } else if (Documents === 'pai') {
+        intesCopypai.splice(index, 1, obj);
+        setListpai(intesCopypai);
+      } else if (Documents === 'avo') {
+        itensCopyavo.splice(index, 1, obj);
+        setListavo(itensCopyavo);
+      } else if (Documents === 'bisavo') {
+        intesCopybisavo.splice(index, 1, obj);
+        setListBisavo(intesCopybisavo);
+      } else if (Documents === 'trisavo') {
+        intesCopytrisavo.splice(index, 1, obj);
+        setListBisavo(intesCopytrisavo);
+      }
     },
-    [listpai, listvoce],
+    [listavo, listbisavo, listpai, listtrisavo, listvoce],
   );
-
-  const handleAlteraIcon = () => {};
 
   return (
     <Container>
@@ -137,6 +171,7 @@ const Emissoes: React.FC = () => {
       </ContainerHeader>
       <ContainerList>
         <List.Section>
+          {/* Voce */}
           <List.Accordion
             title="Você"
             titleStyle={{
@@ -165,6 +200,7 @@ const Emissoes: React.FC = () => {
             <ItemsList
               data={listvoce}
               keyExtractor={(_, index) => index.toString()}
+              scrollEnabled={false}
               refreshing={false}
               renderItem={({item}) => (
                 <ContainerFlatList>
@@ -178,7 +214,7 @@ const Emissoes: React.FC = () => {
                       onValueChange={(value) => {
                         const idx = listvoce.indexOf(item);
 
-                        updateSwitch(item, idx, value);
+                        updateSwitchIsRequired(item, idx, value, 'voce');
                       }}
                       value={item.IsRequired}
                     />
@@ -188,7 +224,7 @@ const Emissoes: React.FC = () => {
                       onValueChange={(value) => {
                         const idx = listvoce.indexOf(item);
 
-                        updateSwitchIsCaught(item, idx, value);
+                        updateSwitchIsCaught(item, idx, value, 'voce');
                       }}
                       value={item.IsCaught}
                     />
@@ -201,7 +237,7 @@ const Emissoes: React.FC = () => {
               <AddDocsText>Adicionar certidão</AddDocsText>
             </AddDocs>
           </List.Accordion>
-
+          {/* Pai */}
           <List.Accordion
             title="Pai"
             titleStyle={{
@@ -240,7 +276,7 @@ const Emissoes: React.FC = () => {
                       onValueChange={(value) => {
                         const idx = listpai.indexOf(item);
 
-                        updateSwitch(item, idx, value);
+                        updateSwitchIsRequired(item, idx, value, 'pai');
                       }}
                       value={item.IsRequired}
                     />
@@ -248,9 +284,9 @@ const Emissoes: React.FC = () => {
                       trackColor={{false: '#767577', true: '#32d5a0'}}
                       thumbColor="#f4f3f4"
                       onValueChange={(value) => {
-                        const idx = listvoce.indexOf(item);
+                        const idx = listpai.indexOf(item);
 
-                        updateSwitchIsCaught(item, idx, value);
+                        updateSwitchIsCaught(item, idx, value, 'pai');
                       }}
                       value={item.IsCaught}
                     />
@@ -263,7 +299,7 @@ const Emissoes: React.FC = () => {
               <AddDocsText>Adicionar certidão</AddDocsText>
             </AddDocs>
           </List.Accordion>
-
+          {/* avo */}
           <List.Accordion
             title="Avô"
             titleStyle={{
@@ -283,13 +319,49 @@ const Emissoes: React.FC = () => {
               color: '#f09d4c',
             }}
             onPress={() => {}}
-            right={(a) => (
+            right={() => (
               <IconList name={iconName} size={25} color="#f09d4c" />
             )}>
-            <List.Item title="First item" />
-            <List.Item title="Second item" />
-          </List.Accordion>
+            <ItemsList
+              data={listavo}
+              keyExtractor={(_, index) => index.toString()}
+              refreshing={false}
+              renderItem={({item}) => (
+                <ContainerFlatList>
+                  <ContainerDescricao>
+                    <Descricao>{item.DocumentName}</Descricao>
+                  </ContainerDescricao>
+                  <ContainerSwitch>
+                    <Switch
+                      trackColor={{false: '#767577', true: '#32d5a0'}}
+                      thumbColor="#f4f3f4"
+                      onValueChange={(value) => {
+                        const idx = listavo.indexOf(item);
 
+                        updateSwitchIsRequired(item, idx, value, 'avo');
+                      }}
+                      value={item.IsRequired}
+                    />
+                    <Switch
+                      trackColor={{false: '#767577', true: '#32d5a0'}}
+                      thumbColor="#f4f3f4"
+                      onValueChange={(value) => {
+                        const idx = listavo.indexOf(item);
+
+                        updateSwitchIsCaught(item, idx, value, 'avo');
+                      }}
+                      value={item.IsCaught}
+                    />
+                  </ContainerSwitch>
+                </ContainerFlatList>
+              )}
+            />
+            <AddDocs>
+              <IconList name="plus-circle" size={20} color="#f09d4c" />
+              <AddDocsText>Adicionar certidão</AddDocsText>
+            </AddDocs>
+          </List.Accordion>
+          {/* bisavo */}
           <List.Accordion
             title="Bisavô"
             titleStyle={{
@@ -312,10 +384,46 @@ const Emissoes: React.FC = () => {
             right={(a) => (
               <IconList name={iconName} size={25} color="#f09d4c" />
             )}>
-            <List.Item title="First item" />
-            <List.Item title="Second item" />
-          </List.Accordion>
+            <ItemsList
+              data={listbisavo}
+              keyExtractor={(_, index) => index.toString()}
+              refreshing={false}
+              renderItem={({item}) => (
+                <ContainerFlatList>
+                  <ContainerDescricao>
+                    <Descricao>{item.DocumentName}</Descricao>
+                  </ContainerDescricao>
+                  <ContainerSwitch>
+                    <Switch
+                      trackColor={{false: '#767577', true: '#32d5a0'}}
+                      thumbColor="#f4f3f4"
+                      onValueChange={(value) => {
+                        const idx = listbisavo.indexOf(item);
 
+                        updateSwitchIsRequired(item, idx, value, 'bisavo');
+                      }}
+                      value={item.IsRequired}
+                    />
+                    <Switch
+                      trackColor={{false: '#767577', true: '#32d5a0'}}
+                      thumbColor="#f4f3f4"
+                      onValueChange={(value) => {
+                        const idx = listbisavo.indexOf(item);
+
+                        updateSwitchIsCaught(item, idx, value, 'bisavo');
+                      }}
+                      value={item.IsCaught}
+                    />
+                  </ContainerSwitch>
+                </ContainerFlatList>
+              )}
+            />
+            <AddDocs>
+              <IconList name="plus-circle" size={20} color="#f09d4c" />
+              <AddDocsText>Adicionar certidão</AddDocsText>
+            </AddDocs>
+          </List.Accordion>
+          {/* trisavo */}
           <List.Accordion
             title="Trisavô"
             titleStyle={{
@@ -338,8 +446,44 @@ const Emissoes: React.FC = () => {
             right={(a) => (
               <IconList name={iconName} size={25} color="#f09d4c" />
             )}>
-            <List.Item title="First item" />
-            <List.Item title="Second item" />
+            <ItemsList
+              data={listtrisavo}
+              keyExtractor={(_, index) => index.toString()}
+              refreshing={false}
+              renderItem={({item}) => (
+                <ContainerFlatList>
+                  <ContainerDescricao>
+                    <Descricao>{item.DocumentName}</Descricao>
+                  </ContainerDescricao>
+                  <ContainerSwitch>
+                    <Switch
+                      trackColor={{false: '#767577', true: '#32d5a0'}}
+                      thumbColor="#f4f3f4"
+                      onValueChange={(value) => {
+                        const idx = listtrisavo.indexOf(item);
+
+                        updateSwitchIsRequired(item, idx, value, 'trisavo');
+                      }}
+                      value={item.IsRequired}
+                    />
+                    <Switch
+                      trackColor={{false: '#767577', true: '#32d5a0'}}
+                      thumbColor="#f4f3f4"
+                      onValueChange={(value) => {
+                        const idx = listtrisavo.indexOf(item);
+
+                        updateSwitchIsCaught(item, idx, value, 'trisavo');
+                      }}
+                      value={item.IsCaught}
+                    />
+                  </ContainerSwitch>
+                </ContainerFlatList>
+              )}
+            />
+            <AddDocs>
+              <IconList name="plus-circle" size={20} color="#f09d4c" />
+              <AddDocsText>Adicionar certidão</AddDocsText>
+            </AddDocs>
           </List.Accordion>
         </List.Section>
       </ContainerList>
