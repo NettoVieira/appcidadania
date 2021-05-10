@@ -3,6 +3,55 @@ import Icon from 'react-native-vector-icons/Feather';
 import {FlatList} from 'react-native';
 import {List} from './index';
 
+// Estilizações da modal
+export const Modal = styled.Modal``;
+
+export const HeaderModal = styled.View`
+  width: 100%;
+  padding-left: 10px;
+`;
+
+export const ButtonClose = styled.TouchableOpacity``;
+
+export const IconClose = styled(Icon)``;
+
+export const BodyModal = styled.View`
+  width: 100%;
+  margin-top: 10px;
+  height: 350px;
+`;
+
+export const ContainerTextModal = styled.View`
+  width: 100%;
+  margin-left: 10px;
+`;
+
+export const ContainerInputs = styled.View`
+  width: 100%;
+  justify-content: center;
+`;
+
+export const ContainerTextArea = styled.View`
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+`;
+
+export const TextAreaView = styled.View`
+  border: #b2b2b2;
+  width: 93%;
+  height: 150px;
+  border-radius: 10px;
+`;
+
+export const TextAreaInput = styled.TextInput``;
+
+export const FooterModal = styled.View`
+  width: 100%;
+`;
+
+// Estlizaçãos da modal
+
 export const Container = styled.ScrollView`
   flex: 1;
   margin-top: 80px;
@@ -24,7 +73,7 @@ export const Title = styled.Text`
 export const Subtitle = styled.Text`
   font-size: 14px;
   font-family: 'Poppins-Regular';
-  color: #b2b2b2;
+  color: #6d6d78;
 `;
 
 export const ContainerList = styled.View``;

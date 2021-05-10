@@ -1,9 +1,12 @@
+/* eslint-disable no-shadow */
+/* eslint-disable @typescript-eslint/no-use-before-define */
 /* eslint-disable react/jsx-closing-bracket-location */
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, {useCallback, useEffect, useState} from 'react';
-import {LogBox, Text} from 'react-native';
-import {List} from 'react-native-paper';
+import {Alert, LogBox, StyleSheet, Text, View} from 'react-native';
 
+import {List} from 'react-native-paper';
+import Input from '../../../Components/react-native-input-style/input/Input';
 import api from '../../../services/api';
 
 import {
@@ -30,6 +33,17 @@ import {
   ButtonText,
   ButtonFechar,
   ButtonTextFechar,
+  Modal,
+  HeaderModal,
+  ButtonClose,
+  IconClose,
+  ContainerTextModal,
+  BodyModal,
+  ContainerInputs,
+  TextAreaInput,
+  TextAreaView,
+  ContainerTextArea,
+  FooterModal,
 } from './styles';
 
 interface Usuario extends Object {
@@ -44,6 +58,11 @@ export interface List {
   IsRequired: boolean;
 }
 
+interface Modal {
+  isVisible: boolean;
+  parent: string;
+}
+
 const Emissoes: React.FC = () => {
   const [view, setView] = useState<Usuario>();
   const [listvoce, setListvoce] = useState<List[]>([]);
@@ -51,10 +70,14 @@ const Emissoes: React.FC = () => {
   const [listavo, setListavo] = useState<List[]>([]);
   const [listbisavo, setListBisavo] = useState<List[]>([]);
   const [listtrisavo, setListtrisavo] = useState<List[]>([]);
+  const [modalVisible, setModalVisible] = useState<Modal>({
+    isVisible: false,
+    parent: '',
+  });
+  const [documentname, setDocumentname] = useState('');
+  const [textarea, setTextArea] = useState('');
 
-  const [iconName, setIconName] = useState('chevron-down');
-
-  const [isEnabled, setIsEnabled] = useState(false);
+  const [iconName, _] = useState('chevron-down');
 
   useEffect(() => {
     LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
@@ -161,8 +184,116 @@ const Emissoes: React.FC = () => {
     [listavo, listbisavo, listpai, listtrisavo, listvoce],
   );
 
+  const handleAdiconaDocumento = useCallback((parent: string) => {
+    setModalVisible({isVisible: true, parent});
+  }, []);
+
+  const handleAdicionaDocumentoChecklist = useCallback(async () => {
+    const [Items] = await AsyncStorage.multiGet(['@appcidadania:response']);
+    const {Request, User} = JSON.parse(Items[1] || '{}');
+    let parent = '';
+
+    if (modalVisible.parent === 'voce') {
+      parent = '0';
+    } else if (modalVisible.parent === 'pai') {
+      parent = '1';
+    } else if (modalVisible.parent === 'avo') {
+      parent = '2';
+    } else if (modalVisible.parent === 'bisavo') {
+      parent = '3';
+    } else if (modalVisible.parent === 'trisavo') {
+      parent = '4';
+    }
+
+    const params = {
+      Token: Request.Token,
+      TokenDevice: Request.TokenDevice,
+      ParentId: parent,
+      DocumentName: documentname,
+      Description: textarea,
+    };
+
+    const {data} = await api.post('insertDocument', params);
+
+    setModalVisible({isVisible: false, parent: ''});
+
+    setListvoce(data.Kinships[0].Documents);
+    setListpai(data.Kinships[1].Documents);
+    setListavo(data.Kinships[2].Documents);
+    setListBisavo(data.Kinships[3].Documents);
+    setListtrisavo(data.Kinships[4].Documents);
+  }, [documentname, modalVisible.parent, textarea]);
+
   return (
     <Container>
+      <Modal
+        animationType="slide"
+        statusBarTranslucent
+        transparent
+        visible={modalVisible?.isVisible}
+        onRequestClose={() => {
+          Alert.alert('Modal has been closed.');
+          setModalVisible({isVisible: false, parent: ''});
+        }}>
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <HeaderModal>
+              <ButtonClose
+                onPress={() => {
+                  setModalVisible({isVisible: false, parent: ''});
+                }}>
+                <IconClose name="x" size={45} color="#f09d4c" />
+              </ButtonClose>
+            </HeaderModal>
+            <BodyModal>
+              <ContainerTextModal>
+                <Title>Adicionar certidão</Title>
+                <Subtitle>
+                  Nomeie e adicione a certidão para acompanhar o status e o
+                  andamento do processo.
+                </Subtitle>
+              </ContainerTextModal>
+              <ContainerInputs>
+                <Input
+                  id="name"
+                  label="Tipo da certidão"
+                  keyboardType="default"
+                  onInputChange={(item: any) => {
+                    setDocumentname(item);
+                  }}
+                  contain=""
+                  initialValue=""
+                  value=""
+                  outlined
+                  borderColor="#f09d4c"
+                />
+                <Subtitle style={{marginLeft: 10}}>
+                  Ex:. Certidão de casamento
+                </Subtitle>
+                <ContainerTextArea>
+                  <TextAreaView>
+                    <TextAreaInput
+                      style={{fontSize: 14, fontFamily: 'Poppins-Regular'}}
+                      placeholder="Adicionar notas
+                      (Livro, Folha, Cartórios)"
+                      placeholderTextColor="grey"
+                      onChangeText={(text) => {
+                        setTextArea(text);
+                      }}
+                      multiline
+                    />
+                  </TextAreaView>
+                </ContainerTextArea>
+              </ContainerInputs>
+            </BodyModal>
+            <FooterModal>
+              <ButtonContinua onPress={handleAdicionaDocumentoChecklist}>
+                <ButtonText>Adicionar item ao checklist</ButtonText>
+              </ButtonContinua>
+            </FooterModal>
+          </View>
+        </View>
+      </Modal>
       <ContainerHeader>
         <ContainerTitle>
           <Subtitle>Crie seu checklist</Subtitle>
@@ -186,9 +317,6 @@ const Emissoes: React.FC = () => {
             }}
             description={view?.Name}
             descriptionStyle={{fontSize: 14, fontFamily: 'Poppins-Regular'}}
-            onPress={() => {
-              console.log('teste');
-            }}
             right={() => (
               <IconList name={iconName} size={25} color="#f09d4c" />
             )}>
@@ -203,36 +331,41 @@ const Emissoes: React.FC = () => {
               scrollEnabled={false}
               refreshing={false}
               renderItem={({item}) => (
-                <ContainerFlatList>
-                  <ContainerDescricao>
-                    <Descricao>{item.DocumentName}</Descricao>
-                  </ContainerDescricao>
-                  <ContainerSwitch>
-                    <Switch
-                      trackColor={{false: '#767577', true: '#32d5a0'}}
-                      thumbColor="#f4f3f4"
-                      onValueChange={(value) => {
-                        const idx = listvoce.indexOf(item);
+                <>
+                  <ContainerFlatList>
+                    <ContainerDescricao>
+                      <Descricao>{item.DocumentName}</Descricao>
+                    </ContainerDescricao>
+                    <ContainerSwitch>
+                      <Switch
+                        trackColor={{false: '#767577', true: '#32d5a0'}}
+                        thumbColor="#f4f3f4"
+                        onValueChange={(value) => {
+                          const idx = listvoce.indexOf(item);
 
-                        updateSwitchIsRequired(item, idx, value, 'voce');
-                      }}
-                      value={item.IsRequired}
-                    />
-                    <Switch
-                      trackColor={{false: '#767577', true: '#32d5a0'}}
-                      thumbColor="#f4f3f4"
-                      onValueChange={(value) => {
-                        const idx = listvoce.indexOf(item);
+                          updateSwitchIsRequired(item, idx, value, 'voce');
+                        }}
+                        value={item.IsRequired}
+                      />
+                      <Switch
+                        trackColor={{false: '#767577', true: '#32d5a0'}}
+                        thumbColor="#f4f3f4"
+                        onValueChange={(value) => {
+                          const idx = listvoce.indexOf(item);
 
-                        updateSwitchIsCaught(item, idx, value, 'voce');
-                      }}
-                      value={item.IsCaught}
-                    />
-                  </ContainerSwitch>
-                </ContainerFlatList>
+                          updateSwitchIsCaught(item, idx, value, 'voce');
+                        }}
+                        value={item.IsCaught}
+                      />
+                    </ContainerSwitch>
+                  </ContainerFlatList>
+                </>
               )}
             />
-            <AddDocs>
+            <AddDocs
+              onPress={() => {
+                handleAdiconaDocumento('voce');
+              }}>
               <IconList name="plus-circle" size={20} color="#f09d4c" />
               <AddDocsText>Adicionar certidão</AddDocsText>
             </AddDocs>
@@ -256,10 +389,14 @@ const Emissoes: React.FC = () => {
               fontFamily: 'Poppins-Regular',
               color: '#f09d4c',
             }}
-            onPress={() => {}}
             right={(a) => (
               <IconList name={iconName} size={25} color="#f09d4c" />
             )}>
+            <ContainerColums>
+              <ColumsTipo>Tipo</ColumsTipo>
+              <ColumsSolicitado>Solicitado</ColumsSolicitado>
+              <Colums>Em mãos</Colums>
+            </ContainerColums>
             <ItemsList
               data={listpai}
               keyExtractor={(_, index) => index.toString()}
@@ -294,7 +431,10 @@ const Emissoes: React.FC = () => {
                 </ContainerFlatList>
               )}
             />
-            <AddDocs>
+            <AddDocs
+              onPress={() => {
+                handleAdiconaDocumento('pai');
+              }}>
               <IconList name="plus-circle" size={20} color="#f09d4c" />
               <AddDocsText>Adicionar certidão</AddDocsText>
             </AddDocs>
@@ -318,10 +458,14 @@ const Emissoes: React.FC = () => {
               fontFamily: 'Poppins-Regular',
               color: '#f09d4c',
             }}
-            onPress={() => {}}
             right={() => (
               <IconList name={iconName} size={25} color="#f09d4c" />
             )}>
+            <ContainerColums>
+              <ColumsTipo>Tipo</ColumsTipo>
+              <ColumsSolicitado>Solicitado</ColumsSolicitado>
+              <Colums>Em mãos</Colums>
+            </ContainerColums>
             <ItemsList
               data={listavo}
               keyExtractor={(_, index) => index.toString()}
@@ -356,7 +500,10 @@ const Emissoes: React.FC = () => {
                 </ContainerFlatList>
               )}
             />
-            <AddDocs>
+            <AddDocs
+              onPress={() => {
+                handleAdiconaDocumento('avo');
+              }}>
               <IconList name="plus-circle" size={20} color="#f09d4c" />
               <AddDocsText>Adicionar certidão</AddDocsText>
             </AddDocs>
@@ -380,10 +527,14 @@ const Emissoes: React.FC = () => {
               fontFamily: 'Poppins-Regular',
               color: '#f09d4c',
             }}
-            onPress={() => {}}
             right={(a) => (
               <IconList name={iconName} size={25} color="#f09d4c" />
             )}>
+            <ContainerColums>
+              <ColumsTipo>Tipo</ColumsTipo>
+              <ColumsSolicitado>Solicitado</ColumsSolicitado>
+              <Colums>Em mãos</Colums>
+            </ContainerColums>
             <ItemsList
               data={listbisavo}
               keyExtractor={(_, index) => index.toString()}
@@ -418,7 +569,10 @@ const Emissoes: React.FC = () => {
                 </ContainerFlatList>
               )}
             />
-            <AddDocs>
+            <AddDocs
+              onPress={() => {
+                handleAdiconaDocumento('bisavo');
+              }}>
               <IconList name="plus-circle" size={20} color="#f09d4c" />
               <AddDocsText>Adicionar certidão</AddDocsText>
             </AddDocs>
@@ -442,10 +596,14 @@ const Emissoes: React.FC = () => {
               fontFamily: 'Poppins-Regular',
               color: '#f09d4c',
             }}
-            onPress={() => {}}
             right={(a) => (
               <IconList name={iconName} size={25} color="#f09d4c" />
             )}>
+            <ContainerColums>
+              <ColumsTipo>Tipo</ColumsTipo>
+              <ColumsSolicitado>Solicitado</ColumsSolicitado>
+              <Colums>Em mãos</Colums>
+            </ContainerColums>
             <ItemsList
               data={listtrisavo}
               keyExtractor={(_, index) => index.toString()}
@@ -480,7 +638,10 @@ const Emissoes: React.FC = () => {
                 </ContainerFlatList>
               )}
             />
-            <AddDocs>
+            <AddDocs
+              onPress={() => {
+                handleAdiconaDocumento('trisavo');
+              }}>
               <IconList name="plus-circle" size={20} color="#f09d4c" />
               <AddDocsText>Adicionar certidão</AddDocsText>
             </AddDocs>
@@ -496,5 +657,51 @@ const Emissoes: React.FC = () => {
     </Container>
   );
 };
+
+const styles = StyleSheet.create({
+  centeredView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(52, 52, 52, 0.5)',
+  },
+  modalView: {
+    marginTop: 290,
+    height: 520,
+    width: 390,
+    backgroundColor: 'white',
+    borderRadius: 20,
+
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 20,
+    },
+    shadowOpacity: 1,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  button: {
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
+  },
+  buttonOpen: {
+    backgroundColor: '#F194FF',
+  },
+  buttonClose: {
+    backgroundColor: '#2196F3',
+  },
+  textStyle: {
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: 'center',
+  },
+});
 
 export default Emissoes;
