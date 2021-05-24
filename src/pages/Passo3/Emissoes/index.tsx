@@ -1,9 +1,13 @@
+/* eslint-disable no-console */
+/* eslint-disable no-unused-expressions */
+/* eslint-disable array-callback-return */
 /* eslint-disable no-shadow */
 /* eslint-disable @typescript-eslint/no-use-before-define */
 /* eslint-disable react/jsx-closing-bracket-location */
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useFocusEffect} from '@react-navigation/native';
 import React, {useCallback, useEffect, useState} from 'react';
-import {Alert, LogBox, StyleSheet, Text, View} from 'react-native';
+import {Alert, LogBox, StyleSheet, Switch, Text, View} from 'react-native';
 
 import {List} from 'react-native-paper';
 import Input from '../../../Components/react-native-input-style/input/Input';
@@ -16,19 +20,9 @@ import {
   Subtitle,
   ContainerTitle,
   ContainerList,
-  IconList,
-  Colums,
-  ContainerColums,
-  ColumsTipo,
-  ColumsSolicitado,
   ItemsList,
   Descricao,
   ContainerFlatList,
-  AddDocs,
-  AddDocsText,
-  Switch,
-  ContainerSwitch,
-  ContainerDescricao,
   ButtonContinua,
   ButtonText,
   ButtonFechar,
@@ -44,13 +38,37 @@ import {
   TextAreaView,
   ContainerTextArea,
   FooterModal,
+  ContainerListItem,
+  TitleList,
+  ContainerTexts,
+  ButtonAddName,
+  ButtonAddNameText,
+  IconList,
+  ContainerIcon,
+  ContainerListGrid,
+  ContainerColums,
+  ColumsTipo,
+  ColumsSolicitado,
+  Colums,
+  ContainerDescricao,
+  ContainerSwitch,
+  ContainerGrid,
+  ListDocs,
 } from './styles';
 
 interface Usuario extends Object {
   Name: string;
 }
 
-export interface List {
+export interface Kinships {
+  Documents: ListDocuments[];
+  Name: string;
+  ParentId: string;
+  ParentType: string;
+  isVisibleGrid: boolean;
+}
+
+export interface ListDocuments {
   Description: string;
   DocumentId: number;
   DocumentName: string;
@@ -65,11 +83,9 @@ interface Modal {
 
 const Emissoes: React.FC = () => {
   const [view, setView] = useState<Usuario>();
-  const [listvoce, setListvoce] = useState<List[]>([]);
-  const [listpai, setListpai] = useState<List[]>([]);
-  const [listavo, setListavo] = useState<List[]>([]);
-  const [listbisavo, setListBisavo] = useState<List[]>([]);
-  const [listtrisavo, setListtrisavo] = useState<List[]>([]);
+  const [kinships, setKinships] = useState<Kinships[]>([]);
+  const [kinshipselected, setSelectedKinship] = useState<any>();
+
   const [modalVisible, setModalVisible] = useState<Modal>({
     isVisible: false,
     parent: '',
@@ -77,111 +93,56 @@ const Emissoes: React.FC = () => {
   const [documentname, setDocumentname] = useState('');
   const [textarea, setTextArea] = useState('');
 
-  const [iconName, _] = useState('chevron-down');
+  const [iconName, setIconName] = useState('chevron-down');
 
-  useEffect(() => {
-    LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
-    async function getItem() {
-      const [response] = await AsyncStorage.multiGet([
-        '@appcidadania:response',
-      ]);
+  useFocusEffect(
+    useCallback(() => {
+      async function getItem() {
+        async function getItem() {
+          const [response] = await AsyncStorage.multiGet([
+            '@appcidadania:response',
+          ]);
 
-      const Response = JSON.parse(response[1] || '{}');
+          const Response = JSON.parse(response[1] || '{}');
 
-      setView(Response.User);
+          setView(Response.User);
 
-      const [Items] = await AsyncStorage.multiGet(['@appcidadania:response']);
-      const req = JSON.parse(Items[1] || '{}');
+          const [Items] = await AsyncStorage.multiGet([
+            '@appcidadania:response',
+          ]);
+          const req = JSON.parse(Items[1] || '{}');
 
-      const params = {
-        Token: req.Request.Token,
-        TokenDevice: req.Request.TokenDevice,
-      };
-      try {
-        const {data} = await api.post('getDocuments', params);
+          const params = {
+            Token: req.Request.Token,
+            TokenDevice: req.Request.TokenDevice,
+          };
 
-        setListvoce(data.Kinships[0].Documents);
-        setListpai(data.Kinships[1].Documents);
-        setListavo(data.Kinships[2].Documents);
-        setListBisavo(data.Kinships[3].Documents);
-        setListtrisavo(data.Kinships[4].Documents);
-      } catch {
-        console.log('erro');
+          try {
+            const {data} = await api.post('getDocuments', params);
+
+            const kinships = data.Kinships.map(
+              (item: Kinships, index: any, array: any) => {
+                const list = {
+                  Documents: item.Documents,
+                  Name: item.Name,
+                  ParentId: item.ParentId,
+                  ParentType: item.ParentType,
+                  isVisibleGrid: false,
+                };
+
+                return list;
+              },
+            );
+
+            setKinships(kinships);
+          } catch (err) {
+            console.log(err);
+          }
+        }
+        getItem();
       }
-    }
-    getItem();
-  }, []);
-
-  const updateSwitchIsRequired = useCallback(
-    (item: List, index: number, value: boolean, Documents: string) => {
-      const itensCopy = Array.from(listvoce);
-      const intesCopypai = Array.from(listpai);
-      const itensCopyavo = Array.from(listavo);
-      const intesCopybisavo = Array.from(listbisavo);
-      const intesCopytrisavo = Array.from(listtrisavo);
-
-      const obj = {
-        Description: item.Description,
-        DocumentId: item.DocumentId,
-        DocumentName: item.DocumentName,
-        IsCaught: item.IsCaught,
-        IsRequired: value,
-      };
-
-      if (Documents === 'voce') {
-        itensCopy.splice(index, 1, obj);
-        setListvoce(itensCopy);
-      } else if (Documents === 'pai') {
-        intesCopypai.splice(index, 1, obj);
-        setListpai(intesCopypai);
-      } else if (Documents === 'avo') {
-        itensCopyavo.splice(index, 1, obj);
-        setListavo(itensCopyavo);
-      } else if (Documents === 'bisavo') {
-        intesCopybisavo.splice(index, 1, obj);
-        setListBisavo(intesCopybisavo);
-      } else if (Documents === 'trisavo') {
-        intesCopytrisavo.splice(index, 1, obj);
-        setListBisavo(intesCopytrisavo);
-      }
-    },
-    [listavo, listbisavo, listpai, listtrisavo, listvoce],
-  );
-
-  const updateSwitchIsCaught = useCallback(
-    (item: List, index: number, value: boolean, Documents: string) => {
-      const itensCopy = Array.from(listvoce);
-      const intesCopypai = Array.from(listpai);
-      const itensCopyavo = Array.from(listavo);
-      const intesCopybisavo = Array.from(listbisavo);
-      const intesCopytrisavo = Array.from(listtrisavo);
-
-      const obj = {
-        Description: item.Description,
-        DocumentId: item.DocumentId,
-        DocumentName: item.DocumentName,
-        IsCaught: value,
-        IsRequired: item.IsRequired,
-      };
-
-      if (Documents === 'voce') {
-        itensCopy.splice(index, 1, obj);
-        setListvoce(itensCopy);
-      } else if (Documents === 'pai') {
-        intesCopypai.splice(index, 1, obj);
-        setListpai(intesCopypai);
-      } else if (Documents === 'avo') {
-        itensCopyavo.splice(index, 1, obj);
-        setListavo(itensCopyavo);
-      } else if (Documents === 'bisavo') {
-        intesCopybisavo.splice(index, 1, obj);
-        setListBisavo(intesCopybisavo);
-      } else if (Documents === 'trisavo') {
-        intesCopytrisavo.splice(index, 1, obj);
-        setListBisavo(intesCopytrisavo);
-      }
-    },
-    [listavo, listbisavo, listpai, listtrisavo, listvoce],
+      getItem();
+    }, []),
   );
 
   const handleAdiconaDocumento = useCallback((parent: string) => {
@@ -216,13 +177,60 @@ const Emissoes: React.FC = () => {
     const {data} = await api.post('insertDocument', params);
 
     setModalVisible({isVisible: false, parent: ''});
-
-    setListvoce(data.Kinships[0].Documents);
-    setListpai(data.Kinships[1].Documents);
-    setListavo(data.Kinships[2].Documents);
-    setListBisavo(data.Kinships[3].Documents);
-    setListtrisavo(data.Kinships[4].Documents);
   }, [documentname, modalVisible.parent, textarea]);
+
+  const handleAtualizaDocuments = useCallback(
+    (item: ListDocuments, value, index) => {
+      setKinships((oldKinships: any) =>
+        oldKinships.map((kinship: Kinships) => {
+          kinship.Documents.map((docs: ListDocuments) => {
+            console.log(docs);
+            docs.DocumentId === item.DocumentId
+              ? {
+                  ...kinship,
+                }
+              : kinship;
+          });
+        }),
+      );
+    },
+    [],
+  );
+
+  const handleAtualizaLista = useCallback(
+    (item: Kinships, index: any) => {
+      setSelectedKinship(index);
+      const itensCopy = Array.from(kinships);
+      if (item.isVisibleGrid) {
+        const list = {
+          Documents: item.Documents,
+          Name: item.Name,
+          ParentId: item.ParentId,
+          ParentType: item.ParentType,
+          isVisibleGrid: false,
+        };
+
+        const indexKinships = kinships.indexOf(item);
+
+        itensCopy.splice(indexKinships, 1, list);
+        setKinships(itensCopy);
+      } else {
+        const list = {
+          Documents: item.Documents,
+          Name: item.Name,
+          ParentId: item.ParentId,
+          ParentType: item.ParentType,
+          isVisibleGrid: true,
+        };
+
+        const indexKinships = kinships.indexOf(item);
+
+        itensCopy.splice(indexKinships, 1, list);
+        setKinships(itensCopy);
+      }
+    },
+    [kinships],
+  );
 
   return (
     <Container>
@@ -301,352 +309,84 @@ const Emissoes: React.FC = () => {
         </ContainerTitle>
       </ContainerHeader>
       <ContainerList>
-        <List.Section>
-          {/* Voce */}
-          <List.Accordion
-            title="Você"
-            titleStyle={{
-              fontSize: 16,
-              fontFamily: 'Poppins-SemiBold',
-              color: '#000',
-            }}
-            style={{
-              backgroundColor: '#f8f8f8',
-              borderBottomWidth: 1,
-              borderBottomColor: '#efefef',
-            }}
-            description={view?.Name}
-            descriptionStyle={{fontSize: 14, fontFamily: 'Poppins-Regular'}}
-            right={() => (
-              <IconList name={iconName} size={25} color="#f09d4c" />
-            )}>
-            <ContainerColums>
-              <ColumsTipo>Tipo</ColumsTipo>
-              <ColumsSolicitado>Solicitado</ColumsSolicitado>
-              <Colums>Em mãos</Colums>
-            </ContainerColums>
-            <ItemsList
-              data={listvoce}
-              keyExtractor={(_, index) => index.toString()}
-              scrollEnabled={false}
-              refreshing={false}
-              renderItem={({item}) => (
-                <>
-                  <ContainerFlatList>
-                    <ContainerDescricao>
-                      <Descricao>{item.DocumentName}</Descricao>
-                    </ContainerDescricao>
-                    <ContainerSwitch>
-                      <Switch
-                        trackColor={{false: '#767577', true: '#32d5a0'}}
-                        thumbColor="#f4f3f4"
-                        onValueChange={(value) => {
-                          const idx = listvoce.indexOf(item);
-
-                          updateSwitchIsRequired(item, idx, value, 'voce');
-                        }}
-                        value={item.IsRequired}
-                      />
-                      <Switch
-                        trackColor={{false: '#767577', true: '#32d5a0'}}
-                        thumbColor="#f4f3f4"
-                        onValueChange={(value) => {
-                          const idx = listvoce.indexOf(item);
-
-                          updateSwitchIsCaught(item, idx, value, 'voce');
-                        }}
-                        value={item.IsCaught}
-                      />
-                    </ContainerSwitch>
-                  </ContainerFlatList>
-                </>
+        <ItemsList
+          data={kinships}
+          keyExtractor={(_, index) => index.toString()}
+          renderItem={({item, index}) => (
+            <>
+              <ContainerFlatList>
+                <ContainerListItem
+                  onPress={() => {
+                    handleAtualizaLista(item, index);
+                  }}
+                  style={{borderBottomColor: '#efefef', borderBottomWidth: 1}}>
+                  <ContainerTexts>
+                    <TitleList>{item.ParentType}</TitleList>
+                    {item.Name ? (
+                      <ButtonAddName disabled>
+                        <ButtonAddNameText>{item.Name}</ButtonAddNameText>
+                      </ButtonAddName>
+                    ) : (
+                      <ButtonAddName>
+                        <ButtonAddNameText style={{color: '#f09d4c'}}>
+                          Adicionar nome
+                        </ButtonAddNameText>
+                      </ButtonAddName>
+                    )}
+                  </ContainerTexts>
+                  <ContainerIcon>
+                    <IconList name="chevron-up" size={25} color="#f09d4c" />
+                  </ContainerIcon>
+                </ContainerListItem>
+              </ContainerFlatList>
+              {item.isVisibleGrid ? (
+                <ContainerListGrid>
+                  <ListDocs
+                    data={item.Documents}
+                    keyExtractor={(_, index) => index.toString()}
+                    renderItem={({item, index}) => (
+                      <>
+                        {index === 0 ? (
+                          <ContainerColums>
+                            <ColumsTipo>Tipo</ColumsTipo>
+                            <ColumsSolicitado>Solicitado</ColumsSolicitado>
+                            <Colums>Em mãos</Colums>
+                          </ContainerColums>
+                        ) : (
+                          <></>
+                        )}
+                        <ContainerGrid>
+                          <ContainerDescricao>
+                            <Descricao>{item.DocumentName}</Descricao>
+                          </ContainerDescricao>
+                          <ContainerSwitch>
+                            <Switch
+                              trackColor={{false: '#767577', true: '#32d5a0'}}
+                              thumbColor="#f4f3f4"
+                              style={{marginRight: 30}}
+                              value={item.IsRequired}
+                              onValueChange={(value) => {
+                                handleAtualizaDocuments(item, value, null);
+                              }}
+                            />
+                            <Switch
+                              trackColor={{false: '#767577', true: '#32d5a0'}}
+                              thumbColor="#f4f3f4"
+                              value={item.IsCaught}
+                              onValueChange={(value) => {}}
+                            />
+                          </ContainerSwitch>
+                        </ContainerGrid>
+                      </>
+                    )}
+                  />
+                </ContainerListGrid>
+              ) : (
+                <></>
               )}
-            />
-            <AddDocs
-              onPress={() => {
-                handleAdiconaDocumento('voce');
-              }}>
-              <IconList name="plus-circle" size={20} color="#f09d4c" />
-              <AddDocsText>Adicionar certidão</AddDocsText>
-            </AddDocs>
-          </List.Accordion>
-          {/* Pai */}
-          <List.Accordion
-            title="Pai"
-            titleStyle={{
-              fontSize: 16,
-              fontFamily: 'Poppins-SemiBold',
-              color: '#000',
-            }}
-            style={{
-              backgroundColor: '#f8f8f8',
-              borderBottomWidth: 1,
-              borderBottomColor: '#efefef',
-            }}
-            description="Adicionar Nome"
-            descriptionStyle={{
-              fontSize: 14,
-              fontFamily: 'Poppins-Regular',
-              color: '#f09d4c',
-            }}
-            right={(a) => (
-              <IconList name={iconName} size={25} color="#f09d4c" />
-            )}>
-            <ContainerColums>
-              <ColumsTipo>Tipo</ColumsTipo>
-              <ColumsSolicitado>Solicitado</ColumsSolicitado>
-              <Colums>Em mãos</Colums>
-            </ContainerColums>
-            <ItemsList
-              data={listpai}
-              keyExtractor={(_, index) => index.toString()}
-              refreshing={false}
-              renderItem={({item}) => (
-                <ContainerFlatList>
-                  <ContainerDescricao>
-                    <Descricao>{item.DocumentName}</Descricao>
-                  </ContainerDescricao>
-                  <ContainerSwitch>
-                    <Switch
-                      trackColor={{false: '#767577', true: '#32d5a0'}}
-                      thumbColor="#f4f3f4"
-                      onValueChange={(value) => {
-                        const idx = listpai.indexOf(item);
-
-                        updateSwitchIsRequired(item, idx, value, 'pai');
-                      }}
-                      value={item.IsRequired}
-                    />
-                    <Switch
-                      trackColor={{false: '#767577', true: '#32d5a0'}}
-                      thumbColor="#f4f3f4"
-                      onValueChange={(value) => {
-                        const idx = listpai.indexOf(item);
-
-                        updateSwitchIsCaught(item, idx, value, 'pai');
-                      }}
-                      value={item.IsCaught}
-                    />
-                  </ContainerSwitch>
-                </ContainerFlatList>
-              )}
-            />
-            <AddDocs
-              onPress={() => {
-                handleAdiconaDocumento('pai');
-              }}>
-              <IconList name="plus-circle" size={20} color="#f09d4c" />
-              <AddDocsText>Adicionar certidão</AddDocsText>
-            </AddDocs>
-          </List.Accordion>
-          {/* avo */}
-          <List.Accordion
-            title="Avô"
-            titleStyle={{
-              fontSize: 16,
-              fontFamily: 'Poppins-SemiBold',
-              color: '#000',
-            }}
-            style={{
-              backgroundColor: '#f8f8f8',
-              borderBottomWidth: 1,
-              borderBottomColor: '#efefef',
-            }}
-            description="Adicionar Nome"
-            descriptionStyle={{
-              fontSize: 14,
-              fontFamily: 'Poppins-Regular',
-              color: '#f09d4c',
-            }}
-            right={() => (
-              <IconList name={iconName} size={25} color="#f09d4c" />
-            )}>
-            <ContainerColums>
-              <ColumsTipo>Tipo</ColumsTipo>
-              <ColumsSolicitado>Solicitado</ColumsSolicitado>
-              <Colums>Em mãos</Colums>
-            </ContainerColums>
-            <ItemsList
-              data={listavo}
-              keyExtractor={(_, index) => index.toString()}
-              refreshing={false}
-              renderItem={({item}) => (
-                <ContainerFlatList>
-                  <ContainerDescricao>
-                    <Descricao>{item.DocumentName}</Descricao>
-                  </ContainerDescricao>
-                  <ContainerSwitch>
-                    <Switch
-                      trackColor={{false: '#767577', true: '#32d5a0'}}
-                      thumbColor="#f4f3f4"
-                      onValueChange={(value) => {
-                        const idx = listavo.indexOf(item);
-
-                        updateSwitchIsRequired(item, idx, value, 'avo');
-                      }}
-                      value={item.IsRequired}
-                    />
-                    <Switch
-                      trackColor={{false: '#767577', true: '#32d5a0'}}
-                      thumbColor="#f4f3f4"
-                      onValueChange={(value) => {
-                        const idx = listavo.indexOf(item);
-
-                        updateSwitchIsCaught(item, idx, value, 'avo');
-                      }}
-                      value={item.IsCaught}
-                    />
-                  </ContainerSwitch>
-                </ContainerFlatList>
-              )}
-            />
-            <AddDocs
-              onPress={() => {
-                handleAdiconaDocumento('avo');
-              }}>
-              <IconList name="plus-circle" size={20} color="#f09d4c" />
-              <AddDocsText>Adicionar certidão</AddDocsText>
-            </AddDocs>
-          </List.Accordion>
-          {/* bisavo */}
-          <List.Accordion
-            title="Bisavô"
-            titleStyle={{
-              fontSize: 16,
-              fontFamily: 'Poppins-SemiBold',
-              color: '#000',
-            }}
-            style={{
-              backgroundColor: '#f8f8f8',
-              borderBottomWidth: 1,
-              borderBottomColor: '#efefef',
-            }}
-            description="Adicionar Nome"
-            descriptionStyle={{
-              fontSize: 14,
-              fontFamily: 'Poppins-Regular',
-              color: '#f09d4c',
-            }}
-            right={(a) => (
-              <IconList name={iconName} size={25} color="#f09d4c" />
-            )}>
-            <ContainerColums>
-              <ColumsTipo>Tipo</ColumsTipo>
-              <ColumsSolicitado>Solicitado</ColumsSolicitado>
-              <Colums>Em mãos</Colums>
-            </ContainerColums>
-            <ItemsList
-              data={listbisavo}
-              keyExtractor={(_, index) => index.toString()}
-              refreshing={false}
-              renderItem={({item}) => (
-                <ContainerFlatList>
-                  <ContainerDescricao>
-                    <Descricao>{item.DocumentName}</Descricao>
-                  </ContainerDescricao>
-                  <ContainerSwitch>
-                    <Switch
-                      trackColor={{false: '#767577', true: '#32d5a0'}}
-                      thumbColor="#f4f3f4"
-                      onValueChange={(value) => {
-                        const idx = listbisavo.indexOf(item);
-
-                        updateSwitchIsRequired(item, idx, value, 'bisavo');
-                      }}
-                      value={item.IsRequired}
-                    />
-                    <Switch
-                      trackColor={{false: '#767577', true: '#32d5a0'}}
-                      thumbColor="#f4f3f4"
-                      onValueChange={(value) => {
-                        const idx = listbisavo.indexOf(item);
-
-                        updateSwitchIsCaught(item, idx, value, 'bisavo');
-                      }}
-                      value={item.IsCaught}
-                    />
-                  </ContainerSwitch>
-                </ContainerFlatList>
-              )}
-            />
-            <AddDocs
-              onPress={() => {
-                handleAdiconaDocumento('bisavo');
-              }}>
-              <IconList name="plus-circle" size={20} color="#f09d4c" />
-              <AddDocsText>Adicionar certidão</AddDocsText>
-            </AddDocs>
-          </List.Accordion>
-          {/* trisavo */}
-          <List.Accordion
-            title="Trisavô"
-            titleStyle={{
-              fontSize: 16,
-              fontFamily: 'Poppins-SemiBold',
-              color: '#000',
-            }}
-            style={{
-              backgroundColor: '#f8f8f8',
-              borderBottomWidth: 1,
-              borderBottomColor: '#efefef',
-            }}
-            description="Adicionar Nome"
-            descriptionStyle={{
-              fontSize: 14,
-              fontFamily: 'Poppins-Regular',
-              color: '#f09d4c',
-            }}
-            right={(a) => (
-              <IconList name={iconName} size={25} color="#f09d4c" />
-            )}>
-            <ContainerColums>
-              <ColumsTipo>Tipo</ColumsTipo>
-              <ColumsSolicitado>Solicitado</ColumsSolicitado>
-              <Colums>Em mãos</Colums>
-            </ContainerColums>
-            <ItemsList
-              data={listtrisavo}
-              keyExtractor={(_, index) => index.toString()}
-              refreshing={false}
-              renderItem={({item}) => (
-                <ContainerFlatList>
-                  <ContainerDescricao>
-                    <Descricao>{item.DocumentName}</Descricao>
-                  </ContainerDescricao>
-                  <ContainerSwitch>
-                    <Switch
-                      trackColor={{false: '#767577', true: '#32d5a0'}}
-                      thumbColor="#f4f3f4"
-                      onValueChange={(value) => {
-                        const idx = listtrisavo.indexOf(item);
-
-                        updateSwitchIsRequired(item, idx, value, 'trisavo');
-                      }}
-                      value={item.IsRequired}
-                    />
-                    <Switch
-                      trackColor={{false: '#767577', true: '#32d5a0'}}
-                      thumbColor="#f4f3f4"
-                      onValueChange={(value) => {
-                        const idx = listtrisavo.indexOf(item);
-
-                        updateSwitchIsCaught(item, idx, value, 'trisavo');
-                      }}
-                      value={item.IsCaught}
-                    />
-                  </ContainerSwitch>
-                </ContainerFlatList>
-              )}
-            />
-            <AddDocs
-              onPress={() => {
-                handleAdiconaDocumento('trisavo');
-              }}>
-              <IconList name="plus-circle" size={20} color="#f09d4c" />
-              <AddDocsText>Adicionar certidão</AddDocsText>
-            </AddDocs>
-          </List.Accordion>
-        </List.Section>
+            </>
+          )}
+        />
       </ContainerList>
       <ButtonContinua>
         <ButtonText>Gerar relatório completo</ButtonText>

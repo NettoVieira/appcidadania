@@ -1,7 +1,7 @@
 import styled from 'styled-components/native';
 import Icon from 'react-native-vector-icons/Feather';
 import {FlatList} from 'react-native';
-import {List} from './index';
+import {Kinships, ListDocuments} from './index';
 
 // Estilizações da modal
 export const Modal = styled.Modal``;
@@ -76,37 +76,41 @@ export const Subtitle = styled.Text`
   color: #6d6d78;
 `;
 
-export const ContainerList = styled.View``;
+export const ContainerList = styled.View`
+  width: 100%;
+`;
 
 export const ColumsSolicitado = styled.Text`
-  margin-left: 44%;
-  font-size: 12px;
+  margin-left: 53%;
+  font-size: 13px;
   font-family: 'Poppins-Regular';
   color: #a2a2a2;
 `;
 
 export const Colums = styled.Text`
-  margin-left: 7%;
-  font-size: 12px;
+  margin-left: 3%;
+  font-size: 13px;
   font-family: 'Poppins-Regular';
   color: #a2a2a2;
 `;
 
 export const ColumsTipo = styled.Text`
-  font-size: 12px;
+  font-size: 13px;
   font-family: 'Poppins-Regular';
   color: #a2a2a2;
 `;
 
 export const ContainerColums = styled.View`
-  width: 100%;
+  height: 30px;
+
   flex-direction: row;
-  margin-left: 5%;
 `;
 
-export const ItemsList = styled(FlatList as new () => FlatList<List>)`
+export const ItemsList = styled(FlatList as new () => FlatList<Kinships>)`
   padding: 10px 10px 16px;
 `;
+
+export const ListDocs = styled(FlatList as new () => FlatList<ListDocuments>)``;
 
 export const ContainerFlatList = styled.View`
   flex-direction: row;
@@ -131,6 +135,13 @@ export const AddDocsText = styled.Text`
   font-family: 'Poppins-Regular';
   color: #f09d4c;
   margin-left: 6px;
+`;
+
+export const ButtonAddName = styled.TouchableOpacity``;
+
+export const ButtonAddNameText = styled.Text`
+  font-size: 13px;
+  font-family: 'Poppins-Regular';
 `;
 
 export const ContainerSwitch = styled.View`
@@ -183,7 +194,6 @@ export const ButtonTextFechar = styled.Text`
 export const TextTitleList = styled.Text`
   font-size: 16px;
   font-family: 'Poppins-SemiBold';
-  color: #000;
 `;
 
 export const ContainerTitles = styled.TouchableOpacity``;
@@ -199,3 +209,32 @@ export const AdicionarText = styled.Text`
 `;
 
 export const IconList = styled(Icon)``;
+
+export const ContainerListItem = styled.TouchableOpacity`
+  width: 100%;
+  background-color: #f8f8f8;
+  height: 64px;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const TitleList = styled.Text`
+  font-size: 18px;
+  font-family: 'Poppins-Medium';
+  color: #212121;
+`;
+
+export const ContainerTexts = styled.View`
+  width: 90%;
+`;
+
+export const ContainerListGrid = styled.View`
+  width: 100%;
+`;
+
+export const ContainerIcon = styled.View``;
+
+export const ContainerGrid = styled.View`
+  flex-direction: row;
+`;

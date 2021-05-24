@@ -1,5 +1,6 @@
 /* eslint-disable react/jsx-closing-bracket-location */
 import React from 'react';
+import {AdBadge} from 'react-native-admob-native-ads';
 
 import {useNavigation} from '@react-navigation/native';
 import {
@@ -42,6 +43,7 @@ const Introducao: React.FC = () => {
           <GoBackIcon name="chevron-right" size={25} color="#db822b" />
         </GoBack>
       </ContainerImage>
+      <AdBadge />
     </Container>
   );
 };
