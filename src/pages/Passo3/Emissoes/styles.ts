@@ -1,19 +1,47 @@
 import styled from 'styled-components/native';
 import Icon from 'react-native-vector-icons/Feather';
 import {FlatList} from 'react-native';
+import Swipeable from 'react-native-gesture-handler/Swipeable';
+import {RectButton} from 'react-native-gesture-handler';
 import {Kinships, ListDocuments} from './index';
 
 // Estilizações da modal
-export const Modal = styled.Modal``;
+export const Modal = styled.Modal`
+  flex: 1;
+  height: 100px;
+`;
 
 export const HeaderModal = styled.View`
   width: 100%;
+
   padding-left: 10px;
 `;
 
 export const ButtonClose = styled.TouchableOpacity``;
 
 export const IconClose = styled(Icon)``;
+
+export const Item = styled(Swipeable)``;
+
+export const ItemButton = styled(RectButton)`
+  align-items: center;
+  justify-content: center;
+  background-color: #e84941;
+  height: 57px;
+  width: 50px;
+`;
+
+export const ItemButtonKinship = styled(RectButton)`
+  align-items: center;
+  justify-content: center;
+  background-color: #e84941;
+  height: 65px;
+  width: 50px;
+`;
+
+export const ItemButtonText = styled(Icon)`
+  color: #ffffff;
+`;
 
 export const BodyModal = styled.View`
   width: 100%;
@@ -106,9 +134,7 @@ export const ContainerColums = styled.View`
   flex-direction: row;
 `;
 
-export const ItemsList = styled(FlatList as new () => FlatList<Kinships>)`
-  padding: 10px 10px 16px;
-`;
+export const ItemsList = styled(FlatList as new () => FlatList<Kinships>)``;
 
 export const ListDocs = styled(FlatList as new () => FlatList<ListDocuments>)``;
 
@@ -120,7 +146,6 @@ export const ContainerFlatList = styled.View`
 export const Descricao = styled.Text`
   font-size: 15px;
   font-family: 'Poppins-Regular';
-  margin-bottom: 20px;
 `;
 
 export const AddDocs = styled.TouchableOpacity`
@@ -147,7 +172,8 @@ export const ButtonAddNameText = styled.Text`
 export const ContainerSwitch = styled.View`
   flex-direction: row;
   justify-content: center;
-  width: 40%;
+  margin-right: 10px;
+  width: 32%;
 `;
 
 export const Switch = styled.Switch`
@@ -157,8 +183,6 @@ export const Switch = styled.Switch`
 
 export const ContainerDescricao = styled.View`
   width: 60%;
-  justify-content: center;
-  margin-top: 8px;
 `;
 
 export const ButtonContinua = styled.TouchableOpacity`
@@ -210,7 +234,7 @@ export const AdicionarText = styled.Text`
 
 export const IconList = styled(Icon)``;
 
-export const ContainerListItem = styled.TouchableOpacity`
+export const ContainerListItem = styled(RectButton)`
   width: 100%;
   background-color: #f8f8f8;
   height: 64px;
@@ -226,15 +250,20 @@ export const TitleList = styled.Text`
 `;
 
 export const ContainerTexts = styled.View`
-  width: 90%;
+  width: 83%;
 `;
 
 export const ContainerListGrid = styled.View`
   width: 100%;
+  margin-left: 8px;
 `;
 
 export const ContainerIcon = styled.View``;
 
 export const ContainerGrid = styled.View`
   flex-direction: row;
+
+  height: 50px;
+  justify-content: center;
+  align-items: center;
 `;

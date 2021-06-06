@@ -5,6 +5,12 @@ import {useNavigation} from '@react-navigation/native';
 
 import Passo3 from '../../pages/Passo3';
 import Emissoes from '../../pages/Passo3/Emissoes';
+import ActionEmissao from '../../pages/Passo3/ActionEmissao';
+import ActionAnalise from '../../pages/Passo3/ActionAnalise';
+import ActionRetificacao from '../../pages/Passo3/ActionRetificacao';
+import ActionCNN from '../../pages/Passo3/ActionCNN';
+import ActionTraducao from '../../pages/Passo3/ActionTraducao';
+import ActionApostilamentos from '../../pages/Passo3/ActionApostilamentos';
 
 import {
   Container,
@@ -69,6 +75,15 @@ const Passos3routes: React.FC = () => {
       }}>
       <App.Screen name="Passo3" component={Passo3} />
       <App.Screen name="Emissoes" component={Emissoes} />
+      <App.Screen name="ActionEmissao" component={ActionEmissao} />
+      <App.Screen name="ActionAnalise" component={ActionAnalise} />
+      <App.Screen name="ActionRetificacao" component={ActionRetificacao} />
+      <App.Screen name="ActionCNN" component={ActionCNN} />
+      <App.Screen name="ActionTraducao" component={ActionTraducao} />
+      <App.Screen
+        name="ActionApostilamentos"
+        component={ActionApostilamentos}
+      />
     </App.Navigator>
   );
 };

@@ -1,8 +1,8 @@
 /* eslint-disable react/jsx-closing-bracket-location */
 import React from 'react';
-import {AdBadge} from 'react-native-admob-native-ads';
 
 import {useNavigation} from '@react-navigation/native';
+import Banner from '../../../Components/Banner';
 import {
   Container,
   Progresbar,
@@ -14,7 +14,7 @@ import {
 } from './styles';
 
 import Barprogress from '../../../assets/Progressbar.png';
-import {GoBack, GoBackIcon, Status, Text} from '../styles';
+import {GoBack, GoBackIcon, Text} from '../styles';
 
 const Introducao: React.FC = () => {
   const navigation = useNavigation();
@@ -43,7 +43,7 @@ const Introducao: React.FC = () => {
           <GoBackIcon name="chevron-right" size={25} color="#db822b" />
         </GoBack>
       </ContainerImage>
-      <AdBadge />
+      <Banner unitid="ca-app-pub-9617296364015895/2996859856" />
     </Container>
   );
 };

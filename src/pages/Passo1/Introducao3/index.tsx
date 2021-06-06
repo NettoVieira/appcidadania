@@ -15,6 +15,7 @@ import Load from '../../../Components/Loading';
 import Barprogress from '../../../assets/progressbar3.png';
 import {ButtonContinua, ButtonText} from '../styles';
 import api from '../../../services/api';
+import Banner from '../../../Components/Banner';
 
 const Introducao3: React.FC = () => {
   const navigation = useNavigation();
@@ -76,6 +77,7 @@ const Introducao3: React.FC = () => {
           <ButtonText>Concluir etapa</ButtonText>
         </ButtonContinua>
       </ContainerImage>
+      <Banner unitid="ca-app-pub-9617296364015895/2996859856" />
     </Container>
   );
 };

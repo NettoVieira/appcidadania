@@ -14,6 +14,7 @@ import {
 
 import Barprogress from '../../../assets/progressbar-mito2.png';
 import {GoBack, GoBackIcon, Text} from '../styles';
+import Banner from '../../../Components/Banner';
 
 const Mitos2: React.FC = () => {
   const navigation = useNavigation();
@@ -43,6 +44,7 @@ const Mitos2: React.FC = () => {
           <GoBackIcon name="chevron-right" size={25} color="#db822b" />
         </GoBack>
       </ContainerImage>
+      <Banner unitid="ca-app-pub-9617296364015895/2996859856" />
     </Container>
   );
 };

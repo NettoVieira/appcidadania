@@ -33,6 +33,7 @@ import {
   ButtonContinuaModal,
   ButtonTextModal,
 } from './styles';
+import Banner from '../../Components/Banner';
 
 const Passo2: React.FC = () => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -70,74 +71,77 @@ const Passo2: React.FC = () => {
   }, []);
 
   return (
-    <Container>
-      <Modal
-        animationType="slide"
-        statusBarTranslucent
-        transparent
-        visible={modalVisible}
-        onRequestClose={() => {
-          Alert.alert('Modal has been closed.');
-          setModalVisible(!modalVisible);
-        }}>
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <ContainerImage>
-              <Backgroudimg source={BackgroundImg} />
-              <Close
-                onPress={() => {
-                  setModalVisible(false);
-                }}>
-                <CloseText source={CloseImage} />
-              </Close>
-              <ImageLapis source={ModalImage} />
-            </ContainerImage>
-            <ContainerBodyModal>
-              <ModalTitle>Não se preocupe, a gente te ajuda.</ModalTitle>
-              <ParagraphModal>{corpo}</ParagraphModal>
-              <ButtonContinuaModal
-                onPress={() => {
-                  setModalVisible(false);
-                  navigation.navigate('Direito', {title, corpo});
-                }}>
-                <ButtonTextModal>Continuar</ButtonTextModal>
-              </ButtonContinuaModal>
-            </ContainerBodyModal>
+    <>
+      <Container>
+        <Modal
+          animationType="slide"
+          statusBarTranslucent
+          transparent
+          visible={modalVisible}
+          onRequestClose={() => {
+            Alert.alert('Modal has been closed.');
+            setModalVisible(!modalVisible);
+          }}>
+          <View style={styles.centeredView}>
+            <View style={styles.modalView}>
+              <ContainerImage>
+                <Backgroudimg source={BackgroundImg} />
+                <Close
+                  onPress={() => {
+                    setModalVisible(false);
+                  }}>
+                  <CloseText source={CloseImage} />
+                </Close>
+                <ImageLapis source={ModalImage} />
+              </ContainerImage>
+              <ContainerBodyModal>
+                <ModalTitle>Não se preocupe, a gente te ajuda.</ModalTitle>
+                <ParagraphModal>{corpo}</ParagraphModal>
+                <ButtonContinuaModal
+                  onPress={() => {
+                    setModalVisible(false);
+                    navigation.navigate('Direito', {title, corpo});
+                  }}>
+                  <ButtonTextModal>Continuar</ButtonTextModal>
+                </ButtonContinuaModal>
+              </ContainerBodyModal>
+            </View>
           </View>
-        </View>
-      </Modal>
-      <Title>Tenho direito a cidadanida italiana?</Title>
-      <TitleOpacity>Saiba como definir</TitleOpacity>
-      <ContainerHeader>
-        <SubTitle>
-          Selecione a opção que mais se encaixa com o seu perfil
-        </SubTitle>
-        <Paragraph>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
-          maximus molestie blandit. Vestibulum at laoreet elit. Ut tristique
-          orci sed metus aliquam, at consequat est interdum. Mauris ultricies
-          era.
-        </Paragraph>
-      </ContainerHeader>
-      <ContainerOptions>
-        <ButtonContinua onPress={() => handleSobeModal(0)}>
-          <ButtonText>Não faço ideia, mas quero saber.</ButtonText>
-        </ButtonContinua>
-        <ButtonContinua onPress={() => handleSobeModal(1)}>
-          <ButtonText>
-            Sei que tenho, mas não sei onde estão os documentos.
-          </ButtonText>
-        </ButtonContinua>
-        <ButtonContinua onPress={() => handleSobeModal(2)}>
-          <ButtonText>
-            Sei que tenho e já tenho quase todos os documentos.
-          </ButtonText>
-        </ButtonContinua>
-        <ButtonContinua onPress={() => handleSobeModal(3)}>
-          <ButtonText>Sei que tenho e já tenho tudo pronto.</ButtonText>
-        </ButtonContinua>
-      </ContainerOptions>
-    </Container>
+        </Modal>
+        <Title>Tenho direito a cidadanida italiana?</Title>
+        <TitleOpacity>Saiba como definir</TitleOpacity>
+        <ContainerHeader>
+          <SubTitle>
+            Selecione a opção que mais se encaixa com o seu perfil
+          </SubTitle>
+          <Paragraph>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
+            maximus molestie blandit. Vestibulum at laoreet elit. Ut tristique
+            orci sed metus aliquam, at consequat est interdum. Mauris ultricies
+            era.
+          </Paragraph>
+        </ContainerHeader>
+        <ContainerOptions>
+          <ButtonContinua onPress={() => handleSobeModal(0)}>
+            <ButtonText>Não faço ideia, mas quero saber.</ButtonText>
+          </ButtonContinua>
+          <ButtonContinua onPress={() => handleSobeModal(1)}>
+            <ButtonText>
+              Sei que tenho, mas não sei onde estão os documentos.
+            </ButtonText>
+          </ButtonContinua>
+          <ButtonContinua onPress={() => handleSobeModal(2)}>
+            <ButtonText>
+              Sei que tenho e já tenho quase todos os documentos.
+            </ButtonText>
+          </ButtonContinua>
+          <ButtonContinua onPress={() => handleSobeModal(3)}>
+            <ButtonText>Sei que tenho e já tenho tudo pronto.</ButtonText>
+          </ButtonContinua>
+        </ContainerOptions>
+      </Container>
+      <Banner unitid="ca-app-pub-9617296364015895/2996859856" />
+    </>
   );
 };
 

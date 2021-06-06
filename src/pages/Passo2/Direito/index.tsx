@@ -35,6 +35,7 @@ import {
 } from './styles';
 import {Subtitle} from '../../Passo1/Planob/styles';
 import api from '../../../services/api';
+import Banner from '../../../Components/Banner';
 
 const Direito: React.FC = ({route}: any) => {
   console.log(route);
@@ -70,69 +71,72 @@ const Direito: React.FC = ({route}: any) => {
   }, []);
 
   return (
-    <Container>
-      <Modal
-        animationType="slide"
-        statusBarTranslucent
-        transparent
-        visible={modalVisible}
-        onRequestClose={() => {
-          Alert.alert('Modal has been closed.');
-          setModalVisible(!modalVisible);
-        }}>
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <ContainerImage>
-              <Backgroudimg source={BackgroundImg} />
-              <ContainerAnimacao>
-                <LottieView source={Animacao} autoPlay loop />
-              </ContainerAnimacao>
-              <Close
-                onPress={() => {
-                  setModalVisible(false);
-                }}>
-                <CloseText source={CloseImage} />
-              </Close>
-            </ContainerImage>
-            <ContainerBodyModal>
-              <ModalTitle>Etapa concluída.</ModalTitle>
-              <ParagraphModal>
-                Agora que você já entende um pouco mais sobre a cidadania
-                italiana e seus benefícios, vamos juntos para a próxima etapa?
-              </ParagraphModal>
-              <ButtonContinuaModal
-                onPress={() => {
-                  setModalVisible(false);
-                  navigation.navigate('Dashboardroutes');
-                }}>
-                <ButtonTextModal>Continuar</ButtonTextModal>
-              </ButtonContinuaModal>
-            </ContainerBodyModal>
+    <>
+      <Container>
+        <Modal
+          animationType="slide"
+          statusBarTranslucent
+          transparent
+          visible={modalVisible}
+          onRequestClose={() => {
+            Alert.alert('Modal has been closed.');
+            setModalVisible(!modalVisible);
+          }}>
+          <View style={styles.centeredView}>
+            <View style={styles.modalView}>
+              <ContainerImage>
+                <Backgroudimg source={BackgroundImg} />
+                <ContainerAnimacao>
+                  <LottieView source={Animacao} autoPlay loop />
+                </ContainerAnimacao>
+                <Close
+                  onPress={() => {
+                    setModalVisible(false);
+                  }}>
+                  <CloseText source={CloseImage} />
+                </Close>
+              </ContainerImage>
+              <ContainerBodyModal>
+                <ModalTitle>Etapa concluída.</ModalTitle>
+                <ParagraphModal>
+                  Agora que você já entende um pouco mais sobre a cidadania
+                  italiana e seus benefícios, vamos juntos para a próxima etapa?
+                </ParagraphModal>
+                <ButtonContinuaModal
+                  onPress={() => {
+                    setModalVisible(false);
+                    navigation.navigate('Dashboardroutes');
+                  }}>
+                  <ButtonTextModal>Continuar</ButtonTextModal>
+                </ButtonContinuaModal>
+              </ContainerBodyModal>
+            </View>
           </View>
-        </View>
-      </Modal>
-      <ContainerHeader>
-        <TitleOpacity>Cidadania italiana</TitleOpacity>
-        <Title>Tenho direito?</Title>
-      </ContainerHeader>
-      <ContainerBody>
-        <Subtitle>{title}</Subtitle>
-        <Paragraph>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vel
-          velit nisl. Pellentesque ornare sed urna a elementum. In condimentum
-          ipsum sed malesuada placerat. Mauris at lorem feugiat, pharetra est
-          vitae, efficitur nulla. Maecenas accumsan ullamcorper nulla vitae
-          pellentesque. Proin cursus nisi nunc, nec convallis magna hendrerit
-          quis. Duis bibendum odio ac pulvinar laoreet. Praesent euismod dolor
-          ut ultricies pharetra.
-        </Paragraph>
-      </ContainerBody>
-      <ContainerFooter>
-        <ButtonContinua onPress={handleConcluirEtapa}>
-          <ButtonText>Concluir etapa</ButtonText>
-        </ButtonContinua>
-      </ContainerFooter>
-    </Container>
+        </Modal>
+        <ContainerHeader>
+          <TitleOpacity>Cidadania italiana</TitleOpacity>
+          <Title>Tenho direito?</Title>
+        </ContainerHeader>
+        <ContainerBody>
+          <Subtitle>{title}</Subtitle>
+          <Paragraph>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vel
+            velit nisl. Pellentesque ornare sed urna a elementum. In condimentum
+            ipsum sed malesuada placerat. Mauris at lorem feugiat, pharetra est
+            vitae, efficitur nulla. Maecenas accumsan ullamcorper nulla vitae
+            pellentesque. Proin cursus nisi nunc, nec convallis magna hendrerit
+            quis. Duis bibendum odio ac pulvinar laoreet. Praesent euismod dolor
+            ut ultricies pharetra.
+          </Paragraph>
+        </ContainerBody>
+        <ContainerFooter>
+          <ButtonContinua onPress={handleConcluirEtapa}>
+            <ButtonText>Concluir etapa</ButtonText>
+          </ButtonContinua>
+        </ContainerFooter>
+      </Container>
+      <Banner unitid="ca-app-pub-9617296364015895/2996859856" />
+    </>
   );
 };
 

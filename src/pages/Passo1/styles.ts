@@ -1,6 +1,5 @@
 import styled from 'styled-components/native';
 import Icon from 'react-native-vector-icons/Feather';
-import {Image} from 'react-native-elements';
 
 export const Container = styled.View`
   margin-top: 15%;
@@ -134,7 +133,7 @@ export const Button = styled.TouchableOpacity`
   justify-content: center;
 `;
 
-export const ButtonImg = styled(Image)``;
+export const ButtonImg = styled.Image``;
 
 export const ButtonContinua = styled.TouchableOpacity`
   background-color: #f09d4c;

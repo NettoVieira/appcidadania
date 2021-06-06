@@ -267,7 +267,10 @@ const Home: React.FC = () => {
                 <TextFooter>Saiba como definir</TextFooter>
               </ContainerHeader>
             </ContainerPasso>
-            <ContainerPasso>
+            <ContainerPasso
+              onPress={() => {
+                navigation.navigate('Passos3routes');
+              }}>
               <ImagemPasso1 source={LapisDisable} />
               <ContainerHeader>
                 {step?.Step2.Status === 2 ? (

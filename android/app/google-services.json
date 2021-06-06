@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "902759074897",
+    "project_id": "appcidadania-53013",
+    "storage_bucket": "appcidadania-53013.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:902759074897:android:2b57416d666b6944263c70",
+        "android_client_info": {
+          "package_name": "com.appcidadania"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "902759074897-06fhhb67enid7murfsvk3i9343hubure.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCgF84xDOQTT5lLl_EjeLnSnScEo5vYcTY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "902759074897-06fhhb67enid7murfsvk3i9343hubure.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

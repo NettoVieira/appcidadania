@@ -2,47 +2,48 @@
 import React from 'react';
 import {useNavigation} from '@react-navigation/native';
 
-import Trabalho from '../../../assets/icon-beneficios.png';
-
 import {
   Container,
   Title,
-  ContainerHeader,
   ContainerBody,
-  Image,
   Paragraph,
   ContainerFooter,
   TitleOpacity,
   GoBack,
   Text,
   GoBackIcon,
+  Subtitle,
+  TitleParagraph,
 } from './styles';
 import Banner from '../../../Components/Banner';
 
-const Beneficios: React.FC = () => {
+const ActionRetificacao: React.FC = () => {
   const navigation = useNavigation();
   return (
     <>
       <Container>
-        <ContainerHeader>
-          <Image source={Trabalho} />
-        </ContainerHeader>
         <ContainerBody>
-          <Title>Benefícios culturais</Title>
+          <Subtitle>Meus documentos</Subtitle>
+          <Title>Retificações</Title>
+
+          <TitleParagraph>Subtítulo e breve descrição</TitleParagraph>
           <Paragraph>
-            Outra vantagem de ter a cidadania italiana é poder participar da
-            ampla variedade de programas oferecidos aos seus cidadãos. Muitos
-            desses programas são para intercâmbios e experiências culturais,
-            sejam eles educacionais ou em uma determinada profissão.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vel
+            velit nisl. Pellentesque ornare sed urna a elementum. In condimentum
+            ipsum sed malesuada placerat. Mauris at lorem feugiat, pharetra est
+            vitae, efficitur nulla. Maecenas accumsan ullamcorper nulla vitae
+            pellentesque. Proin cursus nisi nunc, nec convallis magna hendrerit
+            quis. Duis bibendum odio ac pulvinar laoreet. Praesent euismod dolor
+            ut ultricies pharetra.
           </Paragraph>
         </ContainerBody>
         <ContainerFooter>
           <TitleOpacity>Próximo</TitleOpacity>
           <GoBack
             onPress={() => {
-              navigation.navigate('Facilidade');
+              navigation.navigate('ActionCNN');
             }}>
-            <Text>Facilidade em viagens</Text>
+            <Text>CNN</Text>
             <GoBackIcon name="chevron-right" size={24} color="#db822b" />
           </GoBack>
         </ContainerFooter>
@@ -52,4 +53,4 @@ const Beneficios: React.FC = () => {
   );
 };
 
-export default Beneficios;
+export default ActionRetificacao;

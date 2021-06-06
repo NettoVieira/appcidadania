@@ -7,10 +7,16 @@ export const Container = styled.View`
 `;
 
 export const Subtitle = styled.Text`
-  margin-top: 18px;
+  font-family: 'Poppins-Regular';
+  color: #b2b2b2;
+  font-size: 14px;
+  margin-bottom: -5px;
+`;
+
+export const TitleParagraph = styled.Text`
   font-family: 'Poppins-SemiBold';
+  font-size: 16px;
   color: #172239;
-  font-size: 20px;
 `;
 
 export const ContainerHeader = styled.View`
@@ -24,6 +30,7 @@ export const ButtonContinua = styled.TouchableOpacity`
   align-items: center;
   height: 55px;
   border-radius: 10px;
+  margin-top: 32px;
 `;
 
 export const ButtonText = styled.Text`
@@ -33,13 +40,12 @@ export const ButtonText = styled.Text`
 `;
 
 export const ContainerBody = styled.View`
-  margin-top: 10%;
   margin-left: 5%;
   margin-right: 5%;
 `;
 
 export const ContainerFooter = styled.View`
-  margin-top: 55%;
+  margin-top: 50%;
   margin-left: 5%;
   margin-right: 5%;
   justify-content: center;
@@ -48,7 +54,7 @@ export const ContainerFooter = styled.View`
 export const GoBack = styled.TouchableOpacity`
   flex-direction: row;
   align-items: center;
-  margin-top: 20px;
+  margin-top: 15px;
   margin-bottom: 20px;
 `;
 
@@ -73,7 +79,6 @@ export const TitleOpacity = styled.Text`
   font-family: 'Poppins-Regualr';
   font-size: 18px;
   color: #b2b2b2;
-  margin-top: 28px;
 `;
 
 export const Paragraph = styled.Text`
@@ -84,8 +89,25 @@ export const Paragraph = styled.Text`
 `;
 
 export const Title = styled.Text`
-  font-family: 'Poppins-SemiBold';
-  font-size: 22px;
+  font-family: 'Poppins-Regular';
+  font-size: 28px;
 
   color: #172239;
+`;
+
+export const ButtonContinue = styled.TouchableOpacity`
+  justify-content: center;
+  align-items: center;
+  background-color: #fae8e8;
+  height: 60px;
+  margin-bottom: 10%;
+  margin-left: 5%;
+  margin-right: 5%;
+  border-radius: 10px;
+`;
+
+export const ButtonContinueText = styled.Text`
+  font-size: 18px;
+  font-family: 'Poppins-Medium';
+  color: #db822b;
 `;

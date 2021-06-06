@@ -10,9 +10,6 @@
       android:roundIcon="@mipmap/ic_launcher_round"
       android:allowBackup="false"
       android:theme="@style/AppTheme">
-      <meta-data
-          android:name="com.google.android.gms.ads.APPLICATION_ID"
-          android:value="ca-app-pub-9617296364015895~7501466670"/>
       <activity
         android:name=".MainActivity"
         android:label="@string/app_name"

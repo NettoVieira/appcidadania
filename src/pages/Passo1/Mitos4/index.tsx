@@ -18,6 +18,7 @@ import {
 import Barprogress from '../../../assets/progressbar-mito4.png';
 import Load from '../../../Components/Loading';
 import api from '../../../services/api';
+import Banner from '../../../Components/Banner';
 
 const Mitos4: React.FC = () => {
   const navigation = useNavigation();
@@ -52,30 +53,33 @@ const Mitos4: React.FC = () => {
   }
 
   return (
-    <Container>
-      <ContainerImage>
-        <Progresbar source={Barprogress} />
-        <TitleOpacity>Cidadania Italiana</TitleOpacity>
-        <Title>Principais mitos</Title>
-        <Subtitle>
-          Quem tem mulher na linha de transmissão não tem direito ao
-          reconhecimento:
-        </Subtitle>
-        <Paragraph>
-          Gente, mas isso a muito tempo atrás né? Hoje em dia, filhos de
-          mulheres nascidas antes de 1948 tem o seu direito assegurado através
-          de um processo civil ajuizado em Roma, que por sinal já está bastante
-          consolidado. Se este é o seu caso, fique tranquilo, você precisará
-          apenas assinar uma procuração para que um advogado italiano te
-          represente lá. Este passo está bem especificado no APP. Pode seguir
-          normalmente, que no momento certo cuidarei de você.
-        </Paragraph>
+    <>
+      <Container>
+        <ContainerImage>
+          <Progresbar source={Barprogress} />
+          <TitleOpacity>Cidadania Italiana</TitleOpacity>
+          <Title>Principais mitos</Title>
+          <Subtitle>
+            Quem tem mulher na linha de transmissão não tem direito ao
+            reconhecimento:
+          </Subtitle>
+          <Paragraph>
+            Gente, mas isso a muito tempo atrás né? Hoje em dia, filhos de
+            mulheres nascidas antes de 1948 tem o seu direito assegurado através
+            de um processo civil ajuizado em Roma, que por sinal já está
+            bastante consolidado. Se este é o seu caso, fique tranquilo, você
+            precisará apenas assinar uma procuração para que um advogado
+            italiano te represente lá. Este passo está bem especificado no APP.
+            Pode seguir normalmente, que no momento certo cuidarei de você.
+          </Paragraph>
 
-        <ButtonContinua onPress={handleConcluirEtapa}>
-          <ButtonText>Concluir etapa</ButtonText>
-        </ButtonContinua>
-      </ContainerImage>
-    </Container>
+          <ButtonContinua onPress={handleConcluirEtapa}>
+            <ButtonText>Concluir etapa</ButtonText>
+          </ButtonContinua>
+        </ContainerImage>
+      </Container>
+      <Banner unitid="ca-app-pub-9617296364015895/2996859856" />
+    </>
   );
 };
 
