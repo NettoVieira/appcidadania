@@ -216,39 +216,105 @@ const Emissoes: React.FC = () => {
   }, [documentname, modalVisible.parent, textarea]);
 
   const handleAtualizaIsRequired = useCallback(
-    (item: ListDocuments, valueIsrequired) => {
-      setKinships((oldKinships: any) =>
-        oldKinships.map((kinship: Kinships) => {
-          kinship.Documents = kinship.Documents.map((doc: ListDocuments) => {
-            return doc.DocumentId === item.DocumentId
-              ? {
-                  ...doc,
-                  IsRequired: valueIsrequired,
-                }
-              : doc;
-          });
-          return kinship;
-        }),
-      );
+    async (item: ListDocuments, valueIsrequired) => {
+      try {
+        setLoading(true);
+        const [response] = await AsyncStorage.multiGet([
+          '@appcidadania:response',
+        ]);
+
+        const Response = JSON.parse(response[1] || '{}');
+
+        setView(Response.User);
+
+        const [Items] = await AsyncStorage.multiGet(['@appcidadania:response']);
+        const req = JSON.parse(Items[1] || '{}');
+
+        setKinships((oldKinships: any) =>
+          oldKinships.map((kinship: Kinships) => {
+            kinship.Documents
+              ? (kinship.Documents = kinship.Documents.map(
+                  (doc: ListDocuments) => {
+                    return doc.DocumentId === item.DocumentId
+                      ? {
+                          ...doc,
+                          IsRequired: valueIsrequired,
+                        }
+                      : doc;
+                  },
+                ))
+              : kinship.Documents;
+            return kinship;
+          }),
+        );
+
+        const params = {
+          Token: req.Request.Token,
+          TokenDevice: req.Request.TokenDevice,
+          DocumentId: item.DocumentId,
+          IsCaught: valueIsrequired,
+        };
+        await api.post('updateDocument', params);
+
+        setLoading(false);
+      } catch (error) {
+        setLoading(false);
+        Alert.alert('Erro', 'Erro ao atualizar documento');
+      }
     },
     [],
   );
 
   const handleAtualizaIsCaught = useCallback(
-    (item: ListDocuments, valueIscaught) => {
-      setKinships((oldKinships: any) =>
-        oldKinships.map((kinship: Kinships) => {
-          kinship.Documents = kinship.Documents.map((doc: ListDocuments) => {
-            return doc.DocumentId === item.DocumentId
-              ? {
-                  ...doc,
-                  IsCaught: valueIscaught,
-                }
-              : doc;
-          });
-          return kinship;
-        }),
-      );
+    async (item: ListDocuments, valueIscaught) => {
+      setLoading(true);
+
+      setLoading(false);
+
+      try {
+        setLoading(true);
+        const [response] = await AsyncStorage.multiGet([
+          '@appcidadania:response',
+        ]);
+
+        const Response = JSON.parse(response[1] || '{}');
+
+        setView(Response.User);
+
+        const [Items] = await AsyncStorage.multiGet(['@appcidadania:response']);
+        const req = JSON.parse(Items[1] || '{}');
+
+        setKinships((oldKinships: any) =>
+          oldKinships.map((kinship: Kinships) => {
+            kinship.Documents
+              ? (kinship.Documents = kinship.Documents.map(
+                  (doc: ListDocuments) => {
+                    return doc.DocumentId === item.DocumentId
+                      ? {
+                          ...doc,
+                          IsCaught: valueIscaught,
+                        }
+                      : doc;
+                  },
+                ))
+              : kinship.Documents;
+            return kinship;
+          }),
+        );
+
+        const params = {
+          Token: req.Request.Token,
+          TokenDevice: req.Request.TokenDevice,
+          DocumentId: item.DocumentId,
+          IsCaught: valueIscaught,
+        };
+        await api.post('updateDocument', params);
+
+        setLoading(false);
+      } catch (error) {
+        setLoading(false);
+        Alert.alert('Erro', 'Erro ao atualizar documento');
+      }
     },
     [],
   );
