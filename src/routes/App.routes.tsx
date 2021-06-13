@@ -13,6 +13,7 @@ import Mitos from './Mitos/Mitos.routes';
 import Passos2routes from './Passos2/Passos.routes';
 import Passos3routes, {Headerleft, Headerright} from './Passos3/Passos.routes';
 import Emissoes from '../pages/Passo3/Emissoes';
+import FinanceiroRoutes from './Financeiro/Financeiro.routes';
 
 const App = createStackNavigator();
 
@@ -50,6 +51,7 @@ const Approutes: React.FC = () => {
           },
         }}
       />
+      <App.Screen name="FinanceiroRoutes" component={FinanceiroRoutes} />
     </App.Navigator>
   );
 };

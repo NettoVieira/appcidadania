@@ -321,10 +321,13 @@ const Home: React.FC = () => {
           </ButtonsAjuda>
         </ContainerButtons1>
         <ContainerButtons1>
-          <ButtonsAjuda>
+          <ButtonsAjuda
+            onPress={() => {
+              navigation.navigate('FinanceiroRoutes');
+            }}>
             <ImageIcone source={IconeMoeda} />
             <ButtonContainer>
-              <ButtonsAjudaText>Templates úteis</ButtonsAjudaText>
+              <ButtonsAjudaText>Controle financeiro</ButtonsAjudaText>
             </ButtonContainer>
           </ButtonsAjuda>
           <ButtonsAjuda>
