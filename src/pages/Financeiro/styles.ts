@@ -1,5 +1,9 @@
 import styled from 'styled-components/native';
 import IconCusto from 'react-native-vector-icons/Feather';
+import {FlatList} from 'react-native';
+import Swipeable from 'react-native-gesture-handler/Swipeable';
+import {RectButton} from 'react-native-gesture-handler';
+import {List} from './index';
 
 export const Container = styled.ScrollView`
   flex: 1;
@@ -57,7 +61,6 @@ export const Body = styled.View`
 `;
 
 export const Subtitle = styled.Text`
-  margin-top: 18px;
   font-family: 'Poppins-Regular';
   color: #b2b2b2;
   font-size: 14px;
@@ -69,9 +72,7 @@ export const ContainerTitle = styled.View`
 
 export const AddDocs = styled.TouchableOpacity`
   flex-direction: row;
-  margin-left: 3%;
-  align-items: center;
-  justify-content: center;
+
   margin-bottom: 8px;
 `;
 
@@ -82,4 +83,131 @@ export const AddDocsText = styled.Text`
   margin-left: 6px;
 `;
 
+export const ItemsList = styled(FlatList as new () => FlatList<List>)``;
+
 export const IconList = styled(IconCusto)``;
+
+export const ListFinances = styled.View`
+  width: 85%;
+`;
+
+export const ContainerList = styled.View`
+  justify-content: center;
+  height: 87px;
+`;
+
+export const ContainerListHeader = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+`;
+
+export const TitleFinances = styled.Text`
+  font-size: 16px;
+  font-family: 'Poppins-Medium';
+  color: #101010;
+`;
+
+export const ValueFinances = styled.Text`
+  font-size: 16px;
+  font-family: 'Poppins-Medium';
+`;
+
+export const Description = styled.Text`
+  font-family: 'Poppins-Regular';
+  font-size: 12px;
+  color: #6d6d78;
+`;
+export const Continue = styled.TouchableOpacity``;
+
+export const ContinueText = styled.Text`
+  font-size: 12px;
+  font-family: 'Poppins-Regular';
+  color: #f09d4c;
+`;
+
+export const Modal = styled.Modal`
+  flex: 1;
+  height: 100px;
+`;
+
+export const HeaderModal = styled.View`
+  width: 100%;
+
+  padding-left: 10px;
+`;
+
+export const ButtonClose = styled.TouchableOpacity``;
+
+export const IconClose = styled(IconCusto)``;
+
+export const Item = styled(Swipeable)``;
+
+export const ItemButton = styled(RectButton)`
+  align-items: center;
+  justify-content: center;
+  background-color: #e84941;
+  height: 57px;
+  width: 50px;
+`;
+
+export const ItemButtonKinship = styled(RectButton)`
+  align-items: center;
+  justify-content: center;
+  background-color: #e84941;
+  height: 65px;
+  width: 50px;
+`;
+
+export const ItemButtonText = styled(Icon)`
+  color: #ffffff;
+`;
+
+export const BodyModal = styled.View`
+  width: 100%;
+  margin-top: 10px;
+  height: 350px;
+`;
+
+export const ContainerTextModal = styled.View`
+  width: 100%;
+  margin-left: 10px;
+`;
+
+export const ContainerInputs = styled.View`
+  width: 100%;
+  justify-content: center;
+`;
+
+export const ContainerTextArea = styled.View`
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+`;
+
+export const TextAreaView = styled.View`
+  border: #b2b2b2;
+  width: 93%;
+  height: 150px;
+  border-radius: 10px;
+`;
+
+export const TextAreaInput = styled.TextInput``;
+
+export const FooterModal = styled.View`
+  width: 100%;
+`;
+
+export const ButtonContinua = styled.TouchableOpacity`
+  background-color: #f09d4c;
+  justify-content: center;
+  align-items: center;
+  height: 55px;
+  border-radius: 10px;
+  margin: 16px 20px 20px 16px;
+`;
+
+export const ButtonText = styled.Text`
+  font-size: 18px;
+  color: #fff;
+  font-family: 'Poppins-Medium';
+`;
