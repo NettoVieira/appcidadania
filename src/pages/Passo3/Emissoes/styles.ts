@@ -87,7 +87,7 @@ export const Container = styled.ScrollView`
 
 export const ContainerHeader = styled.View`
   flex-direction: row;
-
+  justify-content: space-between;
   margin-left: 5%;
 `;
 
@@ -266,4 +266,11 @@ export const ContainerGrid = styled.View`
   height: 50px;
   justify-content: center;
   align-items: center;
+`;
+
+export const ButtonGerir = styled.TouchableOpacity``;
+
+export const Gerir = styled.Image`
+  width: 148px;
+  height: 40px;
 `;

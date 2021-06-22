@@ -67,12 +67,12 @@ export const Subtitle = styled.Text`
 `;
 
 export const ContainerTitle = styled.View`
-  width: 85%;
+  width: 60%;
 `;
 
 export const AddDocs = styled.TouchableOpacity`
   flex-direction: row;
-
+  margin-top: 15px;
   margin-bottom: 8px;
 `;
 
@@ -91,7 +91,7 @@ export const ListFinances = styled.View`
   width: 85%;
 `;
 
-export const ContainerList = styled.View`
+export const ContainerList = styled(Swipeable)`
   justify-content: center;
   height: 87px;
 `;
@@ -108,7 +108,7 @@ export const TitleFinances = styled.Text`
 `;
 
 export const ValueFinances = styled.Text`
-  font-size: 16px;
+  font-size: 14px;
   font-family: 'Poppins-Medium';
 `;
 
@@ -154,11 +154,12 @@ export const ItemButtonKinship = styled(RectButton)`
   align-items: center;
   justify-content: center;
   background-color: #e84941;
-  height: 65px;
-  width: 50px;
+  height: 70px;
+  width: 70px;
+  margin-right: 10px;
 `;
 
-export const ItemButtonText = styled(Icon)`
+export const ItemButtonText = styled(IconCusto)`
   color: #ffffff;
 `;
 
@@ -210,4 +211,34 @@ export const ButtonText = styled.Text`
   font-size: 18px;
   color: #fff;
   font-family: 'Poppins-Medium';
+`;
+
+export const Bodyheader = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  width: 85%;
+`;
+
+export const ButtonGerir = styled.TouchableOpacity``;
+
+export const Gerir = styled.Image`
+  width: 148px;
+  height: 40px;
+`;
+
+export const ButtonContinue = styled.TouchableOpacity`
+  justify-content: center;
+  align-items: center;
+  background-color: #fae8e8;
+  height: 50px;
+  margin-bottom: 10%;
+  margin-left: 7%;
+  margin-right: 7%;
+  border-radius: 10px;
+`;
+
+export const ButtonContinueText = styled.Text`
+  font-size: 18px;
+  font-family: 'Poppins-Medium';
+  color: #db822b;
 `;

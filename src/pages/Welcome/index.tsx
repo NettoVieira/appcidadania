@@ -14,14 +14,19 @@ const Welcome: React.FC = () => {
   const navigate = useNavigation();
   const [name, setName] = useState('');
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    DeviceInfo.getDeviceToken().then(async (token) => {
+      console.log(token);
+    });
+  }, []);
 
   const handleCreateUser = useCallback(async () => {
     const item = DeviceInfo.getAndroidId().then(async (androidId) => {
       console.log(androidId);
       const data = {
         Token: '5dej8kij77diek8tqmirkdiploiks4JJSud78G',
-        TokenDevice: androidId,
+        TokenDevice:
+          '0c8a753f9ba81fa8959d51e9680d1ae3c6489949337a75d538d23a3513c9f487',
         Name: name,
         Step: 1,
         Task: 1,

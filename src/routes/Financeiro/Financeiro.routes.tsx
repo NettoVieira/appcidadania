@@ -4,6 +4,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {useNavigation} from '@react-navigation/native';
 
 import Financeiro from '../../pages/Financeiro';
+import Continuar from '../../pages/Financeiro/Continuar';
 
 import {
   Container,
@@ -67,6 +68,7 @@ const Intruducaoroutes: React.FC = () => {
         // eslint-disable-next-line react/jsx-closing-bracket-location
       }}>
       <App.Screen name="Financeiro" component={Financeiro} />
+      <App.Screen name="Continuar" component={Continuar} />
     </App.Navigator>
   );
 };

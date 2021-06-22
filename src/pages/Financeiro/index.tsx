@@ -1,13 +1,17 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-closing-bracket-location */
 /* eslint-disable @typescript-eslint/no-use-before-define */
+/* eslint-disable no-unused-expressions */
 
-import React, {useEffect, useState} from 'react';
+import React, {useState, useCallback} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useFocusEffect, useNavigation} from '@react-navigation/native';
+import {View, Alert, StyleSheet, Share} from 'react-native';
 
-import {View, Alert, StyleSheet} from 'react-native';
 import api from '../../services/api';
 import IconSifrao from '../../assets/sifrao.png';
 import Banner from '../../Components/Banner';
+import Load from '../../Components/Loading';
 
 import {
   Container,
@@ -41,14 +45,21 @@ import {
   ContainerTextModal,
   BodyModal,
   ContainerInputs,
-  TextAreaInput,
-  TextAreaView,
-  ContainerTextArea,
   FooterModal,
   ButtonContinua,
   ButtonText,
+  Bodyheader,
+  ButtonGerir,
+  Gerir,
+  ItemButtonKinship,
+  ItemButtonText,
+  ButtonContinue,
+  ButtonContinueText,
 } from './styles';
+
 import Input from '../../Components/react-native-input-style/input/Input';
+
+import Geririmg from '../../assets/gerir_enable.png';
 
 interface Finance {
   List: List[];
@@ -63,10 +74,118 @@ export interface List {
 }
 
 const Financeiro: React.FC = () => {
+  const navigation = useNavigation();
+
   const [finance, setFinance] = useState<Finance>();
   const [modalVisible, setModalVisible] = useState(false);
-  useEffect(() => {
-    async function getItem() {
+  const [custo, setCusto] = useState();
+  const [valor, setValor] = useState<number>();
+  const [descricao, setDescricao] = useState();
+  const [loading, setLoading] = useState(false);
+  const [isEditing, setEditing] = useState(false);
+
+  useFocusEffect(
+    useCallback(() => {
+      async function getItem() {
+        setLoading(true);
+        const [Items] = await AsyncStorage.multiGet(['@appcidadania:response']);
+        const req = JSON.parse(Items[1] || '{}');
+
+        const params = {
+          Token: req.Request.Token,
+          TokenDevice: req.Request.TokenDevice,
+        };
+
+        try {
+          const res = await api.post('financeList', params);
+
+          setFinance(res.data.Finance);
+
+          setLoading(false);
+        } catch (error) {
+          setLoading(false);
+          console.log(error);
+        }
+      }
+
+      getItem();
+    }, []),
+  );
+
+  // useEffect(() => {
+  //   async function getItem() {
+  //     setLoading(true);
+  //     const [Items] = await AsyncStorage.multiGet(['@appcidadania:response']);
+  //     const req = JSON.parse(Items[1] || '{}');
+
+  //     const params = {
+  //       Token: req.Request.Token,
+  //       TokenDevice: req.Request.TokenDevice,
+  //     };
+
+  //     try {
+  //       const res = await api.post('financeList', params);
+
+  //       setFinance(res.data.Finance);
+
+  //       setLoading(false);
+  //     } catch (error) {
+  //       setLoading(false);
+  //       console.log(error);
+  //     }
+  //   }
+
+  //   getItem();
+  // }, []);
+
+  const handleAdicionaCusto = useCallback(async () => {
+    setLoading(true);
+    const [Items] = await AsyncStorage.multiGet(['@appcidadania:response']);
+    const req = JSON.parse(Items[1] || '{}');
+
+    const params = {
+      Token: req.Request.Token,
+      TokenDevice: req.Request.TokenDevice,
+      Name: custo,
+      Value: Number(valor),
+      Description: descricao,
+    };
+
+    try {
+      const response = await api.post('financeAdd', params);
+
+      setFinance(response.data.Finance);
+      setModalVisible(false);
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+    }
+  }, [custo, descricao, valor]);
+
+  const handleDeletaCusto = useCallback(async (item: any) => {
+    setLoading(true);
+    const [Items] = await AsyncStorage.multiGet(['@appcidadania:response']);
+    const req = JSON.parse(Items[1] || '{}');
+
+    const params = {
+      Token: req.Request.Token,
+      TokenDevice: req.Request.TokenDevice,
+      Id: item.id,
+    };
+
+    try {
+      const response = await api.post('financeDelete', params);
+
+      setFinance(response.data.Finance);
+      setModalVisible(false);
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+    }
+  }, []);
+
+  const handleCompartilharPdf = useCallback(async () => {
+    try {
       const [Items] = await AsyncStorage.multiGet(['@appcidadania:response']);
       const req = JSON.parse(Items[1] || '{}');
 
@@ -75,13 +194,28 @@ const Financeiro: React.FC = () => {
         TokenDevice: req.Request.TokenDevice,
       };
 
-      const res = await api.post('financeList', params);
-
-      setFinance(res.data.Finance);
+      const response = await api.post('financeExport', params);
+      Share.share({
+        url: response.data.path,
+        title: 'PDF',
+        message: 'Compartilhar pdf',
+      });
+    } catch (error) {
+      throw new Error('Erro ao gerar pdf');
     }
-
-    getItem();
   }, []);
+
+  const LeftActionKinshp: React.FC = ({children}) => {
+    return (
+      <ItemButtonKinship onPress={() => handleDeletaCusto(children)}>
+        <ItemButtonText name="trash-2" size={22} color="#fff" />
+      </ItemButtonKinship>
+    );
+  };
+
+  if (loading) {
+    return <Load />;
+  }
 
   return (
     <>
@@ -123,7 +257,7 @@ const Financeiro: React.FC = () => {
                       color: '#b2b2b2',
                     }}
                     onInputChange={(item: any) => {
-                      console.log(item);
+                      setCusto(item);
                     }}
                     contain=""
                     initialValue=""
@@ -136,14 +270,14 @@ const Financeiro: React.FC = () => {
                   </Subtitle>
                   <Input
                     id="valor"
-                    label="Adicionar notas"
+                    label="R$ 0,00"
                     labelStyle={{
                       fontFamily: 'Poppins-Regular',
                       color: '#b2b2b2',
                     }}
                     keyboardType="default"
                     onInputChange={(item: any) => {
-                      console.log(item);
+                      setValor(item);
                     }}
                     contain=""
                     initialValue=""
@@ -153,16 +287,16 @@ const Financeiro: React.FC = () => {
                   />
 
                   <Input
-                    id="valor"
+                    id="notas"
                     inputStyle={{height: 80, marginTop: 10}}
-                    label="Valor"
+                    label="Adicionar notas"
                     labelStyle={{
                       fontFamily: 'Poppins-Regular',
                       color: '#b2b2b2',
                     }}
                     keyboardType="default"
                     onInputChange={(item: any) => {
-                      console.log(item);
+                      setDescricao(item);
                     }}
                     contain=""
                     initialValue=""
@@ -173,7 +307,7 @@ const Financeiro: React.FC = () => {
                 </ContainerInputs>
               </BodyModal>
               <FooterModal>
-                <ButtonContinua>
+                <ButtonContinua onPress={handleAdicionaCusto}>
                   <ButtonText>Adicionar custo</ButtonText>
                 </ButtonContinua>
               </FooterModal>
@@ -189,31 +323,57 @@ const Financeiro: React.FC = () => {
               <DescCusto>Custo total até agora</DescCusto>
               <Valor>
                 R$
-                {finance?.Total}
+                {finance?.Total.toFixed(2).replace(
+                  /(\d)(?=(\d{3})+(?!\d))/g,
+                  '$1.',
+                )}
               </Valor>
             </ContainerText>
           </ContainerCusto>
         </Header>
         <Body>
-          <ContainerTitle>
-            <Subtitle>Crie seu checklist</Subtitle>
-            <Title>Financeiro</Title>
-          </ContainerTitle>
+          <Bodyheader>
+            <ContainerTitle>
+              <Subtitle>Crie seu checklist</Subtitle>
+              <Title>Financeiro</Title>
+            </ContainerTitle>
+            <ButtonGerir
+              onPress={() => {
+                // eslint-disable-next-line no-unused-expressions
+                isEditing ? setEditing(false) : setEditing(true);
+              }}>
+              <Gerir source={Geririmg} />
+            </ButtonGerir>
+          </Bodyheader>
           <ListFinances>
             <ItemsList
               data={finance?.List}
               keyExtractor={(_, index) => index.toString()}
               renderItem={({item}) => (
-                <ContainerList>
+                <ContainerList
+                  ref={(ref) => {
+                    isEditing ? ref?.openLeft() : ref?.close();
+                  }}
+                  activeOffsetX={[0, 1]}
+                  renderLeftActions={() => {
+                    return <LeftActionKinshp>{item}</LeftActionKinshp>;
+                  }}>
                   <ContainerListHeader>
                     <TitleFinances>{item.name}</TitleFinances>
                     <ValueFinances>
                       R$
-                      {item.value}
+                      {item.value
+                        ? item.value
+                            .toFixed(2)
+                            .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+                        : 0}
                     </ValueFinances>
                   </ContainerListHeader>
                   <Description>{item.description}</Description>
-                  <Continue>
+                  <Continue
+                    onPress={() => {
+                      navigation.navigate('Continuar', {item});
+                    }}>
                     <ContinueText>Continuar lendo</ContinueText>
                   </Continue>
                 </ContainerList>
@@ -230,6 +390,9 @@ const Financeiro: React.FC = () => {
           </ListFinances>
         </Body>
       </Container>
+      <ButtonContinue onPress={handleCompartilharPdf}>
+        <ButtonContinueText>Compartilhar</ButtonContinueText>
+      </ButtonContinue>
       <Banner unitid="ca-app-pub-9617296364015895/2996859856" />
     </>
   );

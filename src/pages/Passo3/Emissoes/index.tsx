@@ -8,7 +8,7 @@
 /* eslint-disable react/jsx-closing-bracket-location */
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useRef, useState} from 'react';
 import {Alert, Linking, StyleSheet, Switch, View} from 'react-native';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import Banner from '../../../Components/Banner';
@@ -64,7 +64,11 @@ import {
   AdicionarText,
   ItemButtonText,
   ItemButtonKinship,
+  Gerir,
+  ButtonGerir,
 } from './styles';
+
+import Geririmg from '../../../assets/gerir_enable.png';
 
 interface Usuario extends Object {
   Name: string;
@@ -96,6 +100,7 @@ const Emissoes: React.FC = () => {
   const [view, setView] = useState<Usuario>();
   const [kinships, setKinships] = useState<Kinships[]>([]);
   const [loading, setLoading] = useState(false);
+  const swipeableRef = useRef<Swipeable>(null);
 
   const [modalVisible, setModalVisible] = useState<Modal>({
     isVisible: false,
@@ -128,19 +133,17 @@ const Emissoes: React.FC = () => {
         try {
           const {data} = await api.post('getDocuments', params);
 
-          const kinships = data.Kinships.map(
-            (item: Kinships, index: any, array: any) => {
-              const list = {
-                Documents: item.Documents,
-                Name: item.Name,
-                ParentId: item.ParentId,
-                ParentType: item.ParentType,
-                isVisibleGrid: false,
-              };
+          const kinships = data.Kinships.map((item: Kinships) => {
+            const list = {
+              Documents: item.Documents,
+              Name: item.Name,
+              ParentId: item.ParentId,
+              ParentType: item.ParentType,
+              isVisibleGrid: false,
+            };
 
-              return list;
-            },
-          );
+            return list;
+          });
 
           setKinships(kinships);
           setLoading(false);
@@ -474,6 +477,12 @@ const Emissoes: React.FC = () => {
             <Subtitle>Crie seu checklist</Subtitle>
             <Title>Emissões</Title>
           </ContainerTitle>
+          <ButtonGerir
+            onPress={() => {
+              swipeableRef.current?.openLeft();
+            }}>
+            <Gerir source={Geririmg} />
+          </ButtonGerir>
         </ContainerHeader>
         <ContainerList>
           <ItemsList
@@ -481,9 +490,9 @@ const Emissoes: React.FC = () => {
             keyExtractor={(_, index) => index.toString()}
             renderItem={({item, index}) => (
               <>
-                <Item
+                <Swipeable
+                  ref={swipeableRef}
                   activeOffsetX={[0, 1]}
-                  overshootLeft={false}
                   renderLeftActions={(a) => {
                     return <LeftActionKinshp />;
                   }}>
@@ -521,7 +530,7 @@ const Emissoes: React.FC = () => {
                       )}
                     </ContainerIcon>
                   </ContainerListItem>
-                </Item>
+                </Swipeable>
                 {item.isVisibleGrid ? (
                   <ContainerListGrid>
                     <ListDocs
@@ -540,6 +549,7 @@ const Emissoes: React.FC = () => {
                           )}
 
                           <Swipeable
+                            ref={swipeableRef}
                             activeOffsetX={[0, 1]}
                             overshootLeft={false}
                             renderLeftActions={() => (
