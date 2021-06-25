@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react/jsx-closing-bracket-location */
 /* eslint-disable @typescript-eslint/no-use-before-define */
 /* eslint-disable react/prop-types */
@@ -46,27 +47,28 @@ export interface List {
 const Continuar: React.FC = ({route}: any) => {
   const navigation = useNavigation();
 
-  const [items, setItems] = useState<List>(route.params.item);
+  const [items, _] = useState<List>(route.params.item);
   const [modalVisible, setModalVisible] = useState(false);
-  const [custo, setCusto] = useState();
-  const [valor, setValor] = useState<number>();
+  const [name, setName] = useState(route.params.item.name);
+  const [valor, setValor] = useState<number>(route.params.item.value);
   const [loading, setLoading] = useState(false);
-  const [descricao, setDescricao] = useState();
+  const [descricao, setDescricao] = useState(route.params.item.description);
 
   const handleAdicionaCusto = useCallback(async () => {
     setLoading(true);
     const [Items] = await AsyncStorage.multiGet(['@appcidadania:response']);
     const req = JSON.parse(Items[1] || '{}');
 
-    const params = {
-      Token: req.Request.Token,
-      TokenDevice: req.Request.TokenDevice,
-      Name: custo,
-      Value: Number(valor),
-      Description: descricao,
-    };
-
     try {
+      const params = {
+        Token: req.Request.Token,
+        TokenDevice: req.Request.TokenDevice,
+        Id: items.id,
+        Name: name,
+        Value: valor,
+        Description: descricao,
+      };
+
       await api.post('financeUpdate', params);
 
       setModalVisible(false);
@@ -75,7 +77,7 @@ const Continuar: React.FC = ({route}: any) => {
     } catch (error) {
       setLoading(false);
     }
-  }, [custo, descricao, navigation, valor]);
+  }, [items.id, name, valor, descricao, navigation]);
 
   if (loading) {
     return <Load />;
@@ -119,7 +121,7 @@ const Continuar: React.FC = ({route}: any) => {
                     color: '#b2b2b2',
                   }}
                   onInputChange={(item: any) => {
-                    setCusto(item);
+                    setName(item);
                   }}
                   contain=""
                   initialValue={items.name}
