@@ -132,8 +132,6 @@ export const Modal = styled.Modal`
 
 export const HeaderModal = styled.View`
   width: 100%;
-
-  padding-left: 10px;
 `;
 
 export const ButtonClose = styled.TouchableOpacity``;
@@ -196,6 +194,8 @@ export const TextAreaInput = styled.TextInput``;
 
 export const FooterModal = styled.View`
   width: 100%;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const ButtonContinua = styled.TouchableOpacity`
@@ -203,8 +203,9 @@ export const ButtonContinua = styled.TouchableOpacity`
   justify-content: center;
   align-items: center;
   height: 55px;
+  width: 93%;
+  margin-top: 12px;
   border-radius: 10px;
-  margin: 16px 20px 20px 16px;
 `;
 
 export const ButtonText = styled.Text`
@@ -216,10 +217,13 @@ export const ButtonText = styled.Text`
 export const Bodyheader = styled.View`
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
   width: 85%;
 `;
 
-export const ButtonGerir = styled.TouchableOpacity``;
+export const ButtonGerir = styled.TouchableOpacity`
+  margin-top: 18px;
+`;
 
 export const Gerir = styled.Image`
   width: 148px;

@@ -3,7 +3,7 @@ import Icon from 'react-native-vector-icons/Feather';
 
 export const Container = styled.View`
   margin-top: 15%;
-  padding: 5%;
+  padding: 24px;
   flex: 1;
 `;
 
@@ -114,6 +114,7 @@ export const GoBack = styled.TouchableOpacity`
   flex-direction: row;
   align-items: center;
   margin-top: 20px;
+  width: 100%;
   margin-bottom: 20px;
 `;
 
@@ -124,7 +125,7 @@ export const Text = styled.Text`
 `;
 
 export const GoBackIcon = styled(Icon)`
-  margin-left: 2%;
+  margin-left: 1%;
 `;
 
 export const Button = styled.TouchableOpacity`
@@ -157,7 +158,7 @@ export const StatusConcluido = styled.Text`
   background-color: #dbe9ee;
   border-radius: 20px;
   text-align: center;
-  margin-left: 30px;
+
   width: 65px;
   height: 16px;
 `;
@@ -169,7 +170,7 @@ export const StatusPendente = styled.Text`
   background-color: #fae8e8;
   border-radius: 20px;
   text-align: center;
-  margin-left: 30px;
+
   width: 65px;
   height: 16px;
 `;

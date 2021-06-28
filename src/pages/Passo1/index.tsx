@@ -230,49 +230,49 @@ const Passo1: React.FC = () => {
           onPress={() => {
             navigation.navigate('Planob');
           }}>
-          <ButtonImg source={Planob} style={{width: 410, height: 80}} />
+          <ButtonImg source={Planob} style={{width: 360, height: 80}} />
         </Button>
         <Button
           onPress={() => {
             navigation.navigate('Oportunidade');
           }}>
-          <ButtonImg source={Oportunidade} style={{width: 410, height: 80}} />
+          <ButtonImg source={Oportunidade} style={{width: 360, height: 80}} />
         </Button>
         <Button
           onPress={() => {
             navigation.navigate('Emprego');
           }}>
-          <ButtonImg source={Emprego} style={{width: 410, height: 80}} />
+          <ButtonImg source={Emprego} style={{width: 360, height: 80}} />
         </Button>
         <Button
           onPress={() => {
             navigation.navigate('Ensino');
           }}>
-          <ButtonImg source={Estudo} style={{width: 410, height: 80}} />
+          <ButtonImg source={Estudo} style={{width: 360, height: 80}} />
         </Button>
         <Button
           onPress={() => {
             navigation.navigate('Beneficios');
           }}>
-          <ButtonImg source={Beneficios} style={{width: 410, height: 80}} />
+          <ButtonImg source={Beneficios} style={{width: 360, height: 80}} />
         </Button>
         <Button
           onPress={() => {
             navigation.navigate('Facilidade');
           }}>
-          <ButtonImg source={Facilidade} style={{width: 410, height: 80}} />
+          <ButtonImg source={Facilidade} style={{width: 360, height: 80}} />
         </Button>
         <Button
           onPress={() => {
             navigation.navigate('Heranca');
           }}>
-          <ButtonImg source={heranca} style={{width: 410, height: 80}} />
+          <ButtonImg source={heranca} style={{width: 360, height: 80}} />
         </Button>
         <Button
           onPress={() => {
             navigation.navigate('Aposentadoria');
           }}>
-          <ButtonImg source={Aposentadoria} style={{width: 410, height: 80}} />
+          <ButtonImg source={Aposentadoria} style={{width: 360, height: 80}} />
         </Button>
 
         <SubTitle>

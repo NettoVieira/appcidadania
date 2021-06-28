@@ -6,12 +6,14 @@
 import React, {useState, useCallback} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
-import {View, Alert, StyleSheet, Share} from 'react-native';
+import {View, Alert, StyleSheet} from 'react-native';
+import Share from 'react-native-share';
 
 import api from '../../services/api';
 import IconSifrao from '../../assets/sifrao.png';
 import Banner from '../../Components/Banner';
 import Load from '../../Components/Loading';
+import image from '../../images/images';
 
 import {
   Container,
@@ -195,13 +197,20 @@ const Financeiro: React.FC = () => {
       };
 
       const response = await api.post('financeExport', params);
-      Share.share({
-        url: response.data.path,
-        title: 'PDF',
-        message: 'Compartilhar pdf',
-      });
+
+      const shareOptions = {
+        title: 'Vim do appcidadania',
+        failOnCancel: false,
+        saveToFiles: true,
+        url: image.pdf1, // base64 with mimeType or path to local file
+      };
+
+      console.log(shareOptions);
+
+      const ShareResponse = await Share.open(shareOptions);
+      console.log(ShareResponse);
     } catch (error) {
-      throw new Error('Erro ao gerar pdf');
+      console.log(error);
     }
   }, []);
 
@@ -411,7 +420,8 @@ const styles = StyleSheet.create({
     width: 390,
     backgroundColor: 'white',
     borderRadius: 20,
-
+    paddingLeft: 24,
+    paddingRight: 24,
     alignItems: 'center',
     shadowColor: '#000',
     shadowOffset: {

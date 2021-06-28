@@ -214,6 +214,7 @@ const styles = StyleSheet.create({
     width: 390,
     backgroundColor: 'white',
     borderRadius: 20,
+    padding: 8,
 
     alignItems: 'center',
     shadowColor: '#000',
