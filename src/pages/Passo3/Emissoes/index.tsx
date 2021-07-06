@@ -10,6 +10,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import React, {useCallback, useRef, useState} from 'react';
 import {Alert, Linking, StyleSheet, Switch, View} from 'react-native';
+import Share from 'react-native-share';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import Banner from '../../../Components/Banner';
 import Load from '../../../Components/Loading';
@@ -100,6 +101,7 @@ const Emissoes: React.FC = () => {
   const [view, setView] = useState<Usuario>();
   const [kinships, setKinships] = useState<Kinships[]>([]);
   const [loading, setLoading] = useState(false);
+  const [isediting, setEditing] = useState(false);
   const swipeableRef = useRef<Swipeable>(null);
 
   const [modalVisible, setModalVisible] = useState<Modal>({
@@ -370,10 +372,18 @@ const Emissoes: React.FC = () => {
       Token: req.Request.Token,
       TokenDevice: req.Request.TokenDevice,
     };
-    const res = await api.post('exportDocuments', params);
-    console.log(res.data);
 
-    Linking.openURL(res.data.path);
+    const res = await api.post('exportDocuments', params);
+    console.log(res.data.pdf);
+
+    const shareOptions = {
+      title: 'Vim do appcidadania',
+      failOnCancel: false,
+      saveToFiles: true,
+      url: `data:application/pdf;base64,${res.data.pdf}`, // base64 with mimeType or path to local file
+    };
+
+    await Share.open(shareOptions);
 
     navigation.navigate('Home');
   }, [navigation]);
@@ -479,7 +489,7 @@ const Emissoes: React.FC = () => {
           </ContainerTitle>
           <ButtonGerir
             onPress={() => {
-              swipeableRef.current?.openLeft();
+              setEditing(!isediting);
             }}>
             <Gerir source={Geririmg} />
           </ButtonGerir>
@@ -491,7 +501,9 @@ const Emissoes: React.FC = () => {
             renderItem={({item, index}) => (
               <>
                 <Swipeable
-                  ref={swipeableRef}
+                  ref={(ref) => {
+                    isediting ? ref?.openLeft() : ref?.close();
+                  }}
                   activeOffsetX={[0, 1]}
                   renderLeftActions={(a) => {
                     return <LeftActionKinshp />;
@@ -549,7 +561,9 @@ const Emissoes: React.FC = () => {
                           )}
 
                           <Swipeable
-                            ref={swipeableRef}
+                            ref={(ref) => {
+                              isediting ? ref?.openLeft() : ref?.close();
+                            }}
                             activeOffsetX={[0, 1]}
                             overshootLeft={false}
                             renderLeftActions={() => (

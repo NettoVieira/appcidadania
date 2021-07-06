@@ -62,6 +62,7 @@ export const ModalTitle = styled.Text`
   text-align: center;
   font-family: 'Poppins-Regular';
   color: #172239;
+  margin-top: 10px;
   font-weight: 900;
 `;
 

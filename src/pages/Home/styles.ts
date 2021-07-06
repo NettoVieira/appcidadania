@@ -1,8 +1,10 @@
+import {RectButton} from 'react-native-gesture-handler';
 import styled from 'styled-components/native';
 
 export const Container = styled.ScrollView`
   flex: 1;
   background-color: #fff;
+  padding: 2px;
 `;
 
 export const Name = styled.Text`
@@ -19,7 +21,7 @@ export const Ciao = styled.Text`
   font-family: 'Poppins-Regular';
 `;
 
-export const ContainerPasso = styled.TouchableOpacity`
+export const ContainerPasso = styled(RectButton)`
   background-color: #f8f8f8;
   border-radius: 15px;
   margin-bottom: 25px;
@@ -135,12 +137,12 @@ export const ContainerHeader = styled.View`
 `;
 
 export const PassoTextBold = styled.Text`
-  font-size: 20px;
+  font-size: 16px;
   font-family: 'Poppins-SemiBold';
 `;
 
 export const TextFooter = styled.Text`
-  font-size: 14px;
+  font-size: 12px;
   font-family: 'Poppins-Regular';
   color: #6d6d78;
 
@@ -158,7 +160,7 @@ export const ButtonsAjuda = styled.TouchableOpacity`
   height: 80px;
   background-color: #fdf5ed;
   border: #f09d4c;
-  width: 180px;
+  width: 160px;
   margin: 5px;
   flex-direction: row;
   border-radius: 50px;
@@ -175,7 +177,7 @@ export const ButtonContainer = styled.View`
 
 export const ButtonsAjudaText = styled.Text`
   color: #6d6d78;
-  font-size: 14px;
+  font-size: 11px;
 
   font-family: 'Poppins-Regular';
 `;
@@ -193,10 +195,10 @@ export const ContainerFooter = styled.View`
   justify-content: center;
 `;
 
-export const ButtonFooter = styled.TouchableOpacity`
+export const ButtonFooter = styled(RectButton)`
   background-color: #f8f8f8;
   height: 240px;
-  width: 180px;
+  width: 160px;
   margin: 0 5px 0 5px;
 
   border-radius: 15px;
@@ -217,14 +219,14 @@ export const ButtonFooterImage = styled.Image`
 
 export const ButtonFooterText = styled.Text`
   margin-top: 5px;
-  font-size: 14px;
+  font-size: 12px;
   color: #6d6d78;
   font-family: 'Poppins-Regular';
   margin-left: 16px;
 `;
 
 export const ButtonFooterTextBold = styled.Text`
-  font-size: 20px;
+  font-size: 16px;
   color: #172239;
   font-family: 'Poppins-SemiBold';
   margin-left: 16px;

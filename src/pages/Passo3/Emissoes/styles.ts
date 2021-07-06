@@ -109,23 +109,24 @@ export const ContainerList = styled.View`
 `;
 
 export const ColumsSolicitado = styled.Text`
-  margin-left: 53%;
-  font-size: 13px;
+  margin-left: 51%;
+  font-size: 12px;
   font-family: 'Poppins-Regular';
   color: #a2a2a2;
 `;
 
 export const Colums = styled.Text`
   margin-left: 3%;
-  font-size: 13px;
+  font-size: 12px;
   font-family: 'Poppins-Regular';
   color: #a2a2a2;
 `;
 
 export const ColumsTipo = styled.Text`
-  font-size: 13px;
+  font-size: 12px;
   font-family: 'Poppins-Regular';
   color: #a2a2a2;
+  margin-left: 2%;
 `;
 
 export const ContainerColums = styled.View`
@@ -144,7 +145,7 @@ export const ContainerFlatList = styled.View`
 `;
 
 export const Descricao = styled.Text`
-  font-size: 15px;
+  font-size: 16px;
   font-family: 'Poppins-Regular';
 `;
 
@@ -165,7 +166,7 @@ export const AddDocsText = styled.Text`
 export const ButtonAddName = styled.TouchableOpacity``;
 
 export const ButtonAddNameText = styled.Text`
-  font-size: 13px;
+  font-size: 12px;
   font-family: 'Poppins-Regular';
 `;
 
@@ -185,7 +186,7 @@ export const ContainerDescricao = styled.View`
   width: 60%;
 `;
 
-export const ButtonContinua = styled.TouchableOpacity`
+export const ButtonContinua = styled(RectButton)`
   background-color: #f09d4c;
   justify-content: center;
   align-items: center;
@@ -194,7 +195,7 @@ export const ButtonContinua = styled.TouchableOpacity`
   margin: 16px 20px 20px 16px;
 `;
 
-export const ButtonFechar = styled.TouchableOpacity`
+export const ButtonFechar = styled(RectButton)`
   background-color: #fae8e8;
   justify-content: center;
   align-items: center;
@@ -244,7 +245,7 @@ export const ContainerListItem = styled(RectButton)`
 `;
 
 export const TitleList = styled.Text`
-  font-size: 18px;
+  font-size: 16px;
   font-family: 'Poppins-Medium';
   color: #212121;
 `;

@@ -13,7 +13,6 @@ import api from '../../services/api';
 import IconSifrao from '../../assets/sifrao.png';
 import Banner from '../../Components/Banner';
 import Load from '../../Components/Loading';
-import image from '../../images/images';
 
 import {
   Container,
@@ -64,8 +63,8 @@ import Input from '../../Components/react-native-input-style/input/Input';
 import Geririmg from '../../assets/gerir_enable.png';
 
 interface Finance {
-  List: List[];
   Total: number;
+  List: List[];
 }
 
 export interface List {
@@ -113,32 +112,6 @@ const Financeiro: React.FC = () => {
       getItem();
     }, []),
   );
-
-  // useEffect(() => {
-  //   async function getItem() {
-  //     setLoading(true);
-  //     const [Items] = await AsyncStorage.multiGet(['@appcidadania:response']);
-  //     const req = JSON.parse(Items[1] || '{}');
-
-  //     const params = {
-  //       Token: req.Request.Token,
-  //       TokenDevice: req.Request.TokenDevice,
-  //     };
-
-  //     try {
-  //       const res = await api.post('financeList', params);
-
-  //       setFinance(res.data.Finance);
-
-  //       setLoading(false);
-  //     } catch (error) {
-  //       setLoading(false);
-  //       console.log(error);
-  //     }
-  //   }
-
-  //   getItem();
-  // }, []);
 
   const handleAdicionaCusto = useCallback(async () => {
     setLoading(true);
@@ -198,19 +171,18 @@ const Financeiro: React.FC = () => {
 
       const response = await api.post('financeExport', params);
 
+      console.log(response.data.pdf);
+
       const shareOptions = {
         title: 'Vim do appcidadania',
         failOnCancel: false,
         saveToFiles: true,
-        url: image.pdf1, // base64 with mimeType or path to local file
+        url: `data:application/pdf;base64,${response.data.pdf}`, // base64 with mimeType or path to local file
       };
 
-      console.log(shareOptions);
-
-      const ShareResponse = await Share.open(shareOptions);
-      console.log(ShareResponse);
+      await Share.open(shareOptions);
     } catch (error) {
-      console.log(error);
+      Alert.alert('Erro', `${error}`);
     }
   }, []);
 
@@ -233,11 +205,7 @@ const Financeiro: React.FC = () => {
           animationType="slide"
           statusBarTranslucent
           transparent
-          visible={modalVisible}
-          onRequestClose={() => {
-            Alert.alert('Modal has been closed.');
-            setModalVisible(false);
-          }}>
+          visible={modalVisible}>
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
               <HeaderModal>
@@ -315,6 +283,7 @@ const Financeiro: React.FC = () => {
                   />
                 </ContainerInputs>
               </BodyModal>
+
               <FooterModal>
                 <ButtonContinua onPress={handleAdicionaCusto}>
                   <ButtonText>Adicionar custo</ButtonText>
@@ -417,11 +386,11 @@ const styles = StyleSheet.create({
   modalView: {
     marginTop: 290,
     height: 520,
-    width: 390,
+    width: 360,
     backgroundColor: 'white',
     borderRadius: 20,
-    paddingLeft: 24,
-    paddingRight: 24,
+    paddingLeft: 16,
+    paddingRight: 16,
     alignItems: 'center',
     shadowColor: '#000',
     shadowOffset: {

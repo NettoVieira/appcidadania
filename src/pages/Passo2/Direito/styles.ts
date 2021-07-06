@@ -122,6 +122,7 @@ export const ModalTitle = styled.Text`
   font-family: 'Poppins-Regular';
   color: #172239;
   font-weight: 900;
+  margin-top: 10px;
 `;
 
 export const ContainerBodyModal = styled.View`

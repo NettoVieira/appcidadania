@@ -141,11 +141,7 @@ const Passo1: React.FC = () => {
         animationType="slide"
         statusBarTranslucent
         transparent
-        visible={modalVisible}
-        onRequestClose={() => {
-          Alert.alert('Modal has been closed.');
-          setModalVisible(!modalVisible);
-        }}>
+        visible={modalVisible}>
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
             <ContainerImage>
@@ -304,13 +300,14 @@ const styles = StyleSheet.create({
   centeredView: {
     flex: 1,
     justifyContent: 'center',
+
     alignItems: 'center',
     backgroundColor: 'rgba(52, 52, 52, 0.5)',
   },
   modalView: {
     marginTop: 160,
     height: 640,
-    width: 390,
+    width: 370,
     backgroundColor: 'white',
     borderRadius: 20,
 

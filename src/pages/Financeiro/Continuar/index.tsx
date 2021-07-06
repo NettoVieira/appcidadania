@@ -211,11 +211,11 @@ const styles = StyleSheet.create({
   modalView: {
     marginTop: 290,
     height: 520,
-    width: 390,
+    width: 360,
     backgroundColor: 'white',
     borderRadius: 20,
-    padding: 8,
-
+    paddingLeft: 16,
+    paddingRight: 16,
     alignItems: 'center',
     shadowColor: '#000',
     shadowOffset: {

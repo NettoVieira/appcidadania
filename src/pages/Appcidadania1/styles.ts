@@ -1,3 +1,4 @@
+import {RectButton} from 'react-native-gesture-handler';
 import styled from 'styled-components/native';
 
 export const Container = styled.View`
@@ -15,6 +16,9 @@ export const Img = styled.Image`
   height: 360px;
   width: 390px;
   margin-bottom: 15px;
+  background-color: #edf6fa;
+  border-bottom-left-radius: 170px;
+  border-bottom-right-radius: 170px;
 `;
 
 export const Texto = styled.Text`
@@ -53,7 +57,7 @@ export const MarcadorText3 = styled.Text`
   background-color: #eaeaea;
 `;
 
-export const ButtonContinue = styled.TouchableOpacity`
+export const ButtonContinue = styled(RectButton)`
   justify-content: center;
   align-items: center;
   background-color: #fae8e8;

@@ -1,3 +1,4 @@
+import {RectButton} from 'react-native-gesture-handler';
 import styled from 'styled-components/native';
 
 export const Container = styled.View`
@@ -13,7 +14,7 @@ export const Title = styled.Text`
   margin-left: 20px;
 `;
 
-export const ButtonContinua = styled.TouchableOpacity`
+export const ButtonContinua = styled(RectButton)`
   background-color: #f09d4c;
   justify-content: center;
   align-items: center;

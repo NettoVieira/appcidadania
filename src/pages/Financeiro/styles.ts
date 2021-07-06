@@ -18,7 +18,7 @@ export const Title = styled.Text`
 `;
 
 export const ContainerCusto = styled.View`
-  width: 85%;
+  width: 90%;
   background-color: #f8f8f8;
   height: 70px;
   border-radius: 20px;
@@ -29,6 +29,7 @@ export const ContainerCusto = styled.View`
 export const Header = styled.View`
   width: 100%;
   align-items: center;
+  margin-top: 16px;
 `;
 
 export const ContainerIcon = styled.View`
@@ -58,6 +59,7 @@ export const Body = styled.View`
   width: 100%;
   justify-content: center;
   align-items: center;
+  margin-top: 32px;
 `;
 
 export const Subtitle = styled.Text`
@@ -230,7 +232,7 @@ export const Gerir = styled.Image`
   height: 40px;
 `;
 
-export const ButtonContinue = styled.TouchableOpacity`
+export const ButtonContinue = styled(RectButton)`
   justify-content: center;
   align-items: center;
   background-color: #fae8e8;
