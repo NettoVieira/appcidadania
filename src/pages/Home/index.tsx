@@ -139,8 +139,8 @@ const Home: React.FC = () => {
         };
 
         try {
-          const res = await api.post('getUser', data);
-          setStep(res.data.User);
+          // const res = await api.post('getUser', data);
+          // setStep(res.data.User);
 
           setLoading(false);
         } catch (err) {
@@ -150,7 +150,7 @@ const Home: React.FC = () => {
       }
 
       getUser();
-    }, []),
+    }, [step?.Step3]),
   );
 
   if (loading) {

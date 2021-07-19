@@ -74,14 +74,14 @@ const Welcome: React.FC = () => {
       </Container>
       {name ? (
         <ButtonContinua
-          disabled={false}
+          enabled
           onPress={() => {
             handleCreateUser();
           }}>
           <ButtonText>Continuar</ButtonText>
         </ButtonContinua>
       ) : (
-        <ButtonContinua disabled={false} style={{backgroundColor: '#fafafa'}}>
+        <ButtonContinua enabled={false} style={{backgroundColor: '#fafafa'}}>
           <ButtonText style={{color: '#d0d0d0'}}>Continuar</ButtonText>
         </ButtonContinua>
       )}

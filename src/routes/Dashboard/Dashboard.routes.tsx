@@ -14,6 +14,7 @@ const Tab = createBottomTabNavigator();
 const Dashboardroutes: React.FC = () => {
   return (
     <Tab.Navigator
+      sceneContainerStyle={{backgroundColor: '#fff'}}
       screenOptions={({route}) => ({
         cardStyle: {backgroundColor: '#fff'},
 
@@ -47,6 +48,7 @@ const Dashboardroutes: React.FC = () => {
         tabStyle: {
           backgroundColor: '#f2f2f9',
         },
+
         style: {
           height: 80,
         },
@@ -55,7 +57,7 @@ const Dashboardroutes: React.FC = () => {
         },
         labelStyle: {
           margin: 12,
-          fontSize: 12,
+          fontSize: 10,
           fontFamily: 'Poppins-Regular',
         },
       }}>

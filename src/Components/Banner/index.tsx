@@ -12,7 +12,7 @@ interface BannerProps {
 const Banner: React.FC<BannerProps> = ({unitid, ...rest}) => {
   return (
     <Container>
-      <BannerAd size={BannerAdSize.SMART_BANNER} unitId={unitid} />
+      <BannerAd size={BannerAdSize.ADAPTIVE_BANNER} unitId={unitid} />
     </Container>
   );
 };

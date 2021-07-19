@@ -14,6 +14,8 @@ import Passos2routes from './Passos2/Passos.routes';
 import Passos3routes, {Headerleft, Headerright} from './Passos3/Passos.routes';
 import Emissoes from '../pages/Passo3/Emissoes';
 import FinanceiroRoutes from './Financeiro/Financeiro.routes';
+import DiarioRoutes from './Diario/Diario.routes';
+import ContinueDiario from '../pages/Diario/Continuar';
 
 const App = createStackNavigator();
 
@@ -52,6 +54,8 @@ const Approutes: React.FC = () => {
         }}
       />
       <App.Screen name="FinanceiroRoutes" component={FinanceiroRoutes} />
+      <App.Screen name="DiarioRoutes" component={DiarioRoutes} />
+      <App.Screen name="ContinueDiario" component={ContinueDiario} />
     </App.Navigator>
   );
 };

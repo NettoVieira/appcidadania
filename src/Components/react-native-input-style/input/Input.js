@@ -213,7 +213,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   basic: {
-    fontSize: 13,
+    fontSize: 12,
     marginTop: -7,
     zIndex: 10,
   },
@@ -239,10 +239,10 @@ const styles = StyleSheet.create({
     color: 'rgb(211,55,83)',
   },
   input: {
-    fontSize: 16,
+    fontSize: 14,
     fontFamily: 'Poppins-Regular',
     paddingHorizontal: 10,
-    paddingTop: 8,
+
     paddingBottom: Platform.OS === 'ios' ? 8 : 3,
     borderWidth: 1.5,
     borderRadius: 10,
