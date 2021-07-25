@@ -6,7 +6,7 @@ import Icon from 'react-native-vector-icons/Feather';
 
 import Home from '../../pages/Home';
 import Ferramentas from '../../pages/Ferramentas';
-import Diario from '../../pages/Diario';
+import Diario from '../Diario/Diario.routes';
 import Ajuda from '../../pages/Ajuda';
 
 const Tab = createBottomTabNavigator();
@@ -15,10 +15,10 @@ const Dashboardroutes: React.FC = () => {
   return (
     <Tab.Navigator
       sceneContainerStyle={{backgroundColor: '#fff'}}
-      screenOptions={({route}) => ({
+      screenOptions={({route}: any) => ({
         cardStyle: {backgroundColor: '#fff'},
 
-        tabBarIcon: ({color, size}) => {
+        tabBarIcon: ({color, size}: {color: string; size: number}) => {
           let iconName;
 
           switch (route.name) {

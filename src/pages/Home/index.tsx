@@ -139,8 +139,8 @@ const Home: React.FC = () => {
         };
 
         try {
-          // const res = await api.post('getUser', data);
-          // setStep(res.data.User);
+          const res = await api.post('getUser', data);
+          setStep(res.data.User);
 
           setLoading(false);
         } catch (err) {
@@ -330,7 +330,10 @@ const Home: React.FC = () => {
               <ButtonsAjudaText>Controle financeiro</ButtonsAjudaText>
             </ButtonContainer>
           </ButtonsAjuda>
-          <ButtonsAjuda>
+          <ButtonsAjuda
+            onPress={() => {
+              navigation.navigate('DiarioRoutes');
+            }}>
             <ImageIcone source={IconeDiario} />
             <ButtonContainer>
               <ButtonsAjudaText>Diário da cidadania</ButtonsAjudaText>

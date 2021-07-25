@@ -7,7 +7,14 @@
 import React, {useState, useCallback} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
-import {View, Alert, StyleSheet} from 'react-native';
+
+import {
+  View,
+  Alert,
+  StyleSheet,
+  ScrollView,
+  KeyboardAvoidingView,
+} from 'react-native';
 import Share from 'react-native-share';
 
 import api from '../../services/api';
@@ -18,13 +25,7 @@ import Load from '../../Components/Loading';
 import {
   Container,
   Title,
-  ContainerCusto,
   Header,
-  ContainerIcon,
-  Icon,
-  ContainerText,
-  DescCusto,
-  Valor,
   Body,
   ContainerTitle,
   Subtitle,
@@ -36,7 +37,6 @@ import {
   ContainerList,
   ContainerListHeader,
   TitleFinances,
-  ValueFinances,
   Description,
   Continue,
   ContinueText,
@@ -131,8 +131,6 @@ const Financeiro: React.FC = () => {
     try {
       const response = await api.post('dailyAdd', params);
 
-      console.log(response.data);
-
       setList(response.data.Daily.List);
       setModalVisible(false);
       setLoading(false);
@@ -210,87 +208,94 @@ const Financeiro: React.FC = () => {
           visible={modalVisible}>
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
-              <HeaderModal>
-                <ButtonClose
-                  onPress={() => {
-                    setModalVisible(false);
-                  }}>
-                  <IconClose name="x" size={45} color="#f09d4c" />
-                </ButtonClose>
-              </HeaderModal>
-              <BodyModal>
-                <ContainerTextModal>
-                  <Title>Adicionar nota</Title>
-                  <Subtitle>
-                    Crie seu diário da cidadania registrando cada etapa do
-                    processo de requisição da sua cidadania.
-                  </Subtitle>
-                </ContainerTextModal>
-                <ContainerInputs>
-                  <Input
-                    id="name"
-                    label="Data"
-                    keyboardType="default"
-                    labelStyle={{
-                      fontFamily: 'Poppins-Regular',
-                      color: '#b2b2b2',
-                    }}
-                    onInputChange={(item: any) => {
-                      setData(item);
-                    }}
-                    contain=""
-                    initialValue=""
-                    value=""
-                    outlined
-                    borderColor="#f09d4c"
-                  />
-                  <Subtitle style={{marginLeft: 10}}>
-                    Ex:. Certidão de casamento
-                  </Subtitle>
-                  <Input
-                    id="valor"
-                    label="Titulo da nota"
-                    labelStyle={{
-                      fontFamily: 'Poppins-Regular',
-                      color: '#b2b2b2',
-                    }}
-                    keyboardType="default"
-                    onInputChange={(item: any) => {
-                      setTitulo(item);
-                    }}
-                    contain=""
-                    initialValue=""
-                    value=""
-                    outlined
-                    borderColor="#f09d4c"
-                  />
+              <KeyboardAvoidingView
+                behavior="height"
+                keyboardVerticalOffset={100}
+                style={{width: '100%'}}>
+                <ScrollView>
+                  <HeaderModal>
+                    <ButtonClose
+                      onPress={() => {
+                        setModalVisible(false);
+                      }}>
+                      <IconClose name="x" size={45} color="#f09d4c" />
+                    </ButtonClose>
+                  </HeaderModal>
+                  <BodyModal>
+                    <ContainerTextModal>
+                      <Title>Adicionar nota</Title>
+                      <Subtitle>
+                        Crie seu diário da cidadania registrando cada etapa do
+                        processo de requisição da sua cidadania.
+                      </Subtitle>
+                    </ContainerTextModal>
+                    <ContainerInputs>
+                      <Input
+                        id="name"
+                        label="Data"
+                        keyboardType="default"
+                        labelStyle={{
+                          fontFamily: 'Poppins-Regular',
+                          color: '#b2b2b2',
+                        }}
+                        onInputChange={(item: any) => {
+                          setData(item);
+                        }}
+                        contain=""
+                        initialValue=""
+                        value=""
+                        outlined
+                        borderColor="#f09d4c"
+                      />
+                      <Subtitle style={{marginLeft: 10}}>
+                        Ex:. Certidão de casamento
+                      </Subtitle>
+                      <Input
+                        id="valor"
+                        label="Titulo da nota"
+                        labelStyle={{
+                          fontFamily: 'Poppins-Regular',
+                          color: '#b2b2b2',
+                        }}
+                        keyboardType="default"
+                        onInputChange={(item: any) => {
+                          setTitulo(item);
+                        }}
+                        contain=""
+                        initialValue=""
+                        value=""
+                        outlined
+                        borderColor="#f09d4c"
+                      />
 
-                  <Input
-                    id="notas"
-                    inputStyle={{height: 80, marginTop: 10}}
-                    label="Descrição da nota"
-                    labelStyle={{
-                      fontFamily: 'Poppins-Regular',
-                      color: '#b2b2b2',
-                    }}
-                    keyboardType="default"
-                    onInputChange={(item: any) => {
-                      setDescricao(item);
-                    }}
-                    contain=""
-                    initialValue=""
-                    value=""
-                    outlined
-                    borderColor="#f09d4c"
-                  />
-                </ContainerInputs>
-              </BodyModal>
+                      <Input
+                        id="notas"
+                        inputStyle={{height: 170, marginTop: 10}}
+                        label="Descrição da nota"
+                        labelStyle={{
+                          fontFamily: 'Poppins-Regular',
+                          color: '#b2b2b2',
+                        }}
+                        keyboardType="default"
+                        onInputChange={(item: any) => {
+                          setDescricao(item);
+                        }}
+                        contain=""
+                        initialValue=""
+                        value=""
+                        outlined
+                        borderColor="#f09d4c"
+                      />
+                    </ContainerInputs>
+                  </BodyModal>
 
-              <FooterModal>
-                <ButtonContinua onPress={handleAdicionaCusto}>
-                  <ButtonText>Adicionar nota</ButtonText>
-                </ButtonContinua>
-              </FooterModal>
+                  <FooterModal>
+                    <ButtonContinua onPress={handleAdicionaCusto}>
+                      <ButtonText>Adicionar nota</ButtonText>
+                    </ButtonContinua>
+                  </FooterModal>
+                </ScrollView>
+              </KeyboardAvoidingView>
             </View>
           </View>
         </Modal>
@@ -329,7 +334,7 @@ const Financeiro: React.FC = () => {
                     <Description>{item.description}</Description>
                     <Continue
                       onPress={() => {
-                        navigation.navigate('ContinueDiario', {item});
+                        navigation.navigate('ContinuarDiario', {item});
                       }}>
                       <ContinueText>Continuar lendo</ContinueText>
                     </Continue>
@@ -383,7 +388,7 @@ const styles = StyleSheet.create({
   },
   modalView: {
     marginTop: 290,
-    height: 520,
+    height: 640,
     width: 360,
     backgroundColor: 'white',
     borderRadius: 20,

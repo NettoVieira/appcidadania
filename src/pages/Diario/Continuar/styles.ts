@@ -26,9 +26,9 @@ export const Actions = styled.View`
 `;
 
 export const Valor = styled.Text`
-  font-size: 18px;
-  color: #101010;
-  font-family: 'Poppins-Medium';
+  font-size: 12px;
+  color: #9f9faf;
+  font-family: 'Poppins-Regular';
 `;
 
 export const ButtonEdit = styled(RectButton)``;
@@ -125,7 +125,7 @@ export const ButtonContinua = styled.TouchableOpacity`
   align-items: center;
   height: 55px;
   border-radius: 10px;
-  margin: 16px 20px 20px 16px;
+  margin: 16px 10px 10px 10px;
 `;
 
 export const ButtonText = styled.Text`

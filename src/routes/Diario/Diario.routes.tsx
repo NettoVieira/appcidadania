@@ -68,7 +68,7 @@ const Diarioroutes: React.FC = () => {
         // eslint-disable-next-line react/jsx-closing-bracket-location
       }}>
       <App.Screen name="Diario" component={Diario} />
-      <App.Screen name="Continuar" component={Continuar} />
+      <App.Screen name="ContinuarDiario" component={Continuar} />
     </App.Navigator>
   );
 };

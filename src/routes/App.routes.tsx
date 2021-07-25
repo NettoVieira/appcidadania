@@ -38,6 +38,7 @@ const Approutes: React.FC = () => {
       <App.Screen name="Mitos" component={Mitos} />
       <App.Screen name="Passos2routes" component={Passos2routes} />
       <App.Screen name="Passos3routes" component={Passos3routes} />
+
       <App.Screen
         name="Emissoes"
         component={Emissoes}
@@ -55,7 +56,6 @@ const Approutes: React.FC = () => {
       />
       <App.Screen name="FinanceiroRoutes" component={FinanceiroRoutes} />
       <App.Screen name="DiarioRoutes" component={DiarioRoutes} />
-      <App.Screen name="ContinueDiario" component={ContinueDiario} />
     </App.Navigator>
   );
 };

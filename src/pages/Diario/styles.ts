@@ -5,7 +5,7 @@ import Swipeable from 'react-native-gesture-handler/Swipeable';
 import {RectButton} from 'react-native-gesture-handler';
 import {List} from './index';
 
-export const Container = styled.ScrollView`
+export const Container = styled.View`
   flex: 1;
 `;
 
@@ -207,7 +207,7 @@ export const ButtonContinua = styled.TouchableOpacity`
   align-items: center;
   height: 55px;
   width: 93%;
-  margin-top: 12px;
+  margin-top: 80px;
   border-radius: 10px;
 `;
 
