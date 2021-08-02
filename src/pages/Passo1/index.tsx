@@ -4,14 +4,18 @@
 import React, {useCallback, useState} from 'react';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {Alert, Modal, StyleSheet, View} from 'react-native';
+import {Modal, StyleSheet, View} from 'react-native';
 import LottieView from 'lottie-react-native';
+import {RFValue} from 'react-native-responsive-fontsize';
+import Icon from 'react-native-vector-icons/Feather';
+
 import api from '../../services/api';
 import Load from '../../Components/Loading';
 import BackgroundImg from '../../assets/group_240.png';
 import Animacao from '../../assets/Animacoes/lf30_kp7vtd6i.json';
 
 import CloseImage from '../../assets/Close.png';
+import DocImage from '../../assets/Docimage.png';
 
 import {
   Container,
@@ -39,7 +43,16 @@ import {
   ButtonContinuaModal,
   ButtonTextModal,
   ContainerAnimacao,
+  ContainerAction,
   ContainerButton,
+  Action,
+  ActionImage,
+  ActionSubText,
+  ActionText,
+  ActionTextIcon,
+  ContainerActionText,
+  ContainerOptions,
+  ImageLapis,
 } from './styles';
 
 import Planob from '../../assets/plano_b.png';
@@ -187,8 +200,10 @@ const Passo1: React.FC = () => {
         </Paragraph>
 
         <GoBack onPress={handleIntroducao}>
-          <Text>Ler introdução completa</Text>
-          <GoBackIcon name="chevron-right" size={25} color="#db822b" />
+          <ContainerAction>
+            <Text>Ler introdução completa</Text>
+            <GoBackIcon name="chevron-right" size={25} color="#db822b" />
+          </ContainerAction>
           {step?.Task1.Status !== 2 ? (
             <StatusPendente>Pendente</StatusPendente>
           ) : (
@@ -222,54 +237,24 @@ const Passo1: React.FC = () => {
           aqui pra te dar uma ideia:
         </Paragraph>
 
-        <Button
-          onPress={() => {
-            navigation.navigate('Planob');
-          }}>
-          <ButtonImg source={Planob} style={{width: 360, height: 80}} />
-        </Button>
-        <Button
-          onPress={() => {
-            navigation.navigate('Oportunidade');
-          }}>
-          <ButtonImg source={Oportunidade} style={{width: 360, height: 80}} />
-        </Button>
-        <Button
-          onPress={() => {
-            navigation.navigate('Emprego');
-          }}>
-          <ButtonImg source={Emprego} style={{width: 360, height: 80}} />
-        </Button>
-        <Button
-          onPress={() => {
-            navigation.navigate('Ensino');
-          }}>
-          <ButtonImg source={Estudo} style={{width: 360, height: 80}} />
-        </Button>
-        <Button
-          onPress={() => {
-            navigation.navigate('Beneficios');
-          }}>
-          <ButtonImg source={Beneficios} style={{width: 360, height: 80}} />
-        </Button>
-        <Button
-          onPress={() => {
-            navigation.navigate('Facilidade');
-          }}>
-          <ButtonImg source={Facilidade} style={{width: 360, height: 80}} />
-        </Button>
-        <Button
-          onPress={() => {
-            navigation.navigate('Heranca');
-          }}>
-          <ButtonImg source={heranca} style={{width: 360, height: 80}} />
-        </Button>
-        <Button
-          onPress={() => {
-            navigation.navigate('Aposentadoria');
-          }}>
-          <ButtonImg source={Aposentadoria} style={{width: 360, height: 80}} />
-        </Button>
+        <ContainerButton>
+          <Action
+            onPress={() => {
+              navigation.navigate('ActionEmissao');
+            }}>
+            <ActionImage source={DocImage} />
+            <ContainerActionText>
+              <ActionText>Emissões</ActionText>
+              <ActionSubText>Para o que serve minhas emissões?</ActionSubText>
+            </ContainerActionText>
+            <Icon
+              name="chevron-right"
+              size={38}
+              color="#f09d4c"
+              style={{marginLeft: 15}}
+            />
+          </Action>
+        </ContainerButton>
 
         <SubTitle>
           Antes de você iniciar os passos práticos: que tal esclarecermos alguns
@@ -279,8 +264,10 @@ const Passo1: React.FC = () => {
           onPress={() => {
             navigation.navigate('Mitos');
           }}>
-          <Text>Entenda os principais mitos</Text>
-          <GoBackIcon name="chevron-right" size={25} color="#db822b" />
+          <ContainerAction>
+            <Text>Entenda os principais mitos</Text>
+            <GoBackIcon name="chevron-right" size={25} color="#db822b" />
+          </ContainerAction>
           {step?.Task3.Status !== 2 ? (
             <StatusPendente>Pendente</StatusPendente>
           ) : (
@@ -300,14 +287,13 @@ const styles = StyleSheet.create({
   centeredView: {
     flex: 1,
     justifyContent: 'center',
-
     alignItems: 'center',
     backgroundColor: 'rgba(52, 52, 52, 0.5)',
   },
   modalView: {
-    marginTop: 160,
-    height: 640,
-    width: 370,
+    marginTop: RFValue(160),
+    height: RFValue(640),
+    width: '100%',
     backgroundColor: 'white',
     borderRadius: 20,
 
@@ -320,26 +306,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 1,
     shadowRadius: 4,
     elevation: 5,
-  },
-  button: {
-    borderRadius: 20,
-    padding: 10,
-    elevation: 2,
-  },
-  buttonOpen: {
-    backgroundColor: '#F194FF',
-  },
-  buttonClose: {
-    backgroundColor: '#2196F3',
-  },
-  textStyle: {
-    color: 'white',
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-  modalText: {
-    marginBottom: 15,
-    textAlign: 'center',
   },
 });
 

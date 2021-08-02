@@ -15,6 +15,7 @@ import {
   MarcadorText3,
   ButtonContinue,
   ButtonContinueText,
+  ContainerText,
 } from './styles';
 
 const Appcidadania: React.FC = () => {
@@ -23,16 +24,18 @@ const Appcidadania: React.FC = () => {
     <>
       <Container>
         <Img source={conjuntoImg} />
-        <Title>Cidadania Italiana em um único lugar</Title>
-        <Texto>
-          Todos os passos e ferramentas específicas para facilitar o
-          reconhecimento da sua cidadania italiana.
-        </Texto>
-        <Marcador>
-          <MarcadorText1>.</MarcadorText1>
-          <MarcadorText2>.</MarcadorText2>
-          <MarcadorText3>.</MarcadorText3>
-        </Marcador>
+        <ContainerText>
+          <Title>Cidadania Italiana em um único lugar</Title>
+          <Texto>
+            Todos os passos e ferramentas específicas para facilitar o
+            reconhecimento da sua cidadania italiana.
+          </Texto>
+          <Marcador>
+            <MarcadorText1>.</MarcadorText1>
+            <MarcadorText2>.</MarcadorText2>
+            <MarcadorText3>.</MarcadorText3>
+          </Marcador>
+        </ContainerText>
       </Container>
       <ButtonContinue
         onPress={() => {

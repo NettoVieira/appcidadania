@@ -1,15 +1,15 @@
 import styled from 'styled-components/native';
 import Icon from 'react-native-vector-icons/Feather';
+import {RFValue, RFPercentage} from 'react-native-responsive-fontsize';
 
 export const Container = styled.View`
   margin-top: 15%;
-  padding: 24px;
+  padding: ${RFValue(24)}px;
   flex: 1;
 `;
 
 export const ContainerTitle = styled.View`
   width: 80%;
-  margin-bottom: 20px;
 `;
 
 export const ContainerImage = styled.View`
@@ -30,7 +30,7 @@ export const ContainerAnimacao = styled.View`
 
 export const Backgroudimg = styled.Image`
   width: 100%;
-  height: 380px;
+  height: ${RFValue(380)}px;
   position: absolute;
   border-radius: 20px;
 `;
@@ -40,18 +40,17 @@ export const ContainerOptions = styled.View`
 `;
 
 export const ModalTitle = styled.Text`
-  font-size: 30px;
+  font-size: ${RFValue(28)}px;
   text-align: center;
   font-family: 'Poppins-Regular';
   color: #172239;
-  font-weight: 900;
 `;
 
 export const ContainerBodyModal = styled.View`
   width: 100%;
-  margin-top: 90%;
-  padding-right: 3%;
-  padding-left: 3%;
+  margin-top: ${RFPercentage(50)};
+  padding-right: ${RFValue(24)}px;
+  padding-left: ${RFValue(24)}px;
 `;
 
 export const Close = styled.Pressable`
@@ -61,11 +60,11 @@ export const Close = styled.Pressable`
 `;
 
 export const CloseText = styled.Image`
-  height: 35px;
+  height: ${RFValue(35)}px;
 `;
 
 export const ButtonTextModal = styled.Text`
-  font-size: 18px;
+  font-size: ${RFValue(18)}px;
   color: #fff;
   font-family: 'Poppins-Medium';
 `;
@@ -73,7 +72,7 @@ export const ButtonTextModal = styled.Text`
 export const ParagraphModal = styled.Text`
   color: #6d6d78;
   margin-top: 4%;
-  font-size: 15px;
+  font-size: ${RFValue(12)}px;
   text-align: center;
   font-family: 'Poppins-Regular';
 `;
@@ -82,44 +81,44 @@ export const ButtonContinuaModal = styled.TouchableOpacity`
   background-color: #f09d4c;
   justify-content: center;
   align-items: center;
-  height: 55px;
+  height: ${RFValue(55)}px;
   border-radius: 10px;
-  margin-top: 32px;
+  margin-top: ${RFValue(40)}px;
 `;
 
 export const Scroll = styled.ScrollView``;
 
 export const Title = styled.Text`
-  font-size: 30px;
+  font-size: ${RFValue(28)}px;
   font-family: 'Poppins-Medium';
   color: #172239;
-  font-weight: 900;
 `;
 
 export const SubTitle = styled.Text`
-  font-size: 18px;
+  font-size: ${RFValue(16)}px;
   font-family: 'Poppins-SemiBold';
   color: #172239;
-  margin-top: 20px;
-  margin-bottom: 10px;
+  margin-top: ${RFValue(12)}px;
+  margin-bottom: ${RFValue(12)}px;
 `;
 
 export const Paragraph = styled.Text`
   color: #6d6d78;
-  font-size: 13px;
+  font-size: ${RFValue(12)}px;
   font-family: 'Poppins-Regular';
 `;
 
 export const GoBack = styled.TouchableOpacity`
   flex-direction: row;
   align-items: center;
+  justify-content: space-between;
   margin-top: 20px;
   width: 100%;
   margin-bottom: 20px;
 `;
 
 export const Text = styled.Text`
-  font-size: 16px;
+  font-size: ${RFValue(14)}px;
   color: #f09d4c;
   font-family: 'Poppins-Regular';
 `;
@@ -153,26 +152,68 @@ export const ButtonText = styled.Text`
 
 export const StatusConcluido = styled.Text`
   font-family: 'Poppins-Medium';
-  font-size: 10px;
+  font-size: 8px;
   color: #15b200;
   background-color: #dbe9ee;
   border-radius: 20px;
   text-align: center;
 
-  width: 65px;
-  height: 16px;
+  width: 54px;
+  height: 15px;
 `;
 
 export const StatusPendente = styled.Text`
   font-family: 'Poppins-Medium';
-  font-size: 10px;
+  font-size: 8px;
   color: #ff0000;
   background-color: #fae8e8;
   border-radius: 20px;
   text-align: center;
 
-  width: 65px;
-  height: 16px;
+  width: 54px;
+  height: 15px;
 `;
 
-export const ContainerButton = styled.View``;
+export const ContainerAction = styled.View`
+  flex-direction: row;
+  align-items: center;
+`;
+
+export const ContainerButton = styled.View`
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const Action = styled.TouchableOpacity`
+  background-color: #f8f8f8;
+  height: 75px;
+  width: 100%;
+  border-radius: 16px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 8px;
+`;
+
+export const ActionText = styled.Text`
+  font-size: 15px;
+  color: #101010;
+  font-family: 'Poppins-Medium';
+`;
+
+export const ActionSubText = styled.Text`
+  font-family: 'Poppins-Regular';
+  color: #101010;
+  font-size: 13px;
+`;
+
+export const ActionImage = styled.Image`
+  margin-right: 12px;
+`;
+
+export const ActionTextIcon = styled(Icon);
+
+export const ContainerActionText = styled.View`
+  width: 67%;
+`;
