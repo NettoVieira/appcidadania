@@ -8,6 +8,8 @@
 import React, {useCallback, useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {Alert, Modal, StyleSheet, View} from 'react-native';
+import {RFValue} from 'react-native-responsive-fontsize';
+
 import BackgroundImg from '../../assets/group_240.png';
 import ModalImage from '../../assets/modal-image.png';
 import CloseImage from '../../assets/Close.png';
@@ -149,13 +151,14 @@ const styles = StyleSheet.create({
   centeredView: {
     flex: 1,
     justifyContent: 'center',
+
     alignItems: 'center',
     backgroundColor: 'rgba(52, 52, 52, 0.5)',
   },
   modalView: {
     marginTop: 160,
-    height: 640,
-    width: 360,
+    height: RFValue(690),
+    width: '100%',
     backgroundColor: 'white',
     borderRadius: 20,
 

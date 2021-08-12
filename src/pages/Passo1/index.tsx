@@ -9,13 +9,21 @@ import LottieView from 'lottie-react-native';
 import {RFValue} from 'react-native-responsive-fontsize';
 import Icon from 'react-native-vector-icons/Feather';
 
+import IconPlan from '../../assets/svg/Passo1/icon_ic_sys_planb.svg';
+import Iconwork from '../../assets/svg/Passo1/icon_ic_sys_trabalho.svg';
+import IconTrabalho from '../../assets/svg/Passo1/icon_ic_sys_emprego.svg';
+import Iconensino from '../../assets/svg/Passo1/icon_ic_sys_ensino.svg';
+import Iconbeneficios from '../../assets/svg/Passo1/icon_ic_sys_beneficios.svg';
+import Iconviagens from '../../assets/svg/Passo1/icon_ic_sys_viagens.svg';
+import Iconheranca from '../../assets/svg/Passo1/icon_ic_sys_heranca.svg';
+import Iconaposentadoria from '../../assets/svg/Passo1/icon_ic_sys_aposentar.svg';
+
 import api from '../../services/api';
 import Load from '../../Components/Loading';
 import BackgroundImg from '../../assets/group_240.png';
 import Animacao from '../../assets/Animacoes/lf30_kp7vtd6i.json';
 
 import CloseImage from '../../assets/Close.png';
-import DocImage from '../../assets/Docimage.png';
 
 import {
   Container,
@@ -54,15 +62,6 @@ import {
   ContainerOptions,
   ImageLapis,
 } from './styles';
-
-import Planob from '../../assets/plano_b.png';
-import Oportunidade from '../../assets/oportunidade.png';
-import Emprego from '../../assets/emprego.png';
-import Estudo from '../../assets/estudo.png';
-import Beneficios from '../../assets/beneficios.png';
-import Facilidade from '../../assets/facilidade.png';
-import heranca from '../../assets/heranca.png';
-import Aposentadoria from '../../assets/aposentadoria.png';
 
 interface Steps extends Object {
   Name: string;
@@ -160,7 +159,12 @@ const Passo1: React.FC = () => {
             <ContainerImage>
               <Backgroudimg source={BackgroundImg} />
               <ContainerAnimacao>
-                <LottieView source={Animacao} autoPlay loop />
+                <LottieView
+                  source={Animacao}
+                  autoPlay
+                  loop
+                  style={{marginLeft: 25}}
+                />
               </ContainerAnimacao>
               <Close
                 onPress={() => {
@@ -240,12 +244,185 @@ const Passo1: React.FC = () => {
         <ContainerButton>
           <Action
             onPress={() => {
-              navigation.navigate('ActionEmissao');
+              navigation.navigate('Planob');
             }}>
-            <ActionImage source={DocImage} />
+            <IconPlan
+              width={RFValue(25)}
+              height={RFValue(25)}
+              style={{marginRight: RFValue(8)}}
+            />
             <ContainerActionText>
-              <ActionText>Emissões</ActionText>
-              <ActionSubText>Para o que serve minhas emissões?</ActionSubText>
+              <ActionText>Ter sempre um plano B</ActionText>
+              <ActionSubText>
+                Escolha entre os 27 países da União Europeia pra iniciar uma
+                vida nova.
+              </ActionSubText>
+            </ContainerActionText>
+            <Icon
+              name="chevron-right"
+              size={38}
+              color="#f09d4c"
+              style={{marginLeft: 15}}
+            />
+          </Action>
+
+          <Action
+            onPress={() => {
+              navigation.navigate('Oportunidade');
+            }}>
+            <Iconwork
+              width={RFValue(25)}
+              height={RFValue(25)}
+              style={{marginRight: RFValue(8)}}
+            />
+            <ContainerActionText>
+              <ActionText>Oportunidade de trabalho</ActionText>
+              <ActionSubText>
+                Tenha mais chance de trabalho sem se desgastar com pedidos e
+                renovações de vistos, ou permissões especiais.
+              </ActionSubText>
+            </ContainerActionText>
+            <Icon
+              name="chevron-right"
+              size={38}
+              color="#f09d4c"
+              style={{marginLeft: 15}}
+            />
+          </Action>
+
+          <Action
+            onPress={() => {
+              navigation.navigate('Emprego');
+            }}>
+            <IconTrabalho
+              width={RFValue(25)}
+              height={RFValue(25)}
+              style={{marginRight: RFValue(8)}}
+            />
+            <ContainerActionText>
+              <ActionText>Emprego e benefícios sociais</ActionText>
+              <ActionSubText>
+                Você poderá reinvidicar seus direitos como qualquer outro
+                Europeu.
+              </ActionSubText>
+            </ContainerActionText>
+            <Icon
+              name="chevron-right"
+              size={38}
+              color="#f09d4c"
+              style={{marginLeft: 15}}
+            />
+          </Action>
+
+          <Action
+            onPress={() => {
+              navigation.navigate('Ensino');
+            }}>
+            <Iconensino
+              width={RFValue(25)}
+              height={RFValue(25)}
+              style={{marginRight: RFValue(8)}}
+            />
+            <ContainerActionText>
+              <ActionText>Ensino de baixo custo e alta qualidade</ActionText>
+              <ActionSubText>
+                Ensino gratuito em instituições na Itália ou em qualquer país da
+                União Europeia.
+              </ActionSubText>
+            </ContainerActionText>
+            <Icon
+              name="chevron-right"
+              size={38}
+              color="#f09d4c"
+              style={{marginLeft: 15}}
+            />
+          </Action>
+
+          <Action
+            onPress={() => {
+              navigation.navigate('Beneficios');
+            }}>
+            <Iconbeneficios
+              width={RFValue(25)}
+              height={RFValue(25)}
+              style={{marginRight: RFValue(8)}}
+            />
+            <ContainerActionText>
+              <ActionText>Benefícios culturais</ActionText>
+              <ActionSubText>
+                Ampla variedade de programas para intercâmbios e experiências
+                culturais
+              </ActionSubText>
+            </ContainerActionText>
+            <Icon
+              name="chevron-right"
+              size={38}
+              color="#f09d4c"
+              style={{marginLeft: 15}}
+            />
+          </Action>
+
+          <Action
+            onPress={() => {
+              navigation.navigate('Facilidade');
+            }}>
+            <Iconviagens
+              width={RFValue(25)}
+              height={RFValue(25)}
+              style={{marginRight: RFValue(8)}}
+            />
+            <ContainerActionText>
+              <ActionText>Facilidade em viagens</ActionText>
+              <ActionSubText>
+                Cidadãos italianos podem viajar sem visto para 127 países ao
+                redor do globo.
+              </ActionSubText>
+            </ContainerActionText>
+            <Icon
+              name="chevron-right"
+              size={38}
+              color="#f09d4c"
+              style={{marginLeft: 15}}
+            />
+          </Action>
+
+          <Action
+            onPress={() => {
+              navigation.navigate('Heranca');
+            }}>
+            <Iconheranca
+              width={RFValue(25)}
+              height={RFValue(25)}
+              style={{marginRight: RFValue(8)}}
+            />
+            <ContainerActionText>
+              <ActionText>Herança para descendentes</ActionText>
+              <ActionSubText>
+                Todos estes benefícios se estenderão aos seus descendentes.
+              </ActionSubText>
+            </ContainerActionText>
+            <Icon
+              name="chevron-right"
+              size={38}
+              color="#f09d4c"
+              style={{marginLeft: 15}}
+            />
+          </Action>
+
+          <Action
+            onPress={() => {
+              navigation.navigate('Aposentadoria');
+            }}>
+            <Iconaposentadoria
+              width={RFValue(25)}
+              height={RFValue(25)}
+              style={{marginRight: RFValue(8)}}
+            />
+            <ContainerActionText>
+              <ActionText>Aposentadoria</ActionText>
+              <ActionSubText>
+                Você poderá pendurar as chuteiras no país europeu que escolher.
+              </ActionSubText>
             </ContainerActionText>
             <Icon
               name="chevron-right"
@@ -292,7 +469,7 @@ const styles = StyleSheet.create({
   },
   modalView: {
     marginTop: RFValue(160),
-    height: RFValue(640),
+    height: RFValue(690),
     width: '100%',
     backgroundColor: 'white',
     borderRadius: 20,

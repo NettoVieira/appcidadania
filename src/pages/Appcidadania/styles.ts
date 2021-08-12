@@ -12,7 +12,7 @@ export const Title = styled.Text`
   font-size: ${RFValue(28)}px;
   font-family: 'Poppins-Regular';
   text-align: center;
-  margin-top: ${RFValue(24)}px;
+  margin-top: ${RFValue(6)}px;
 `;
 
 export const Img = styled.Image`

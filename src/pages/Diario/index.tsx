@@ -17,8 +17,8 @@ import {
 } from 'react-native';
 import Share from 'react-native-share';
 
+import {RFValue} from 'react-native-responsive-fontsize';
 import api from '../../services/api';
-import IconSifrao from '../../assets/sifrao.png';
 import Banner from '../../Components/Banner';
 import Load from '../../Components/Loading';
 
@@ -65,7 +65,7 @@ import {
 
 import Input from '../../Components/react-native-input-style/input/Input';
 
-import Consultingdisable from '../../assets/consulting_disable.png';
+import Consultingdisable from '../../assets/svg/illustration_img_consulting_disable.svg';
 import Geririmg from '../../assets/gerir_enable.png';
 
 export interface List {
@@ -361,7 +361,7 @@ const Financeiro: React.FC = () => {
                   <AddDocsText>Adicionar novo custo</AddDocsText>
                 </AddDocs>
               </ListFinances>
-              <ListEmptyImage source={Consultingdisable} />
+              <Consultingdisable />
               <TitleEmpty>Nenhum nota cadastrada</TitleEmpty>
               <SubtitleEmpty>
                 Cadastre agora mesmo e tenha o histórico de todo o processo,
@@ -387,9 +387,9 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(52, 52, 52, 0.5)',
   },
   modalView: {
-    marginTop: 290,
-    height: 640,
-    width: 360,
+    marginTop: RFValue(290),
+    height: RFValue(690),
+    width: '100%',
     backgroundColor: 'white',
     borderRadius: 20,
     paddingLeft: 16,

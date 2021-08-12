@@ -1,8 +1,9 @@
 /* eslint-disable react/jsx-closing-bracket-location */
 import React from 'react';
 import {useNavigation} from '@react-navigation/native';
+import {RFValue} from 'react-native-responsive-fontsize';
+import Ilustra from '../../assets/svg/conjunto_ilustra_o.svg';
 
-import ilustraImg from '../../assets/ilustra.png';
 import {
   Container,
   Title,
@@ -23,7 +24,8 @@ const Appcidadania: React.FC = () => {
   return (
     <>
       <Container>
-        <Img source={ilustraImg} />
+        <Ilustra width={RFValue(390)} height={RFValue(400)} />
+
         <ContainerText>
           <Title>Organize todos os seus documentos</Title>
           <Texto>

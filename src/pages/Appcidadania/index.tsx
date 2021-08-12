@@ -3,11 +3,12 @@ import React from 'react';
 
 import {useNavigation} from '@react-navigation/native';
 
-import conjuntoImg from '../../assets/conjunto.png';
+import {RFValue} from 'react-native-responsive-fontsize';
+import Ilustra from '../../assets/svg/conjunto_ilustra_o2.svg';
+
 import {
   Container,
   Title,
-  Img,
   Texto,
   Marcador,
   MarcadorText1,
@@ -23,7 +24,7 @@ const Appcidadania: React.FC = () => {
   return (
     <>
       <Container>
-        <Img source={conjuntoImg} />
+        <Ilustra width={RFValue(390)} height={RFValue(400)} />
         <ContainerText>
           <Title>Cidadania Italiana em um único lugar</Title>
           <Texto>

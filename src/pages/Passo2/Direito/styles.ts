@@ -1,5 +1,6 @@
 import styled from 'styled-components/native';
 import Icon from 'react-native-vector-icons/Feather';
+import {RFPercentage, RFValue} from 'react-native-responsive-fontsize';
 
 export const Container = styled.View`
   flex: 1;
@@ -107,7 +108,7 @@ export const ContainerAnimacao = styled.View`
 
 export const Backgroudimg = styled.Image`
   width: 100%;
-  height: 380px;
+  height: ${RFValue(380)}px;
   position: absolute;
   border-radius: 20px;
 `;
@@ -117,29 +118,30 @@ export const ContainerOptions = styled.View`
 `;
 
 export const ModalTitle = styled.Text`
-  font-size: 30px;
+  font-size: ${RFValue(28)}px;
   text-align: center;
   font-family: 'Poppins-Regular';
   color: #172239;
-  font-weight: 900;
-  margin-top: 10px;
+  margin-top: ${RFValue(10)}px;
 `;
 
 export const ContainerBodyModal = styled.View`
   width: 100%;
   margin-top: 90%;
+  padding: ${RFValue(24)}px;
   padding-right: 3%;
   padding-left: 3%;
 `;
 
 export const Close = styled.Pressable`
-  width: 400px;
+  width: ${RFPercentage(62)}px;
   margin-top: 2%;
   justify-content: flex-start;
 `;
 
 export const CloseText = styled.Image`
-  height: 35px;
+  height: ${RFValue(35)}px;
+  margin-left: ${RFValue(24)}px;
 `;
 
 export const ButtonTextModal = styled.Text`
@@ -151,7 +153,7 @@ export const ButtonTextModal = styled.Text`
 export const ParagraphModal = styled.Text`
   color: #6d6d78;
   margin-top: 4%;
-  font-size: 15px;
+  font-size: 12px;
   text-align: center;
   font-family: 'Poppins-Regular';
 `;

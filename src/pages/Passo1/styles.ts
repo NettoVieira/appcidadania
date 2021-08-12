@@ -1,6 +1,7 @@
 import styled from 'styled-components/native';
 import Icon from 'react-native-vector-icons/Feather';
 import {RFValue, RFPercentage} from 'react-native-responsive-fontsize';
+import {RectButton} from 'react-native-gesture-handler';
 
 export const Container = styled.View`
   margin-top: 15%;
@@ -24,8 +25,8 @@ export const ImageLapis = styled.Image`
 `;
 export const ContainerAnimacao = styled.View`
   position: absolute;
-  width: 280px;
-  height: 360px;
+  width: ${RFValue(280)}px;
+  height: ${RFValue(360)}px;
 `;
 
 export const Backgroudimg = styled.Image`
@@ -48,7 +49,7 @@ export const ModalTitle = styled.Text`
 
 export const ContainerBodyModal = styled.View`
   width: 100%;
-  margin-top: ${RFPercentage(50)};
+  margin-top: ${RFPercentage(54)}px;
   padding-right: ${RFValue(24)}px;
   padding-left: ${RFValue(24)}px;
 `;
@@ -152,26 +153,26 @@ export const ButtonText = styled.Text`
 
 export const StatusConcluido = styled.Text`
   font-family: 'Poppins-Medium';
-  font-size: 8px;
+  font-size: ${RFValue(8)}px;
   color: #15b200;
   background-color: #dbe9ee;
   border-radius: 20px;
   text-align: center;
 
-  width: 54px;
-  height: 15px;
+  width: ${RFValue(58)}px;
+  height: ${RFValue(15)}px;
 `;
 
 export const StatusPendente = styled.Text`
   font-family: 'Poppins-Medium';
-  font-size: 8px;
+  font-size: ${RFValue(8)}px;
   color: #ff0000;
   background-color: #fae8e8;
   border-radius: 20px;
   text-align: center;
 
-  width: 54px;
-  height: 15px;
+  width: ${RFValue(54)}px;
+  height: ${RFValue(14)}px;
 `;
 
 export const ContainerAction = styled.View`
@@ -185,10 +186,11 @@ export const ContainerButton = styled.View`
   justify-content: center;
 `;
 
-export const Action = styled.TouchableOpacity`
+export const Action = styled(RectButton)`
   background-color: #f8f8f8;
-  height: 75px;
+  height: ${RFValue(85)}px;
   width: 100%;
+  margin-top: 2px;
   border-radius: 16px;
   flex-direction: row;
   align-items: center;
@@ -197,7 +199,7 @@ export const Action = styled.TouchableOpacity`
 `;
 
 export const ActionText = styled.Text`
-  font-size: 15px;
+  font-size: ${RFValue(14)}px;
   color: #101010;
   font-family: 'Poppins-Medium';
 `;
@@ -205,11 +207,11 @@ export const ActionText = styled.Text`
 export const ActionSubText = styled.Text`
   font-family: 'Poppins-Regular';
   color: #101010;
-  font-size: 13px;
+  font-size: ${RFValue(10)}px;
 `;
 
 export const ActionImage = styled.Image`
-  margin-right: 12px;
+  margin-right: ${RFValue(12)}px;
 `;
 
 export const ActionTextIcon = styled(Icon);

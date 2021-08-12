@@ -1,16 +1,18 @@
 import styled from 'styled-components/native';
 import Icon from 'react-native-vector-icons/Feather';
+import {RFValue} from 'react-native-responsive-fontsize';
 
-export const Container = styled.View`
+export const Container = styled.ScrollView`
   flex: 1;
-  margin-top: 25%;
+  margin-top: 15%;
+  padding: ${RFValue(24)}px;
 `;
 
 export const Subtitle = styled.Text`
   margin-top: 18px;
   font-family: 'Poppins-SemiBold';
   color: #172239;
-  font-size: 20px;
+  font-size: ${RFValue(14)}px;
 `;
 
 export const ContainerHeader = styled.View`
@@ -27,7 +29,7 @@ export const ButtonContinua = styled.TouchableOpacity`
 `;
 
 export const ButtonText = styled.Text`
-  font-size: 18px;
+  font-size: ${RFValue(16)}px;
   color: #fff;
   font-family: 'Poppins-Medium';
 `;
@@ -45,15 +47,8 @@ export const ContainerFooter = styled.View`
   justify-content: center;
 `;
 
-export const GoBack = styled.TouchableOpacity`
-  flex-direction: row;
-  align-items: center;
-  margin-top: 20px;
-  margin-bottom: 20px;
-`;
-
 export const Text = styled.Text`
-  font-size: 16px;
+  font-size: ${RFValue(14)}px;
   color: #f09d4c;
   font-family: 'Poppins-Regular';
 `;
@@ -62,7 +57,10 @@ export const GoBackIcon = styled(Icon)`
   margin-left: 2%;
 `;
 
-export const Image = styled.Image``;
+export const Image = styled.Image`
+  width: 75px;
+  height: 75px;
+`;
 
 export const Progresbar = styled.Image`
   width: 100%;
@@ -71,7 +69,7 @@ export const Progresbar = styled.Image`
 
 export const TitleOpacity = styled.Text`
   font-family: 'Poppins-Regualr';
-  font-size: 18px;
+  font-size: ${RFValue(14)}px;
   color: #b2b2b2;
   margin-top: 28px;
 `;
@@ -79,13 +77,13 @@ export const TitleOpacity = styled.Text`
 export const Paragraph = styled.Text`
   color: #6d6d78;
   margin-top: 9px;
-  font-size: 13px;
+  font-size: 14px;
   font-family: 'Poppins-Regular';
 `;
 
 export const Title = styled.Text`
   font-family: 'Poppins-SemiBold';
-  font-size: 22px;
-
+  font-size: 16px;
+  margin-bottom: ${RFValue(12)}px;
   color: #172239;
 `;

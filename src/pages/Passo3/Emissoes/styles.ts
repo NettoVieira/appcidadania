@@ -60,7 +60,6 @@ export const ContainerInputs = styled.View`
 `;
 
 export const ContainerTextArea = styled.View`
-  justify-content: center;
   align-items: center;
   width: 100%;
 `;

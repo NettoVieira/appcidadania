@@ -9,9 +9,17 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import React, {useCallback, useRef, useState} from 'react';
-import {Alert, Linking, StyleSheet, Switch, View} from 'react-native';
+import {
+  Alert,
+  KeyboardAvoidingView,
+  ScrollView,
+  StyleSheet,
+  Switch,
+  View,
+} from 'react-native';
 import Share from 'react-native-share';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
+import {RFValue} from 'react-native-responsive-fontsize';
 import Banner from '../../../Components/Banner';
 import Load from '../../../Components/Loading';
 
@@ -425,60 +433,72 @@ const Emissoes: React.FC = () => {
           }}>
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
-              <HeaderModal>
-                <ButtonClose
-                  onPress={() => {
-                    setModalVisible({isVisible: false, parent: ''});
-                  }}>
-                  <IconClose name="x" size={45} color="#f09d4c" />
-                </ButtonClose>
-              </HeaderModal>
-              <BodyModal>
-                <ContainerTextModal>
-                  <Title>Adicionar certidão</Title>
-                  <Subtitle>
-                    Nomeie e adicione a certidão para acompanhar o status e o
-                    andamento do processo.
-                  </Subtitle>
-                </ContainerTextModal>
-                <ContainerInputs>
-                  <Input
-                    id="name"
-                    label="Tipo da certidão"
-                    keyboardType="default"
-                    onInputChange={(item: any) => {
-                      setDocumentname(item);
-                    }}
-                    contain=""
-                    initialValue=""
-                    value=""
-                    outlined
-                    borderColor="#f09d4c"
-                  />
-                  <Subtitle style={{marginLeft: 10}}>
-                    Ex:. Certidão de casamento
-                  </Subtitle>
-                  <ContainerTextArea>
-                    <TextAreaView>
-                      <TextAreaInput
-                        style={{fontSize: 14, fontFamily: 'Poppins-Regular'}}
-                        placeholder="Adicionar notas
-                      (Livro, Folha, Cartórios)"
-                        placeholderTextColor="grey"
-                        onChangeText={(text) => {
-                          setTextArea(text);
+              <KeyboardAvoidingView
+                behavior="height"
+                keyboardVerticalOffset={100}
+                style={{width: '100%'}}>
+                <ScrollView>
+                  <HeaderModal>
+                    <ButtonClose
+                      onPress={() => {
+                        setModalVisible({isVisible: false, parent: ''});
+                      }}>
+                      <IconClose name="x" size={45} color="#f09d4c" />
+                    </ButtonClose>
+                  </HeaderModal>
+                  <BodyModal>
+                    <ContainerTextModal>
+                      <Title>Adicionar certidão</Title>
+                      <Subtitle>
+                        Nomeie e adicione a certidão para acompanhar o status e
+                        o andamento do processo.
+                      </Subtitle>
+                    </ContainerTextModal>
+                    <ContainerInputs>
+                      <Input
+                        id="name"
+                        label="Tipo da certidão"
+                        keyboardType="default"
+                        onInputChange={(item: any) => {
+                          setDocumentname(item);
                         }}
-                        multiline
+                        contain=""
+                        initialValue=""
+                        value=""
+                        outlined
+                        borderColor="#f09d4c"
                       />
-                    </TextAreaView>
-                  </ContainerTextArea>
-                </ContainerInputs>
-              </BodyModal>
-              <FooterModal>
-                <ButtonContinua onPress={handleAdicionaDocumentoChecklist}>
-                  <ButtonText>Adicionar item ao checklist</ButtonText>
-                </ButtonContinua>
-              </FooterModal>
+                      <Subtitle style={{marginLeft: 10}}>
+                        Ex:. Certidão de casamento
+                      </Subtitle>
+                      <ContainerTextArea>
+                        <TextAreaView>
+                          <TextAreaInput
+                            style={{
+                              fontSize: 14,
+                              fontFamily: 'Poppins-Regular',
+                              padding: 10,
+                            }}
+                            placeholder="Adicionar notas
+                      (Livro, Folha, Cartórios)"
+                            placeholderTextColor="grey"
+                            onChangeText={(text) => {
+                              setTextArea(text);
+                            }}
+                            numberOfLines={4}
+                            multiline
+                          />
+                        </TextAreaView>
+                      </ContainerTextArea>
+                    </ContainerInputs>
+                  </BodyModal>
+                  <FooterModal>
+                    <ButtonContinua onPress={handleAdicionaDocumentoChecklist}>
+                      <ButtonText>Adicionar item ao checklist</ButtonText>
+                    </ButtonContinua>
+                  </FooterModal>
+                </ScrollView>
+              </KeyboardAvoidingView>
             </View>
           </View>
         </Modal>
@@ -641,9 +661,9 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(52, 52, 52, 0.5)',
   },
   modalView: {
-    marginTop: 290,
-    height: 520,
-    width: 390,
+    marginTop: RFValue(290),
+    height: RFValue(690),
+    width: '100%',
     backgroundColor: 'white',
     borderRadius: 20,
 

@@ -1,5 +1,6 @@
 import styled from 'styled-components/native';
 import Icon from 'react-native-vector-icons/Feather';
+import {RFValue} from 'react-native-responsive-fontsize';
 
 export const Container = styled.View`
   margin-top: 10%;
@@ -58,7 +59,7 @@ export const Title = styled.Text`
 `;
 
 export const ModalTitle = styled.Text`
-  font-size: 30px;
+  font-size: 25px;
   text-align: center;
   font-family: 'Poppins-Regular';
   color: #172239;
@@ -76,9 +77,8 @@ export const SubTitle = styled.Text`
 
 export const ContainerBodyModal = styled.View`
   width: 100%;
-  margin-top: 75%;
-  padding-right: 3%;
-  padding-left: 3%;
+  margin-top: 76%;
+  padding: ${RFValue(24)}px;
 `;
 
 export const Paragraph = styled.Text`
@@ -106,7 +106,7 @@ export const ButtonTextModal = styled.Text`
 export const ParagraphModal = styled.Text`
   color: #6d6d78;
   margin-top: 4%;
-  font-size: 15px;
+  font-size: ${RFValue(12)}px;
   text-align: center;
   font-family: 'Poppins-Regular';
 `;

@@ -5,11 +5,17 @@
 /* eslint-disable react/jsx-closing-tag-location */
 // eslint-disable-next-line react/jsx-one-expression-per-line
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
 
-import Lupadisable from '../../assets/lupa_disable.png';
-import IlustrationDisable from '../../assets/illustration_disable.png';
+import {RFValue} from 'react-native-responsive-fontsize';
+import DnaDisabled from '../../assets/svg/illustration_img_dna_disable.svg';
+import DnaEnabled from '../../assets/svg/illustration_img_dna.svg';
+import Consulting from '../../assets/svg/illustration_img_consulting.svg';
+import ConsultingDisabled from '../../assets/svg/illustration_img_consulting_disable.svg';
+import List from '../../assets/svg/illustration_img_list.svg';
+import ListDisable from '../../assets/svg/illustration_img_list_disable.svg';
+
 import LapisDisable from '../../assets/lapis_disable.png';
 import IconeLupa from '../../assets/icone-lupa.png';
 import IconeLapis from '../../assets/icone-lapis.png';
@@ -18,9 +24,8 @@ import IconeDiario from '../../assets/icone-diario.png';
 import IconeStatus from '../../assets/icon_status.png';
 import IconeStatusConcluido from '../../assets/status_complete.png';
 import ImageChat from '../../assets/image_chat.png';
-import Ilustration from '../../assets/illustration.png';
 import ImageConsulta from '../../assets/image_consulta.png';
-import Dna from '../../assets/illustration_dna.png';
+
 import api from '../../services/api';
 
 import Load from '../../Components/Loading';
@@ -199,7 +204,11 @@ const Home: React.FC = () => {
                 onPress={() => {
                   navigation.navigate('Passosroutes');
                 }}>
-                <ImagemPasso1 source={Lupadisable} />
+                <DnaDisabled
+                  width={RFValue(130)}
+                  height={RFValue(125)}
+                  style={{backgroundColor: '#f2f2f9', borderRadius: 10}}
+                />
                 <ContainerHeader>
                   <ContainerTitle>
                     <PassoText>Passo 1</PassoText>
@@ -216,9 +225,10 @@ const Home: React.FC = () => {
                 onPress={() => {
                   navigation.navigate('Passosroutes');
                 }}>
-                <ImagemPasso1
-                  source={Dna}
-                  style={{backgroundColor: '#edf6fa'}}
+                <DnaEnabled
+                  width={RFValue(130)}
+                  height={RFValue(125)}
+                  style={{backgroundColor: '#edf6fa', borderRadius: 10}}
                 />
                 <ContainerHeader>
                   <ContainerTitle>
@@ -239,12 +249,17 @@ const Home: React.FC = () => {
                 navigation.navigate('Passos2routes');
               }}>
               {step?.Step2.Status === 2 ? (
-                <ImagemPasso1
-                  source={Ilustration}
-                  style={{backgroundColor: '#edf6fa'}}
+                <Consulting
+                  width={RFValue(130)}
+                  height={RFValue(125)}
+                  style={{backgroundColor: '#edf6fa', borderRadius: 10}}
                 />
               ) : (
-                <ImagemPasso1 source={IlustrationDisable} />
+                <ConsultingDisabled
+                  width={RFValue(130)}
+                  height={RFValue(125)}
+                  style={{backgroundColor: '#f2f2f9', borderRadius: 10}}
+                />
               )}
 
               <ContainerHeader>
@@ -267,11 +282,25 @@ const Home: React.FC = () => {
                 <TextFooter>Saiba como definir</TextFooter>
               </ContainerHeader>
             </ContainerPasso>
+
             <ContainerPasso
               onPress={() => {
                 navigation.navigate('Passos3routes');
               }}>
-              <ImagemPasso1 source={LapisDisable} />
+              {step?.Step2.Status === 2 ? (
+                <ListDisable
+                  width={RFValue(130)}
+                  height={RFValue(125)}
+                  style={{backgroundColor: '#f2f2f9', borderRadius: 10}}
+                />
+              ) : (
+                <List
+                  width={RFValue(130)}
+                  height={RFValue(125)}
+                  style={{backgroundColor: '#f2f2f9', borderRadius: 10}}
+                />
+              )}
+
               <ContainerHeader>
                 {step?.Step2.Status === 2 ? (
                   <ContainerTitle>

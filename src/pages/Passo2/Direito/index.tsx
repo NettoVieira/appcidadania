@@ -6,6 +6,7 @@ import {useNavigation} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Alert, Modal, StyleSheet, View} from 'react-native';
 import LottieView from 'lottie-react-native';
+import {RFValue} from 'react-native-responsive-fontsize';
 import Coracao from '../../../assets/coracao.png';
 import BackgroundImg from '../../../assets/group_240.png';
 import Animacao from '../../../assets/Animacoes/lf30_kp7vtd6i.json';
@@ -87,7 +88,12 @@ const Direito: React.FC = ({route}: any) => {
               <ContainerImage>
                 <Backgroudimg source={BackgroundImg} />
                 <ContainerAnimacao>
-                  <LottieView source={Animacao} autoPlay loop />
+                  <LottieView
+                    source={Animacao}
+                    autoPlay
+                    loop
+                    style={{marginLeft: 25}}
+                  />
                 </ContainerAnimacao>
                 <Close
                   onPress={() => {
@@ -149,8 +155,8 @@ const styles = StyleSheet.create({
   },
   modalView: {
     marginTop: 160,
-    height: 640,
-    width: 360,
+    height: RFValue(690),
+    width: '100%',
     backgroundColor: 'white',
     borderRadius: 20,
 
