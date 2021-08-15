@@ -39,9 +39,8 @@ import api from '../../../services/api';
 import Banner from '../../../Components/Banner';
 
 const Direito: React.FC = ({route}: any) => {
-  console.log(route);
-
   const navigation = useNavigation();
+
   const [modalVisible, setModalVisible] = useState(false);
   const [title, setTitle] = useState('');
 

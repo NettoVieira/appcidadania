@@ -17,7 +17,7 @@ import {
 } from 'react-native';
 import Share from 'react-native-share';
 
-import {RFValue} from 'react-native-responsive-fontsize';
+import {RFPercentage, RFValue} from 'react-native-responsive-fontsize';
 import api from '../../services/api';
 import Banner from '../../Components/Banner';
 import Load from '../../Components/Loading';
@@ -57,7 +57,6 @@ import {
   ItemButtonText,
   ButtonContinue,
   ButtonContinueText,
-  ListEmptyImage,
   SubtitleEmpty,
   TitleEmpty,
   ContainerEmpty,
@@ -299,8 +298,7 @@ const Financeiro: React.FC = () => {
             </View>
           </View>
         </Modal>
-        <Header />
-        <Body>
+        <Header>
           <Bodyheader>
             <ContainerTitle>
               <Subtitle>Crie suas notas</Subtitle>
@@ -314,6 +312,8 @@ const Financeiro: React.FC = () => {
               <Gerir source={Geririmg} />
             </ButtonGerir>
           </Bodyheader>
+        </Header>
+        <Body>
           {list[0] ? (
             <ListFinances>
               <ItemsList
@@ -352,7 +352,7 @@ const Financeiro: React.FC = () => {
             </ListFinances>
           ) : (
             <ContainerEmpty>
-              <ListFinances style={{marginBottom: 130}}>
+              <ListFinances style={{marginBottom: RFPercentage(10)}}>
                 <AddDocs
                   onPress={() => {
                     setModalVisible(true);

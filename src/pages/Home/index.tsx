@@ -287,7 +287,7 @@ const Home: React.FC = () => {
               onPress={() => {
                 navigation.navigate('Passos3routes');
               }}>
-              {step?.Step2.Status === 2 ? (
+              {step?.Step2.Status !== 2 ? (
                 <ListDisable
                   width={RFValue(130)}
                   height={RFValue(125)}

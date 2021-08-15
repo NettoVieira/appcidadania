@@ -49,7 +49,7 @@ export const ModalTitle = styled.Text`
 
 export const ContainerBodyModal = styled.View`
   width: 100%;
-  margin-top: ${RFPercentage(54)}px;
+  margin-top: ${RFPercentage(53)}px;
   padding-right: ${RFValue(24)}px;
   padding-left: ${RFValue(24)}px;
 `;
@@ -84,7 +84,7 @@ export const ButtonContinuaModal = styled.TouchableOpacity`
   align-items: center;
   height: ${RFValue(55)}px;
   border-radius: 10px;
-  margin-top: ${RFValue(40)}px;
+  margin-top: ${RFValue(30)}px;
 `;
 
 export const Scroll = styled.ScrollView``;

@@ -24,7 +24,7 @@ const Appcidadania: React.FC = () => {
   return (
     <>
       <Container>
-        <Ilustra width={RFValue(390)} height={RFValue(400)} />
+        <Ilustra width={RFValue(430)} height={RFValue(430)} />
         <ContainerText>
           <Title>Cidadania Italiana em um único lugar</Title>
           <Texto>

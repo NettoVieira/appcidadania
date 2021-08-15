@@ -107,6 +107,8 @@ const Passo1: React.FC = () => {
         };
         try {
           const res = await api.post('getUser', data);
+          console.log(res.data.User.Step1);
+
           setStep(res.data.User.Step1);
           setLoading(false);
         } catch (err) {
@@ -141,7 +143,7 @@ const Passo1: React.FC = () => {
     } catch (err) {
       console.log(err);
     }
-  }, [navigation]);
+  }, []);
 
   if (loading) {
     return <Load />;
@@ -452,9 +454,18 @@ const Passo1: React.FC = () => {
           )}
         </GoBack>
 
-        <ButtonContinua onPress={handleConcluirEtapa}>
-          <ButtonText>Concluir etapa</ButtonText>
-        </ButtonContinua>
+        {step?.Task1.Status === 2 && step?.Task3.Status === 2 ? (
+          <ButtonContinua onPress={handleConcluirEtapa}>
+            <ButtonText>Concluir etapa</ButtonText>
+          </ButtonContinua>
+        ) : (
+          <ButtonContinua
+            style={{backgroundColor: '#fafafa'}}
+            disabled
+            onPress={handleConcluirEtapa}>
+            <ButtonText style={{color: '#d0d0d0'}}>Concluir etapa</ButtonText>
+          </ButtonContinua>
+        )}
       </Scroll>
     </Container>
   );

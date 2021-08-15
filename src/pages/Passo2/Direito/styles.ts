@@ -108,7 +108,7 @@ export const ContainerAnimacao = styled.View`
 
 export const Backgroudimg = styled.Image`
   width: 100%;
-  height: ${RFValue(380)}px;
+  height: ${RFValue(360)}px;
   position: absolute;
   border-radius: 20px;
 `;
@@ -122,13 +122,11 @@ export const ModalTitle = styled.Text`
   text-align: center;
   font-family: 'Poppins-Regular';
   color: #172239;
-  margin-top: ${RFValue(10)}px;
 `;
 
 export const ContainerBodyModal = styled.View`
   width: 100%;
-  margin-top: 90%;
-  padding: ${RFValue(24)}px;
+  margin-top: ${RFPercentage(51)}px;
   padding-right: 3%;
   padding-left: 3%;
 `;

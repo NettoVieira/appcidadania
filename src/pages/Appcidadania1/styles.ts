@@ -32,7 +32,7 @@ export const Texto = styled.Text`
 `;
 
 export const Marcador = styled.View`
-  margin-top: ${RFValue(32)}px;
+  margin-top: ${RFValue(20)}px;
   flex-direction: row;
   margin-bottom: ${RFValue(12)}px;
 `;
@@ -66,7 +66,7 @@ export const ButtonContinue = styled(RectButton)`
   align-items: center;
   background-color: #fae8e8;
   height: ${RFValue(50)}px;
-  margin-bottom: 10%;
+  margin-bottom: 2%;
   margin-left: 7%;
   margin-right: 7%;
   border-radius: 10px;
@@ -80,7 +80,6 @@ export const ButtonContinueText = styled.Text`
 
 export const ContainerText = styled.View`
   width: 100%;
-  padding: ${RFValue(16)}px;
   justify-content: center;
   align-items: center;
 `;

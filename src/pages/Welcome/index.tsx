@@ -4,7 +4,6 @@ import DeviceInfo from 'react-native-device-info';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useNavigation} from '@react-navigation/native';
 
-import {View} from 'react-native';
 import api from '../../services/api';
 import {Container, Title, ButtonContinua, ButtonText} from './styles';
 
@@ -22,7 +21,6 @@ const Welcome: React.FC = () => {
 
   const handleCreateUser = useCallback(async () => {
     const item = DeviceInfo.getAndroidId().then(async (androidId) => {
-      console.log(androidId);
       const data = {
         Token: '5dej8kij77diek8tqmirkdiploiks4JJSud78G',
         TokenDevice:

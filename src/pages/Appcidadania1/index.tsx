@@ -7,7 +7,6 @@ import Ilustra from '../../assets/svg/conjunto_ilustra_o.svg';
 import {
   Container,
   Title,
-  Img,
   Texto,
   Marcador,
   MarcadorText1,
@@ -24,7 +23,7 @@ const Appcidadania: React.FC = () => {
   return (
     <>
       <Container>
-        <Ilustra width={RFValue(390)} height={RFValue(400)} />
+        <Ilustra width={RFValue(430)} height={RFValue(430)} />
 
         <ContainerText>
           <Title>Organize todos os seus documentos</Title>

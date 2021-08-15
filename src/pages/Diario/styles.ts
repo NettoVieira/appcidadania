@@ -3,21 +3,23 @@ import IconCusto from 'react-native-vector-icons/Feather';
 import {FlatList} from 'react-native';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import {RectButton} from 'react-native-gesture-handler';
+import {RFValue} from 'react-native-responsive-fontsize';
 import {List} from './index';
 
 export const Container = styled.View`
   flex: 1;
+  padding: ${RFValue(24)}px;
+  margin-top: 35px;
 `;
 
 export const Title = styled.Text`
   font-family: 'Poppins-Regular';
   font-size: 28px;
-
   color: #172239;
 `;
 
 export const ContainerCusto = styled.View`
-  width: 90%;
+  width: 100%;
   background-color: #f8f8f8;
   height: 70px;
   border-radius: 20px;
@@ -27,8 +29,9 @@ export const ContainerCusto = styled.View`
 
 export const Header = styled.View`
   width: 100%;
+  flex-direction: row;
+  justify-content: space-between;
   align-items: center;
-  margin-top: 16px;
 `;
 
 export const ContainerIcon = styled.View`
@@ -58,7 +61,7 @@ export const Body = styled.View`
   width: 100%;
   justify-content: center;
   align-items: center;
-  margin-top: 32px;
+  margin-top: ${RFValue(32)}px;
 `;
 
 export const Subtitle = styled.Text`
@@ -68,12 +71,12 @@ export const Subtitle = styled.Text`
 `;
 
 export const ContainerTitle = styled.View`
-  width: 60%;
+  width: 76%;
 `;
 
 export const AddDocs = styled.TouchableOpacity`
   flex-direction: row;
-  margin-top: 15px;
+
   margin-bottom: 8px;
 `;
 
@@ -89,9 +92,7 @@ export const ItemsList = styled(FlatList as new () => FlatList<List>)``;
 export const IconList = styled(IconCusto)``;
 
 export const ListFinances = styled.View`
-  width: 85%;
-
-  margin-top: 22px;
+  width: 100%;
 `;
 
 export const ContainerList = styled(Swipeable)`

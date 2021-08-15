@@ -2,15 +2,14 @@ import styled from 'styled-components/native';
 import Icon from 'react-native-vector-icons/Feather';
 import {RFValue} from 'react-native-responsive-fontsize';
 
-export const Container = styled.View`
+export const Container = styled.ScrollView`
   margin-top: 10%;
-  padding: 5%;
-  flex: 1;
+  padding: ${RFValue(5)}px ${RFValue(24)}px ${RFValue(0)}px ${RFValue(24)}px;
 `;
 
 export const ContainerTitle = styled.View`
   width: 80%;
-  margin-bottom: 20px;
+  margin-bottom: ${RFValue(20)}px;
 `;
 
 export const Close = styled.Pressable`
@@ -49,13 +48,10 @@ export const ContainerOptions = styled.View`
   width: 100%;
 `;
 
-export const Scroll = styled.ScrollView``;
-
 export const Title = styled.Text`
-  font-size: 30px;
+  font-size: 28px;
   font-family: 'Poppins-Regular';
   color: #172239;
-  font-weight: 900;
 `;
 
 export const ModalTitle = styled.Text`
@@ -63,28 +59,27 @@ export const ModalTitle = styled.Text`
   text-align: center;
   font-family: 'Poppins-Regular';
   color: #172239;
-  margin-top: 10px;
+
   font-weight: 900;
 `;
 
 export const SubTitle = styled.Text`
-  font-size: 18px;
+  font-size: ${RFValue(16)}px;
   font-family: 'Poppins-SemiBold';
   color: #172239;
-  margin-top: 20px;
-  margin-bottom: 10px;
+  margin-top: ${RFValue(20)}px;
+  margin-bottom: ${RFValue(10)}px;
 `;
 
 export const ContainerBodyModal = styled.View`
   width: 100%;
-  margin-top: 76%;
+  margin-top: 72%;
   padding: ${RFValue(24)}px;
 `;
 
 export const Paragraph = styled.Text`
   color: #6d6d78;
-  font-size: 13px;
-
+  font-size: ${RFValue(12)}px;
   font-family: 'Poppins-Regular';
 `;
 
@@ -94,7 +89,7 @@ export const ButtonContinuaModal = styled.TouchableOpacity`
   align-items: center;
   height: 55px;
   border-radius: 10px;
-  margin-top: 32px;
+  margin-top: 20px;
 `;
 
 export const ButtonTextModal = styled.Text`
@@ -144,13 +139,13 @@ export const ButtonContinua = styled.TouchableOpacity`
   background-color: #fae8e8;
   justify-content: center;
   align-items: center;
-  height: 15%;
+  height: ${RFValue(65)}px;
   border-radius: 10px;
   margin-top: 4%;
 `;
 
 export const ButtonText = styled.Text`
-  font-size: 16px;
+  font-size: 14px;
   text-align: center;
   color: #242424;
   font-family: 'Poppins-Regular';
@@ -158,7 +153,7 @@ export const ButtonText = styled.Text`
 
 export const TitleOpacity = styled.Text`
   font-family: 'Poppins-Regualr';
-  font-size: 18px;
+  font-size: ${RFValue(14)}px;
   color: #b2b2b2;
   margin-top: 1%;
 `;
