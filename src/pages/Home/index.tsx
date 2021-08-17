@@ -125,7 +125,6 @@ const Home: React.FC = () => {
 
   useFocusEffect(
     useCallback(() => {
-      console.log(step?.Step3);
       async function getUser() {
         const [response] = await AsyncStorage.multiGet([
           '@appcidadania:response',
@@ -155,7 +154,7 @@ const Home: React.FC = () => {
       }
 
       getUser();
-    }, [step?.Step3]),
+    }, []),
   );
 
   if (loading) {

@@ -7,7 +7,14 @@
 // eslint-disable-next-line react/jsx-one-expression-per-line
 import React, {useCallback, useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
-import {Alert, Modal, StyleSheet, View} from 'react-native';
+import {
+  Alert,
+  KeyboardAvoidingView,
+  Modal,
+  ScrollView,
+  StyleSheet,
+  View,
+} from 'react-native';
 import {RFValue} from 'react-native-responsive-fontsize';
 
 import BackgroundImg from '../../assets/group_240.png';
@@ -151,7 +158,6 @@ const styles = StyleSheet.create({
   centeredView: {
     flex: 1,
     justifyContent: 'center',
-
     alignItems: 'center',
     backgroundColor: 'rgba(52, 52, 52, 0.5)',
   },

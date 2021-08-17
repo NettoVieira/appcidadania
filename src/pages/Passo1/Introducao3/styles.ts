@@ -1,6 +1,6 @@
 import styled from 'styled-components/native';
 
-export const Container = styled.View`
+export const Container = styled.ScrollView`
   flex: 1;
   margin-top: 18%;
 `;
@@ -16,6 +16,7 @@ export const ContainerImage = styled.View`
   margin-left: 5%;
   margin-right: 5%;
   flex: 1;
+  margin-bottom: 10px;
 `;
 
 export const Progresbar = styled.Image`

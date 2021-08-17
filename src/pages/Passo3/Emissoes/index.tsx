@@ -198,6 +198,8 @@ const Emissoes: React.FC = () => {
   }, []);
 
   const handleAdicionaDocumentoChecklist = useCallback(async () => {
+    console.log('entrei aqui');
+
     const [Items] = await AsyncStorage.multiGet(['@appcidadania:response']);
     const {Request} = JSON.parse(Items[1] || '{}');
 
@@ -210,6 +212,8 @@ const Emissoes: React.FC = () => {
     };
 
     const {data} = await api.post('insertDocument', params);
+
+    console.log(data);
 
     const kinships = data.Kinships.map((item: Kinships) => {
       const list = {
@@ -407,13 +411,13 @@ const Emissoes: React.FC = () => {
     );
   };
 
-  const LeftActionKinshp: React.FC = () => {
-    return (
-      <ItemButtonKinship>
-        <ItemButtonText name="trash-2" size={22} color="#fff" />
-      </ItemButtonKinship>
-    );
-  };
+  // const LeftActionKinshp: React.FC = () => {
+  //   return (
+  //     <ItemButtonKinship>
+  //       <ItemButtonText name="trash-2" size={22} color="#fff" />
+  //     </ItemButtonKinship>
+  //   );
+  // };
 
   if (loading) {
     return <Load />;
@@ -493,7 +497,9 @@ const Emissoes: React.FC = () => {
                     </ContainerInputs>
                   </BodyModal>
                   <FooterModal>
-                    <ButtonContinua onPress={handleAdicionaDocumentoChecklist}>
+                    <ButtonContinua
+                      activeOpacity={1}
+                      onPress={handleAdicionaDocumentoChecklist}>
                       <ButtonText>Adicionar item ao checklist</ButtonText>
                     </ButtonContinua>
                   </FooterModal>
@@ -520,14 +526,7 @@ const Emissoes: React.FC = () => {
             keyExtractor={(_, index) => index.toString()}
             renderItem={({item, index}) => (
               <>
-                <Swipeable
-                  ref={(ref) => {
-                    isediting ? ref?.openLeft() : ref?.close();
-                  }}
-                  activeOffsetX={[0, 1]}
-                  renderLeftActions={(a) => {
-                    return <LeftActionKinshp />;
-                  }}>
+                <Swipeable>
                   <ContainerListItem
                     onPress={() => {
                       handleAtualizaLista(item, index);

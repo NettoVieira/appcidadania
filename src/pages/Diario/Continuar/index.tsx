@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 /* eslint-disable camelcase */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react/jsx-closing-bracket-location */
@@ -15,6 +16,9 @@ import {
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useNavigation} from '@react-navigation/native';
 import {compareAsc, format} from 'date-fns';
+import DateTimePicker from '@react-native-community/datetimepicker';
+
+import {RFValue} from 'react-native-responsive-fontsize';
 import Input from '../../../Components/react-native-input-style/input/Input';
 import Load from '../../../Components/Loading';
 
@@ -58,9 +62,19 @@ const Continuar: React.FC = ({route}: any) => {
   const [items, _] = useState<List>(route.params.item);
   const [modalVisible, setModalVisible] = useState(false);
   const [name, setName] = useState(route.params.item.name);
-  const [data, setData] = useState<number>(route.params.item.created);
+  const [data, setData] = useState<any>(route.params.item.created);
   const [loading, setLoading] = useState(false);
   const [descricao, setDescricao] = useState(route.params.item.description);
+  const [isshowdatepicker, setShowDatePicker] = useState(false);
+  const [date, setDate] = useState(new Date());
+
+  const handleSetDate = useCallback((_, selectDate) => {
+    const dataSelected = format(selectDate, 'YYY-mm-dd');
+
+    setData(dataSelected);
+
+    setShowDatePicker(false);
+  }, []);
 
   const handleAdicionaCusto = useCallback(async () => {
     setLoading(true);
@@ -133,15 +147,16 @@ const Continuar: React.FC = ({route}: any) => {
                         fontFamily: 'Poppins-Regular',
                         color: '#b2b2b2',
                       }}
-                      onInputChange={(item: any) => {
-                        setName(item);
-                      }}
+                      onFocus={() => setShowDatePicker(true)}
                       contain=""
                       initialValue={format(
                         new Date(items.created),
                         'dd MMM yyyy',
                       )}
-                      value=""
+                      onInputChange={() => {
+                        console.log('teste');
+                      }}
+                      value={data}
                       outlined
                       borderColor="#f09d4c"
                     />
@@ -197,6 +212,16 @@ const Continuar: React.FC = ({route}: any) => {
         </View>
       </Modal>
 
+      {isshowdatepicker && (
+        <DateTimePicker
+          testID="dateTimePicker"
+          mode="date"
+          is24Hour
+          display="default"
+          value={date}
+          onChange={handleSetDate}
+        />
+      )}
       <ContainerHeader>
         <Title>{items.name}</Title>
         <Actions>
@@ -225,8 +250,8 @@ const styles = StyleSheet.create({
   },
   modalView: {
     marginTop: 290,
-    height: 640,
-    width: 360,
+    height: RFValue(690),
+    width: '100%',
     backgroundColor: 'white',
     borderRadius: 20,
     paddingLeft: 16,

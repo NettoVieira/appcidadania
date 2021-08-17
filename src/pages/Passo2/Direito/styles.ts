@@ -2,7 +2,7 @@ import styled from 'styled-components/native';
 import Icon from 'react-native-vector-icons/Feather';
 import {RFPercentage, RFValue} from 'react-native-responsive-fontsize';
 
-export const Container = styled.View`
+export const Container = styled.ScrollView`
   flex: 1;
   margin-top: 10%;
 `;
@@ -20,7 +20,8 @@ export const ButtonContinua = styled.TouchableOpacity`
   align-items: center;
   height: 55px;
   border-radius: 10px;
-  margin-top: 32px;
+
+  margin-bottom: 10px;
 `;
 
 export const ButtonText = styled.Text`
@@ -162,5 +163,5 @@ export const ButtonContinuaModal = styled.TouchableOpacity`
   align-items: center;
   height: 55px;
   border-radius: 10px;
-  margin-top: 32px;
+  margin-top: 16px;
 `;

@@ -12,10 +12,9 @@ export const Subtitle = styled.Text`
   font-size: 20px;
 `;
 
-export const ContainerImage = styled.View`
+export const ContainerImage = styled.ScrollView`
   margin-left: 5%;
   margin-right: 5%;
-  flex: 1;
 `;
 
 export const Progresbar = styled.Image`

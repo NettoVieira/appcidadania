@@ -185,13 +185,13 @@ export const ContainerDescricao = styled.View`
   width: 60%;
 `;
 
-export const ButtonContinua = styled(RectButton)`
+export const ButtonContinua = styled.TouchableOpacity`
   background-color: #f09d4c;
   justify-content: center;
   align-items: center;
   height: 55px;
   border-radius: 10px;
-  margin: 16px 20px 20px 16px;
+  margin: 0 20px 20px 16px;
 `;
 
 export const ButtonFechar = styled(RectButton)`

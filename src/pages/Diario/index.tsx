@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 /* eslint-disable camelcase */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-closing-bracket-location */
@@ -7,6 +8,8 @@
 import React, {useState, useCallback} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
+import DateTimePicker from '@react-native-community/datetimepicker';
+import {format} from 'date-fns';
 
 import {
   View,
@@ -80,11 +83,13 @@ const Financeiro: React.FC = () => {
 
   const [list, setList] = useState<List[]>([]);
   const [modalVisible, setModalVisible] = useState(false);
-  const [data, setData] = useState();
+  const [data, setData] = useState('');
   const [titulo, setTitulo] = useState<number>();
   const [descricao, setDescricao] = useState();
   const [loading, setLoading] = useState(false);
   const [isEditing, setEditing] = useState(false);
+  const [isshowdatepicker, setShowDatePicker] = useState(false);
+  const [date, setDate] = useState(new Date());
 
   useFocusEffect(
     useCallback(() => {
@@ -160,6 +165,14 @@ const Financeiro: React.FC = () => {
     }
   }, []);
 
+  const handleSetDate = useCallback((_, selectDate) => {
+    const dataSelected = format(selectDate, 'YYY-mm-dd');
+
+    setData(dataSelected);
+
+    setShowDatePicker(false);
+  }, []);
+
   const handleCompartilharPdf = useCallback(async () => {
     try {
       const [Items] = await AsyncStorage.multiGet(['@appcidadania:response']);
@@ -232,17 +245,18 @@ const Financeiro: React.FC = () => {
                       <Input
                         id="name"
                         label="Data"
+                        onFocus={() => setShowDatePicker(true)}
                         keyboardType="default"
                         labelStyle={{
                           fontFamily: 'Poppins-Regular',
                           color: '#b2b2b2',
                         }}
-                        onInputChange={(item: any) => {
-                          setData(item);
+                        onInputChange={() => {
+                          console.log('teste');
                         }}
                         contain=""
-                        initialValue=""
-                        value=""
+                        initialValue={data}
+                        value={data}
                         outlined
                         borderColor="#f09d4c"
                       />
@@ -298,6 +312,16 @@ const Financeiro: React.FC = () => {
             </View>
           </View>
         </Modal>
+        {isshowdatepicker && (
+          <DateTimePicker
+            testID="dateTimePicker"
+            mode="date"
+            is24Hour
+            display="default"
+            value={date}
+            onChange={handleSetDate}
+          />
+        )}
         <Header>
           <Bodyheader>
             <ContainerTitle>
