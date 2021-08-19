@@ -191,7 +191,7 @@ export const ButtonContinua = styled.TouchableOpacity`
   align-items: center;
   height: 55px;
   border-radius: 10px;
-  margin: 0 20px 20px 16px;
+  margin: 10px 20px 20px 16px;
 `;
 
 export const ButtonFechar = styled(RectButton)`

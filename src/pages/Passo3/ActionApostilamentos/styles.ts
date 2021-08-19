@@ -1,6 +1,6 @@
 import styled from 'styled-components/native';
 import Icon from 'react-native-vector-icons/Feather';
-import {RFPercentage} from 'react-native-responsive-fontsize';
+import {RFPercentage, RFValue} from 'react-native-responsive-fontsize';
 
 export const Container = styled.ScrollView`
   flex: 1;
@@ -46,9 +46,10 @@ export const ContainerBody = styled.View`
 `;
 
 export const ContainerFooter = styled.View`
-  margin-top: ${RFPercentage(20)}px;
+  margin-top: ${RFPercentage(10)}px;
   margin-left: 5%;
   margin-right: 5%;
+  margin-bottom: ${RFValue(10)}px;
   justify-content: center;
 `;
 

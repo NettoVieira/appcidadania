@@ -2,8 +2,6 @@
 import React from 'react';
 import {useNavigation} from '@react-navigation/native';
 
-import Trabalho from '../../../assets/icon-beneficios.png';
-
 import {
   Container,
   Title,

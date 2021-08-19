@@ -6,8 +6,15 @@
 import React, {useState, useCallback} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
-import {View, Alert, StyleSheet} from 'react-native';
+import {
+  View,
+  Alert,
+  StyleSheet,
+  KeyboardAvoidingView,
+  ScrollView,
+} from 'react-native';
 import Share from 'react-native-share';
+import {RFValue, RFPercentage} from 'react-native-responsive-fontsize';
 
 import api from '../../services/api';
 import IconSifrao from '../../assets/sifrao.png';
@@ -208,87 +215,94 @@ const Financeiro: React.FC = () => {
           visible={modalVisible}>
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
-              <HeaderModal>
-                <ButtonClose
-                  onPress={() => {
-                    setModalVisible(false);
-                  }}>
-                  <IconClose name="x" size={45} color="#f09d4c" />
-                </ButtonClose>
-              </HeaderModal>
-              <BodyModal>
-                <ContainerTextModal>
-                  <Title>Adicionar custo</Title>
-                  <Subtitle>
-                    Nomeie o motivo do custo para acompanhar seu controle
-                    financeiro no andamento do processo.
-                  </Subtitle>
-                </ContainerTextModal>
-                <ContainerInputs>
-                  <Input
-                    id="name"
-                    label="Tipo decusto"
-                    keyboardType="default"
-                    labelStyle={{
-                      fontFamily: 'Poppins-Regular',
-                      color: '#b2b2b2',
-                    }}
-                    onInputChange={(item: any) => {
-                      setCusto(item);
-                    }}
-                    contain=""
-                    initialValue=""
-                    value=""
-                    outlined
-                    borderColor="#f09d4c"
-                  />
-                  <Subtitle style={{marginLeft: 10}}>
-                    Ex:. Certidão de casamento
-                  </Subtitle>
-                  <Input
-                    id="valor"
-                    label="R$ 0,00"
-                    labelStyle={{
-                      fontFamily: 'Poppins-Regular',
-                      color: '#b2b2b2',
-                    }}
-                    keyboardType="default"
-                    onInputChange={(item: any) => {
-                      setValor(item);
-                    }}
-                    contain=""
-                    initialValue=""
-                    value=""
-                    outlined
-                    borderColor="#f09d4c"
-                  />
+              <KeyboardAvoidingView
+                behavior="height"
+                keyboardVerticalOffset={100}
+                style={{width: '100%'}}>
+                <ScrollView>
+                  <HeaderModal>
+                    <ButtonClose
+                      onPress={() => {
+                        setModalVisible(false);
+                      }}>
+                      <IconClose name="x" size={45} color="#f09d4c" />
+                    </ButtonClose>
+                  </HeaderModal>
+                  <BodyModal>
+                    <ContainerTextModal>
+                      <Title>Adicionar custo</Title>
+                      <Subtitle>
+                        Nomeie o motivo do custo para acompanhar seu controle
+                        financeiro no andamento do processo.
+                      </Subtitle>
+                    </ContainerTextModal>
+                    <ContainerInputs>
+                      <Input
+                        id="name"
+                        label="Tipo decusto"
+                        keyboardType="default"
+                        labelStyle={{
+                          fontFamily: 'Poppins-Regular',
+                          color: '#b2b2b2',
+                        }}
+                        onInputChange={(item: any) => {
+                          setCusto(item);
+                        }}
+                        contain=""
+                        initialValue=""
+                        value=""
+                        outlined
+                        borderColor="#f09d4c"
+                      />
+                      <Subtitle style={{marginLeft: 10}}>
+                        Ex:. Certidão de casamento
+                      </Subtitle>
+                      <Input
+                        id="valor"
+                        label="R$ 0,00"
+                        labelStyle={{
+                          fontFamily: 'Poppins-Regular',
+                          color: '#b2b2b2',
+                        }}
+                        keyboardType="number-pad"
+                        onInputChange={(item: any) => {
+                          setValor(item);
+                        }}
+                        contain=""
+                        initialValue=""
+                        value=""
+                        outlined
+                        borderColor="#f09d4c"
+                      />
 
-                  <Input
-                    id="notas"
-                    inputStyle={{height: 80, marginTop: 10}}
-                    label="Adicionar notas"
-                    labelStyle={{
-                      fontFamily: 'Poppins-Regular',
-                      color: '#b2b2b2',
-                    }}
-                    keyboardType="default"
-                    onInputChange={(item: any) => {
-                      setDescricao(item);
-                    }}
-                    contain=""
-                    initialValue=""
-                    value=""
-                    outlined
-                    borderColor="#f09d4c"
-                  />
-                </ContainerInputs>
-              </BodyModal>
+                      <Input
+                        id="notas"
+                        inputStyle={{height: 80, marginTop: 10}}
+                        label="Adicionar notas"
+                        labelStyle={{
+                          fontFamily: 'Poppins-Regular',
+                          color: '#b2b2b2',
+                        }}
+                        keyboardType="default"
+                        onInputChange={(item: any) => {
+                          setDescricao(item);
+                        }}
+                        contain=""
+                        initialValue=""
+                        value=""
+                        outlined
+                        borderColor="#f09d4c"
+                      />
+                    </ContainerInputs>
+                  </BodyModal>
 
-              <FooterModal>
-                <ButtonContinua onPress={handleAdicionaCusto}>
-                  <ButtonText>Adicionar custo</ButtonText>
-                </ButtonContinua>
-              </FooterModal>
+                  <FooterModal>
+                    <ButtonContinua onPress={handleAdicionaCusto}>
+                      <ButtonText>Adicionar custo</ButtonText>
+                    </ButtonContinua>
+                  </FooterModal>
+                </ScrollView>
+              </KeyboardAvoidingView>
             </View>
           </View>
         </Modal>
@@ -326,6 +340,7 @@ const Financeiro: React.FC = () => {
           <ListFinances>
             <ItemsList
               data={finance?.List}
+              scrollEnabled
               keyExtractor={(_, index) => index.toString()}
               renderItem={({item}) => (
                 <ContainerList
@@ -343,7 +358,7 @@ const Financeiro: React.FC = () => {
                       {item.value
                         ? item.value
                             .toFixed(2)
-                            .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+                            .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')
                         : 0}
                     </ValueFinances>
                   </ContainerListHeader>
@@ -367,10 +382,11 @@ const Financeiro: React.FC = () => {
             </AddDocs>
           </ListFinances>
         </Body>
+        <ButtonContinue onPress={handleCompartilharPdf}>
+          <ButtonContinueText>Compartilhar</ButtonContinueText>
+        </ButtonContinue>
       </Container>
-      <ButtonContinue onPress={handleCompartilharPdf}>
-        <ButtonContinueText>Compartilhar</ButtonContinueText>
-      </ButtonContinue>
+
       <Banner unitid="ca-app-pub-9617296364015895/2996859856" />
     </>
   );
@@ -385,8 +401,8 @@ const styles = StyleSheet.create({
   },
   modalView: {
     marginTop: 290,
-    height: 520,
-    width: 360,
+    height: RFPercentage(120),
+    width: '100%',
     backgroundColor: 'white',
     borderRadius: 20,
     paddingLeft: 16,

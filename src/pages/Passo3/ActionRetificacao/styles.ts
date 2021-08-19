@@ -1,5 +1,6 @@
 import styled from 'styled-components/native';
 import Icon from 'react-native-vector-icons/Feather';
+import {RFPercentage} from 'react-native-responsive-fontsize';
 
 export const Container = styled.View`
   flex: 1;
@@ -45,7 +46,7 @@ export const ContainerBody = styled.View`
 `;
 
 export const ContainerFooter = styled.View`
-  margin-top: 20%;
+  margin-top: ${RFPercentage(2)}px;
   margin-left: 5%;
   margin-right: 5%;
   justify-content: center;

@@ -5,7 +5,7 @@ import Swipeable from 'react-native-gesture-handler/Swipeable';
 import {RectButton} from 'react-native-gesture-handler';
 import {List} from './index';
 
-export const Container = styled.View`
+export const Container = styled.ScrollView`
   flex: 1;
   margin-top: 60px;
 `;
