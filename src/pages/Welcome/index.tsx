@@ -13,14 +13,10 @@ const Welcome: React.FC = () => {
   const navigate = useNavigation();
   const [name, setName] = useState('');
 
-  useEffect(() => {
-    DeviceInfo.getDeviceToken().then(async (token) => {
-      console.log(token);
-    });
-  }, []);
-
   const handleCreateUser = useCallback(async () => {
-    const item = DeviceInfo.getDeviceToken().then(async (token) => {
+    const item = DeviceInfo.getAndroidId().then(async (token) => {
+      console.log(token);
+
       const data = {
         Token: '5dej8kij77diek8tqmirkdiploiks4JJSud78G',
         // TokenDevice:
@@ -39,12 +35,9 @@ const Welcome: React.FC = () => {
     try {
       const response = await api.post('createUser', data);
 
-      console.log(response.data);
-
       await AsyncStorage.multiSet([
         ['@appcidadania:response', JSON.stringify(response.data)],
       ]);
-
       navigate.navigate('Appcidadania');
     } catch (err) {
       console.log(err);

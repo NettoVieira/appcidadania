@@ -298,9 +298,12 @@ const Emissoes: React.FC = () => {
           Token: req.Request.Token,
           TokenDevice: req.Request.TokenDevice,
           DocumentId: item.DocumentId,
-          IsCaught: valueIsrequired,
+          IsRequired: valueIsrequired,
         };
-        await api.post('updateDocument', params);
+
+        console.log(params);
+        const {data} = await api.post('updateDocument', params);
+        console.log(data.Kinships[0].Documents, 'DEPOIS DA REQ');
 
         setLoading(false);
       } catch (error) {
