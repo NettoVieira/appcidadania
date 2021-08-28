@@ -63,6 +63,7 @@ import {
   SubtitleEmpty,
   TitleEmpty,
   ContainerEmpty,
+  ContainerFooter,
 } from './styles';
 
 import Input from '../../Components/react-native-input-style/input/Input';
@@ -322,21 +323,21 @@ const Financeiro: React.FC = () => {
             onChange={handleSetDate}
           />
         )}
-        <Header>
-          <Bodyheader>
-            <ContainerTitle>
-              <Subtitle>Crie suas notas</Subtitle>
-              <Title>Histórico</Title>
-            </ContainerTitle>
-            <ButtonGerir
-              onPress={() => {
-                // eslint-disable-next-line no-unused-expressions
-                isEditing ? setEditing(false) : setEditing(true);
-              }}>
-              <Gerir source={Geririmg} />
-            </ButtonGerir>
-          </Bodyheader>
-        </Header>
+
+        <Bodyheader>
+          <ContainerTitle>
+            <Subtitle>Crie suas notas</Subtitle>
+            <Title>Histórico</Title>
+          </ContainerTitle>
+          <ButtonGerir
+            onPress={() => {
+              // eslint-disable-next-line no-unused-expressions
+              isEditing ? setEditing(false) : setEditing(true);
+            }}>
+            <Gerir source={Geririmg} />
+          </ButtonGerir>
+        </Bodyheader>
+
         <Body>
           {list[0] ? (
             <ListFinances>
@@ -394,10 +395,12 @@ const Financeiro: React.FC = () => {
             </ContainerEmpty>
           )}
         </Body>
+        <ContainerFooter>
+          <ButtonContinue onPress={handleCompartilharPdf}>
+            <ButtonContinueText>Compartilhar</ButtonContinueText>
+          </ButtonContinue>
+        </ContainerFooter>
       </Container>
-      <ButtonContinue onPress={handleCompartilharPdf}>
-        <ButtonContinueText>Compartilhar</ButtonContinueText>
-      </ButtonContinue>
       <Banner unitid="ca-app-pub-9617296364015895/2996859856" />
     </>
   );
@@ -411,7 +414,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(52, 52, 52, 0.5)',
   },
   modalView: {
-    marginTop: RFValue(290),
+    marginTop: RFValue(90),
     height: RFValue(690),
     width: '100%',
     backgroundColor: 'white',

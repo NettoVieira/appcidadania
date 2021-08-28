@@ -46,7 +46,6 @@ export const ItemButtonText = styled(Icon)`
 export const BodyModal = styled.View`
   width: 100%;
   margin-top: 10px;
-  height: 350px;
 `;
 
 export const ContainerTextModal = styled.View`
@@ -61,12 +60,14 @@ export const ContainerInputs = styled.View`
 
 export const ContainerTextArea = styled.View`
   align-items: center;
+
   width: 100%;
 `;
 
 export const TextAreaView = styled.View`
   border: #b2b2b2;
   width: 93%;
+
   height: 150px;
   border-radius: 10px;
 `;
@@ -167,6 +168,7 @@ export const ButtonAddName = styled.TouchableOpacity``;
 export const ButtonAddNameText = styled.Text`
   font-size: 12px;
   font-family: 'Poppins-Regular';
+  color: #212121;
 `;
 
 export const ContainerSwitch = styled.View`
@@ -191,7 +193,7 @@ export const ButtonContinua = styled.TouchableOpacity`
   align-items: center;
   height: 55px;
   border-radius: 10px;
-  margin: 10px 20px 20px 16px;
+  margin: 6px 20px 20px 16px;
 `;
 
 export const ButtonFechar = styled(RectButton)`
@@ -234,7 +236,7 @@ export const AdicionarText = styled.Text`
 
 export const IconList = styled(Icon)``;
 
-export const ContainerListItem = styled(RectButton)`
+export const ContainerListItem = styled.TouchableOpacity`
   width: 100%;
   background-color: #f8f8f8;
   height: 64px;

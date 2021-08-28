@@ -107,7 +107,7 @@ const Passo1: React.FC = () => {
         };
         try {
           const res = await api.post('getUser', data);
-          console.log(res.data.User.Step1);
+          console.log(res.data);
 
           setStep(res.data.User.Step1);
           setLoading(false);

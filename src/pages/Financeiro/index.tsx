@@ -68,6 +68,7 @@ import {
 import Input from '../../Components/react-native-input-style/input/Input';
 
 import Geririmg from '../../assets/gerir_enable.png';
+import IconMoney from '../../assets/svg/icon_money.svg';
 
 interface Finance {
   Total: number;
@@ -239,7 +240,7 @@ const Financeiro: React.FC = () => {
                     <ContainerInputs>
                       <Input
                         id="name"
-                        label="Tipo decusto"
+                        label="Tipo de custo"
                         keyboardType="default"
                         labelStyle={{
                           fontFamily: 'Poppins-Regular',
@@ -309,7 +310,7 @@ const Financeiro: React.FC = () => {
         <Header>
           <ContainerCusto>
             <ContainerIcon>
-              <Icon source={IconSifrao} />
+              <IconMoney width={40} height={40} />
             </ContainerIcon>
             <ContainerText>
               <DescCusto>Custo total até agora</DescCusto>
@@ -326,7 +327,6 @@ const Financeiro: React.FC = () => {
         <Body>
           <Bodyheader>
             <ContainerTitle>
-              <Subtitle>Crie seu checklist</Subtitle>
               <Title>Financeiro</Title>
             </ContainerTitle>
             <ButtonGerir

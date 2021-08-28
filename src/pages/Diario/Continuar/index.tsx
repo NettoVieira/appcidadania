@@ -249,7 +249,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(52, 52, 52, 0.5)',
   },
   modalView: {
-    marginTop: 290,
+    marginTop: RFValue(90),
     height: RFValue(690),
     width: '100%',
     backgroundColor: 'white',

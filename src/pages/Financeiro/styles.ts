@@ -223,9 +223,7 @@ export const Bodyheader = styled.View`
   width: 85%;
 `;
 
-export const ButtonGerir = styled.TouchableOpacity`
-  margin-top: 18px;
-`;
+export const ButtonGerir = styled.TouchableOpacity``;
 
 export const Gerir = styled.Image`
   width: 148px;

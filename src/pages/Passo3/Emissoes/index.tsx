@@ -20,6 +20,8 @@ import {
 import Share from 'react-native-share';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import {RFValue} from 'react-native-responsive-fontsize';
+
+import Modaladdname from './Modaladdname';
 import Banner from '../../../Components/Banner';
 import Load from '../../../Components/Loading';
 
@@ -110,14 +112,16 @@ const Emissoes: React.FC = () => {
   const [kinships, setKinships] = useState<Kinships[]>([]);
   const [loading, setLoading] = useState(false);
   const [isediting, setEditing] = useState(false);
-  const swipeableRef = useRef<Swipeable>(null);
-
   const [modalVisible, setModalVisible] = useState<Modal>({
     isVisible: false,
     parent: '',
   });
+
   const [documentname, setDocumentname] = useState('');
   const [textarea, setTextArea] = useState('');
+  const [isvisiblemodalname, setVisibleModalName] = useState(false);
+  const [name, setName] = useState<string>('');
+  const [parentId, setParentId] = useState('');
 
   useFocusEffect(
     useCallback(() => {
@@ -167,6 +171,32 @@ const Emissoes: React.FC = () => {
     }, []),
   );
 
+  const handlesetKinship = useCallback(async () => {
+    try {
+      setLoading(true);
+      const [Items] = await AsyncStorage.multiGet(['@appcidadania:response']);
+      const req = JSON.parse(Items[1] || '{}');
+
+      const params = {
+        Token: req.Request.Token,
+        TokenDevice: req.Request.TokenDevice,
+        Name: name,
+        ParentId: parentId,
+      };
+      console.log(params);
+
+      const {data} = await api.post('setKinship', params);
+
+      setKinships(data.Kinships);
+      setName('');
+      setVisibleModalName(false);
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      Alert.alert('Erro', `${error}`);
+    }
+  }, [name, parentId]);
+
   const handleAdiconaDocumento = useCallback((parent: string) => {
     setModalVisible({isVisible: true, parent});
   }, []);
@@ -182,6 +212,7 @@ const Emissoes: React.FC = () => {
     };
 
     const {data} = await api.post('deleteDocument', params);
+
     const kinships = data.Kinships.map((item: Kinships) => {
       const list = {
         Documents: item.Documents,
@@ -198,8 +229,6 @@ const Emissoes: React.FC = () => {
   }, []);
 
   const handleAdicionaDocumentoChecklist = useCallback(async () => {
-    console.log('entrei aqui');
-
     const [Items] = await AsyncStorage.multiGet(['@appcidadania:response']);
     const {Request} = JSON.parse(Items[1] || '{}');
 
@@ -400,6 +429,32 @@ const Emissoes: React.FC = () => {
     navigation.navigate('Home');
   }, [navigation]);
 
+  const handleDeleteName = useCallback(async (parent: string) => {
+    try {
+      setLoading(true);
+      const [Items] = await AsyncStorage.multiGet(['@appcidadania:response']);
+      const req = JSON.parse(Items[1] || '{}');
+
+      const params = {
+        Token: req.Request.Token,
+        TokenDevice: req.Request.TokenDevice,
+        Name: '',
+        ParentId: parent,
+      };
+      console.log(params);
+
+      const {data} = await api.post('setKinship', params);
+
+      setKinships(data.Kinships);
+      setName('');
+      setVisibleModalName(false);
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      Alert.alert('Erro', `${error}`);
+    }
+  }, []);
+
   const LeftAction: React.FC = ({children}) => {
     return (
       <ItemButton
@@ -411,13 +466,16 @@ const Emissoes: React.FC = () => {
     );
   };
 
-  // const LeftActionKinshp: React.FC = () => {
-  //   return (
-  //     <ItemButtonKinship>
-  //       <ItemButtonText name="trash-2" size={22} color="#fff" />
-  //     </ItemButtonKinship>
-  //   );
-  // };
+  const LeftActionKinshp: React.FC = ({children}) => {
+    return (
+      <ItemButtonKinship
+        onPress={() => {
+          handleDeleteName(String(children));
+        }}>
+        <ItemButtonText name="trash-2" size={22} color="#fff" />
+      </ItemButtonKinship>
+    );
+  };
 
   if (loading) {
     return <Load />;
@@ -425,6 +483,64 @@ const Emissoes: React.FC = () => {
 
   return (
     <>
+      <Modal
+        animationType="slide"
+        statusBarTranslucent
+        transparent
+        visible={isvisiblemodalname}
+        onRequestClose={() => {
+          setVisibleModalName(false);
+        }}>
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <KeyboardAvoidingView
+              behavior="height"
+              keyboardVerticalOffset={100}
+              style={{width: '100%'}}>
+              <ScrollView>
+                <HeaderModal>
+                  <ButtonClose
+                    onPress={() => {
+                      setVisibleModalName(false);
+                    }}>
+                    <IconClose name="x" size={45} color="#f09d4c" />
+                  </ButtonClose>
+                </HeaderModal>
+                <BodyModal>
+                  <ContainerTextModal>
+                    <Title>Adicionar nome</Title>
+                    <Subtitle>
+                      Adicione o nome do familiar e organize seu checklist
+                    </Subtitle>
+                  </ContainerTextModal>
+                  <ContainerInputs>
+                    <Input
+                      id="name"
+                      label="Nome do familiar"
+                      keyboardType="default"
+                      onInputChange={(item: any) => {
+                        setName(item);
+                      }}
+                      contain=""
+                      initialValue=""
+                      value=""
+                      outlined
+                      borderColor="#f09d4c"
+                    />
+                  </ContainerInputs>
+                </BodyModal>
+                <FooterModal>
+                  <ButtonContinua
+                    activeOpacity={1}
+                    onPress={() => handlesetKinship()}>
+                    <ButtonText>Adicionar nome</ButtonText>
+                  </ButtonContinua>
+                </FooterModal>
+              </ScrollView>
+            </KeyboardAvoidingView>
+          </View>
+        </View>
+      </Modal>
       <Container>
         <Modal
           animationType="slide"
@@ -432,7 +548,6 @@ const Emissoes: React.FC = () => {
           transparent
           visible={modalVisible?.isVisible}
           onRequestClose={() => {
-            Alert.alert('Modal has been closed.');
             setModalVisible({isVisible: false, parent: ''});
           }}>
           <View style={styles.centeredView}>
@@ -475,13 +590,32 @@ const Emissoes: React.FC = () => {
                       <Subtitle style={{marginLeft: 10}}>
                         Ex:. Certidão de casamento
                       </Subtitle>
-                      <ContainerTextArea>
+                      <Input
+                        id="notas"
+                        inputStyle={{height: 140, marginTop: 5}}
+                        label="Descrição da nota"
+                        labelStyle={{
+                          fontFamily: 'Poppins-Regular',
+                          color: '#b2b2b2',
+                        }}
+                        multiline
+                        numberOfLines={4}
+                        keyboardType="default"
+                        onInputChange={(item: any) => {
+                          setTextArea(item);
+                        }}
+                        contain=""
+                        initialValue=""
+                        value=""
+                        outlined
+                        borderColor="#f09d4c"
+                      />
+                      {/* <ContainerTextArea>
                         <TextAreaView>
                           <TextAreaInput
                             style={{
                               fontSize: 14,
                               fontFamily: 'Poppins-Regular',
-                              padding: 10,
                             }}
                             placeholder="Adicionar notas
                       (Livro, Folha, Cartórios)"
@@ -489,11 +623,11 @@ const Emissoes: React.FC = () => {
                             onChangeText={(text) => {
                               setTextArea(text);
                             }}
-                            numberOfLines={4}
                             multiline
+                            numberOfLines={8}
                           />
                         </TextAreaView>
-                      </ContainerTextArea>
+                      </ContainerTextArea> */}
                     </ContainerInputs>
                   </BodyModal>
                   <FooterModal>
@@ -526,7 +660,14 @@ const Emissoes: React.FC = () => {
             keyExtractor={(_, index) => index.toString()}
             renderItem={({item, index}) => (
               <>
-                <Swipeable>
+                <Swipeable
+                  ref={(ref) => {
+                    isediting ? ref?.openLeft() : ref?.close();
+                  }}
+                  overshootLeft={false}
+                  renderLeftActions={() => (
+                    <LeftActionKinshp>{item.ParentId}</LeftActionKinshp>
+                  )}>
                   <ContainerListItem
                     onPress={() => {
                       handleAtualizaLista(item, index);
@@ -538,11 +679,20 @@ const Emissoes: React.FC = () => {
                     <ContainerTexts>
                       <TitleList>{item.ParentType}</TitleList>
                       {item.Name ? (
-                        <ButtonAddName disabled>
+                        <ButtonAddName
+                          onPress={() => {
+                            setParentId(item.ParentId);
+                            setVisibleModalName(true);
+                          }}
+                          disabled>
                           <ButtonAddNameText>{item.Name}</ButtonAddNameText>
                         </ButtonAddName>
                       ) : (
-                        <ButtonAddName>
+                        <ButtonAddName
+                          onPress={() => {
+                            setParentId(item.ParentId);
+                            setVisibleModalName(true);
+                          }}>
                           <ButtonAddNameText style={{color: '#f09d4c'}}>
                             Adicionar nome
                           </ButtonAddNameText>

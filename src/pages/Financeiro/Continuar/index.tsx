@@ -120,7 +120,7 @@ const Continuar: React.FC = ({route}: any) => {
                   <ContainerInputs>
                     <Input
                       id="name"
-                      label="Tipo decusto"
+                      label="Tipo de custo"
                       keyboardType="default"
                       labelStyle={{
                         fontFamily: 'Poppins-Regular',

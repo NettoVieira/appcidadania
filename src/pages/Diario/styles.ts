@@ -6,7 +6,7 @@ import {RectButton} from 'react-native-gesture-handler';
 import {RFValue} from 'react-native-responsive-fontsize';
 import {List} from './index';
 
-export const Container = styled.View`
+export const Container = styled.ScrollView`
   flex: 1;
   padding: ${RFValue(24)}px;
   margin-top: 35px;
@@ -14,7 +14,7 @@ export const Container = styled.View`
 
 export const Title = styled.Text`
   font-family: 'Poppins-Regular';
-  font-size: 28px;
+  font-size: ${RFValue(28)}px;
   color: #172239;
 `;
 
@@ -29,9 +29,6 @@ export const ContainerCusto = styled.View`
 
 export const Header = styled.View`
   width: 100%;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
 `;
 
 export const ContainerIcon = styled.View`
@@ -67,16 +64,14 @@ export const Body = styled.View`
 export const Subtitle = styled.Text`
   font-family: 'Poppins-Regular';
   color: #b2b2b2;
-  font-size: 12px;
+  font-size: ${RFValue(12)}px;
 `;
 
-export const ContainerTitle = styled.View`
-  width: 76%;
-`;
+export const ContainerTitle = styled.View``;
 
 export const AddDocs = styled.TouchableOpacity`
   flex-direction: row;
-
+  margin-top: ${RFValue(10)}px;
   margin-bottom: 8px;
 `;
 
@@ -222,11 +217,14 @@ export const Bodyheader = styled.View`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  width: 85%;
+
+  width: 100%;
 `;
 
 export const ButtonGerir = styled.TouchableOpacity`
   margin-top: 18px;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const Gerir = styled.Image`
@@ -237,11 +235,11 @@ export const Gerir = styled.Image`
 export const ButtonContinue = styled(RectButton)`
   justify-content: center;
   align-items: center;
+  width: 100%;
   background-color: #fae8e8;
   height: 50px;
   margin-bottom: 10%;
-  margin-left: 7%;
-  margin-right: 7%;
+
   border-radius: 10px;
 `;
 
@@ -273,4 +271,10 @@ export const SubtitleEmpty = styled.Text`
   font-family: 'Poppins-Regular';
   color: #6d6d78;
   text-align: center;
+`;
+
+export const ContainerFooter = styled.View`
+  width: 100%;
+  justify-content: center;
+  align-items: center;
 `;
