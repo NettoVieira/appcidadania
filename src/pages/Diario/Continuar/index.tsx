@@ -67,9 +67,12 @@ const Continuar: React.FC = ({route}: any) => {
   const [descricao, setDescricao] = useState(route.params.item.description);
   const [isshowdatepicker, setShowDatePicker] = useState(false);
   const [date, setDate] = useState(new Date());
+  const [dataformatada, setDataFormatada] = useState<string>('');
 
   const handleSetDate = useCallback((_, selectDate) => {
-    const dataSelected = format(selectDate, 'YYY-mm-dd');
+    const dataSelected = format(selectDate, 'YYY-MM-dd');
+
+    setDataFormatada(format(selectDate, 'dd MMM YYY'));
 
     setData(dataSelected);
 
@@ -143,20 +146,13 @@ const Continuar: React.FC = ({route}: any) => {
                       id="name"
                       label="Data"
                       keyboardType="default"
-                      labelStyle={{
-                        fontFamily: 'Poppins-Regular',
-                        color: '#b2b2b2',
-                      }}
                       onFocus={() => setShowDatePicker(true)}
                       contain=""
-                      initialValue={format(
-                        new Date(items.created),
-                        'dd MMM yyyy',
-                      )}
+                      initialValue={data}
                       onInputChange={() => {
-                        console.log('teste');
+                        // console.log
                       }}
-                      value={data}
+                      value={dataformatada}
                       outlined
                       borderColor="#f09d4c"
                     />
@@ -166,10 +162,6 @@ const Continuar: React.FC = ({route}: any) => {
                     <Input
                       id="valor"
                       label="Titulo da nota"
-                      labelStyle={{
-                        fontFamily: 'Poppins-Regular',
-                        color: '#b2b2b2',
-                      }}
                       keyboardType="default"
                       onInputChange={(item: any) => {
                         setData(item);
@@ -185,10 +177,6 @@ const Continuar: React.FC = ({route}: any) => {
                       id="notas"
                       inputStyle={{height: 80, marginTop: 10}}
                       label="Adicionar notas"
-                      labelStyle={{
-                        fontFamily: 'Poppins-Regular',
-                        color: '#b2b2b2',
-                      }}
                       keyboardType="default"
                       onInputChange={(item: any) => {
                         setDescricao(item);

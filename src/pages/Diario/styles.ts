@@ -6,7 +6,7 @@ import {RectButton} from 'react-native-gesture-handler';
 import {RFValue} from 'react-native-responsive-fontsize';
 import {List} from './index';
 
-export const Container = styled.ScrollView`
+export const Container = styled.View`
   flex: 1;
   padding: ${RFValue(24)}px;
   margin-top: 35px;
@@ -56,8 +56,8 @@ export const Valor = styled.Text`
 
 export const Body = styled.View`
   width: 100%;
-  justify-content: center;
-  align-items: center;
+
+  height: 300px;
   margin-top: ${RFValue(32)}px;
 `;
 
@@ -88,15 +88,14 @@ export const IconList = styled(IconCusto)``;
 
 export const ListFinances = styled.View`
   width: 100%;
+  margin-bottom: 20px;
 `;
 
 export const ContainerList = styled(Swipeable)`
   justify-content: center;
-  height: 87px;
 `;
 
 export const ContainerListHeader = styled.View`
-  flex-direction: row;
   justify-content: space-between;
 `;
 
@@ -116,6 +115,13 @@ export const Description = styled.Text`
   font-size: 12px;
   color: #6d6d78;
 `;
+
+export const DataText = styled.Text`
+  font-size: 12px;
+  font-family: 'Poppins-Regular';
+  color: #9f9faf;
+`;
+
 export const Continue = styled.TouchableOpacity``;
 
 export const ContinueText = styled.Text`
@@ -151,8 +157,8 @@ export const ItemButtonKinship = styled(RectButton)`
   align-items: center;
   justify-content: center;
   background-color: #e84941;
-  height: 70px;
-  width: 70px;
+  height: 87px;
+  width: 80px;
   margin-right: 10px;
 `;
 
@@ -235,16 +241,15 @@ export const Gerir = styled.Image`
 export const ButtonContinue = styled(RectButton)`
   justify-content: center;
   align-items: center;
-  width: 100%;
   background-color: #fae8e8;
   height: 50px;
+  width: 150px;
   margin-bottom: 10%;
-
   border-radius: 10px;
 `;
 
 export const ButtonContinueText = styled.Text`
-  font-size: 18px;
+  font-size: 14px;
   font-family: 'Poppins-Medium';
   color: #db822b;
 `;
@@ -275,6 +280,7 @@ export const SubtitleEmpty = styled.Text`
 
 export const ContainerFooter = styled.View`
   width: 100%;
-  justify-content: center;
+  justify-content: space-between;
+  flex-direction: row;
   align-items: center;
 `;

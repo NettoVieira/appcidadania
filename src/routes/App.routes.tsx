@@ -15,7 +15,6 @@ import Passos3routes, {Headerleft, Headerright} from './Passos3/Passos.routes';
 import Emissoes from '../pages/Passo3/Emissoes';
 import FinanceiroRoutes from './Financeiro/Financeiro.routes';
 import DiarioRoutes from './Diario/Diario.routes';
-import ContinueDiario from '../pages/Diario/Continuar';
 
 const App = createStackNavigator();
 

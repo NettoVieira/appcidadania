@@ -3,18 +3,38 @@ import IconCusto from 'react-native-vector-icons/Feather';
 import {FlatList} from 'react-native';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import {RectButton} from 'react-native-gesture-handler';
+import {RFValue} from 'react-native-responsive-fontsize';
 import {List} from './index';
 
-export const Container = styled.ScrollView`
+export const Container = styled.View`
   flex: 1;
-  margin-top: 60px;
+  margin-top: 55px;
 `;
 
 export const Title = styled.Text`
   font-family: 'Poppins-Regular';
   font-size: 28px;
-
   color: #172239;
+`;
+
+export const ContainerEmptyList = styled.View`
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  margin: 30px 0 30px 0;
+`;
+
+export const TitleEmpty = styled.Text`
+  font-size: 16px;
+  font-family: 'Poppins-SemiBold';
+  color: #172239;
+`;
+
+export const SubtitleEmpty = styled.Text`
+  font-size: 12px;
+  font-family: 'Poppins-Regular';
+  color: #6d6d78;
+  text-align: center;
 `;
 
 export const ContainerCusto = styled.View`
@@ -29,7 +49,6 @@ export const ContainerCusto = styled.View`
 export const Header = styled.View`
   width: 100%;
   align-items: center;
-  margin-top: 16px;
 `;
 
 export const ContainerIcon = styled.View`
@@ -57,7 +76,6 @@ export const Valor = styled.Text`
 
 export const Body = styled.View`
   width: 100%;
-  justify-content: center;
   align-items: center;
   margin-top: 32px;
 `;
@@ -74,18 +92,20 @@ export const ContainerTitle = styled.View`
 
 export const AddDocs = styled.TouchableOpacity`
   flex-direction: row;
-  margin-top: 15px;
-  margin-bottom: 8px;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const AddDocsText = styled.Text`
-  font-size: 14px;
+  font-size: 12px;
   font-family: 'Poppins-Regular';
   color: #f09d4c;
   margin-left: 6px;
 `;
 
-export const ItemsList = styled(FlatList as new () => FlatList<List>)``;
+export const ItemsList = styled(FlatList as new () => FlatList<List>)`
+  height: 60%;
+`;
 
 export const IconList = styled(IconCusto)``;
 
@@ -95,7 +115,6 @@ export const ListFinances = styled.View`
 
 export const ContainerList = styled(Swipeable)`
   justify-content: center;
-  height: 87px;
 `;
 
 export const ContainerListHeader = styled.View`
@@ -117,6 +136,7 @@ export const ValueFinances = styled.Text`
 export const Description = styled.Text`
   font-family: 'Poppins-Regular';
   font-size: 12px;
+
   color: #6d6d78;
 `;
 export const Continue = styled.TouchableOpacity``;
@@ -235,14 +255,21 @@ export const ButtonContinue = styled(RectButton)`
   align-items: center;
   background-color: #fae8e8;
   height: 50px;
+  width: 150px;
   margin-bottom: 10%;
-  margin-left: 7%;
-  margin-right: 7%;
+
   border-radius: 10px;
 `;
 
 export const ButtonContinueText = styled.Text`
-  font-size: 18px;
+  font-size: 14px;
   font-family: 'Poppins-Medium';
   color: #db822b;
+`;
+
+export const ContainerFooter = styled.View`
+  width: 100%;
+  flex-direction: row;
+  padding: 0 24px 0 24px;
+  justify-content: space-between;
 `;

@@ -9,7 +9,7 @@ import React, {useState, useCallback} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import {format} from 'date-fns';
+import {format, Locale} from 'date-fns';
 
 import {
   View,
@@ -64,6 +64,7 @@ import {
   TitleEmpty,
   ContainerEmpty,
   ContainerFooter,
+  DataText,
 } from './styles';
 
 import Input from '../../Components/react-native-input-style/input/Input';
@@ -91,6 +92,7 @@ const Financeiro: React.FC = () => {
   const [isEditing, setEditing] = useState(false);
   const [isshowdatepicker, setShowDatePicker] = useState(false);
   const [date, setDate] = useState(new Date());
+  const [dataformatada, setDataFormatada] = useState<string>('');
 
   useFocusEffect(
     useCallback(() => {
@@ -138,6 +140,7 @@ const Financeiro: React.FC = () => {
 
       setList(response.data.Daily.List);
       setModalVisible(false);
+
       setLoading(false);
     } catch (error) {
       setLoading(false);
@@ -167,7 +170,9 @@ const Financeiro: React.FC = () => {
   }, []);
 
   const handleSetDate = useCallback((_, selectDate) => {
-    const dataSelected = format(selectDate, 'YYY-mm-dd');
+    const dataSelected = format(selectDate, 'YYY-MM-dd');
+
+    setDataFormatada(format(selectDate, 'dd MMM YYY'));
 
     setData(dataSelected);
 
@@ -248,16 +253,12 @@ const Financeiro: React.FC = () => {
                         label="Data"
                         onFocus={() => setShowDatePicker(true)}
                         keyboardType="default"
-                        labelStyle={{
-                          fontFamily: 'Poppins-Regular',
-                          color: '#b2b2b2',
-                        }}
                         onInputChange={() => {
                           console.log('teste');
                         }}
                         contain=""
                         initialValue={data}
-                        value={data}
+                        value={dataformatada}
                         outlined
                         borderColor="#f09d4c"
                       />
@@ -267,10 +268,6 @@ const Financeiro: React.FC = () => {
                       <Input
                         id="valor"
                         label="Titulo da nota"
-                        labelStyle={{
-                          fontFamily: 'Poppins-Regular',
-                          color: '#b2b2b2',
-                        }}
                         keyboardType="default"
                         onInputChange={(item: any) => {
                           setTitulo(item);
@@ -286,10 +283,6 @@ const Financeiro: React.FC = () => {
                         id="notas"
                         inputStyle={{height: 170, marginTop: 10}}
                         label="Descrição da nota"
-                        labelStyle={{
-                          fontFamily: 'Poppins-Regular',
-                          color: '#b2b2b2',
-                        }}
                         keyboardType="default"
                         onInputChange={(item: any) => {
                           setDescricao(item);
@@ -318,6 +311,7 @@ const Financeiro: React.FC = () => {
             testID="dateTimePicker"
             mode="date"
             is24Hour
+            locale="pt-br"
             display="default"
             value={date}
             onChange={handleSetDate}
@@ -349,11 +343,13 @@ const Financeiro: React.FC = () => {
                     ref={(ref) => {
                       isEditing ? ref?.openLeft() : ref?.close();
                     }}
-                    activeOffsetX={[0, 1]}
                     renderLeftActions={() => {
                       return <LeftActionKinshp>{item}</LeftActionKinshp>;
                     }}>
                     <ContainerListHeader>
+                      <DataText>
+                        {format(new Date(item.created), 'dd MMM yyyy')}
+                      </DataText>
                       <TitleFinances>{item.name}</TitleFinances>
                     </ContainerListHeader>
                     <Description>{item.description}</Description>
@@ -366,26 +362,10 @@ const Financeiro: React.FC = () => {
                   </ContainerList>
                 )}
               />
-
-              <AddDocs
-                onPress={() => {
-                  setModalVisible(true);
-                }}>
-                <IconList name="plus-circle" size={20} color="#f09d4c" />
-                <AddDocsText>Adicionar nova nota</AddDocsText>
-              </AddDocs>
             </ListFinances>
           ) : (
             <ContainerEmpty>
-              <ListFinances style={{marginBottom: RFPercentage(10)}}>
-                <AddDocs
-                  onPress={() => {
-                    setModalVisible(true);
-                  }}>
-                  <IconList name="plus-circle" size={20} color="#f09d4c" />
-                  <AddDocsText>Adicionar novo custo</AddDocsText>
-                </AddDocs>
-              </ListFinances>
+              <ListFinances style={{marginBottom: RFPercentage(10)}} />
               <Consultingdisable />
               <TitleEmpty>Nenhum nota cadastrada</TitleEmpty>
               <SubtitleEmpty>
@@ -396,6 +376,12 @@ const Financeiro: React.FC = () => {
           )}
         </Body>
         <ContainerFooter>
+          <ButtonContinue
+            onPress={() => {
+              setModalVisible(true);
+            }}>
+            <ButtonContinueText>Adicionar</ButtonContinueText>
+          </ButtonContinue>
           <ButtonContinue onPress={handleCompartilharPdf}>
             <ButtonContinueText>Compartilhar</ButtonContinueText>
           </ButtonContinue>

@@ -1,3 +1,4 @@
+/* eslint-disable radix */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-closing-bracket-location */
 /* eslint-disable @typescript-eslint/no-use-before-define */
@@ -18,6 +19,7 @@ import {RFValue, RFPercentage} from 'react-native-responsive-fontsize';
 
 import api from '../../services/api';
 import IconSifrao from '../../assets/sifrao.png';
+import ListDisable from '../../assets/svg/illustration_img_list_disable.svg';
 import Banner from '../../Components/Banner';
 import Load from '../../Components/Loading';
 
@@ -63,9 +65,15 @@ import {
   ItemButtonText,
   ButtonContinue,
   ButtonContinueText,
+  ContainerEmptyList,
+  TitleEmpty,
+  SubtitleEmpty,
+  ContainerFooter,
 } from './styles';
 
 import Input from '../../Components/react-native-input-style/input/Input';
+
+import {maskCurrency} from '../../utils/masks';
 
 import Geririmg from '../../assets/gerir_enable.png';
 import IconMoney from '../../assets/svg/icon_money.svg';
@@ -88,7 +96,7 @@ const Financeiro: React.FC = () => {
   const [finance, setFinance] = useState<Finance>();
   const [modalVisible, setModalVisible] = useState(false);
   const [custo, setCusto] = useState();
-  const [valor, setValor] = useState<number>();
+  const [valor, setValor] = useState<string>('');
   const [descricao, setDescricao] = useState();
   const [loading, setLoading] = useState(false);
   const [isEditing, setEditing] = useState(false);
@@ -109,7 +117,7 @@ const Financeiro: React.FC = () => {
           const res = await api.post('financeList', params);
 
           setFinance(res.data.Finance);
-
+          setValor('');
           setLoading(false);
         } catch (error) {
           setLoading(false);
@@ -130,7 +138,7 @@ const Financeiro: React.FC = () => {
       Token: req.Request.Token,
       TokenDevice: req.Request.TokenDevice,
       Name: custo,
-      Value: Number(valor),
+      Value: parseFloat(valor.replace('.', '').replace(',', '.')),
       Description: descricao,
     };
 
@@ -139,6 +147,7 @@ const Financeiro: React.FC = () => {
 
       setFinance(response.data.Finance);
       setModalVisible(false);
+      setValor('');
       setLoading(false);
     } catch (error) {
       setLoading(false);
@@ -178,8 +187,6 @@ const Financeiro: React.FC = () => {
       };
 
       const response = await api.post('financeExport', params);
-
-      console.log(response.data.pdf);
 
       const shareOptions = {
         title: 'Vim do appcidadania',
@@ -240,12 +247,9 @@ const Financeiro: React.FC = () => {
                     <ContainerInputs>
                       <Input
                         id="name"
+                        inputStyle={{height: 45}}
                         label="Tipo de custo"
                         keyboardType="default"
-                        labelStyle={{
-                          fontFamily: 'Poppins-Regular',
-                          color: '#b2b2b2',
-                        }}
                         onInputChange={(item: any) => {
                           setCusto(item);
                         }}
@@ -260,36 +264,33 @@ const Financeiro: React.FC = () => {
                       </Subtitle>
                       <Input
                         id="valor"
-                        label="R$ 0,00"
-                        labelStyle={{
-                          fontFamily: 'Poppins-Regular',
-                          color: '#b2b2b2',
-                        }}
+                        label="Valor"
+                        inputStyle={{height: 45}}
                         keyboardType="number-pad"
                         onInputChange={(item: any) => {
-                          setValor(item);
+                          const value = maskCurrency(item);
+
+                          setValor(value);
                         }}
                         contain=""
                         initialValue=""
-                        value=""
+                        value={valor}
                         outlined
                         borderColor="#f09d4c"
                       />
 
                       <Input
                         id="notas"
-                        inputStyle={{height: 80, marginTop: 10}}
+                        inputStyle={{height: 80, marginTop: 6}}
                         label="Adicionar notas"
-                        labelStyle={{
-                          fontFamily: 'Poppins-Regular',
-                          color: '#b2b2b2',
-                        }}
                         keyboardType="default"
                         onInputChange={(item: any) => {
                           setDescricao(item);
                         }}
                         contain=""
                         initialValue=""
+                        multiline
+                        numberOfLines={4}
                         value=""
                         outlined
                         borderColor="#f09d4c"
@@ -316,10 +317,7 @@ const Financeiro: React.FC = () => {
               <DescCusto>Custo total até agora</DescCusto>
               <Valor>
                 R$
-                {finance?.Total.toFixed(2).replace(
-                  /(\d)(?=(\d{3})+(?!\d))/g,
-                  '$1.',
-                )}
+                {finance?.Total.toFixed(2).replace('.', ',')}
               </Valor>
             </ContainerText>
           </ContainerCusto>
@@ -338,53 +336,72 @@ const Financeiro: React.FC = () => {
             </ButtonGerir>
           </Bodyheader>
           <ListFinances>
-            <ItemsList
-              data={finance?.List}
-              scrollEnabled
-              keyExtractor={(_, index) => index.toString()}
-              renderItem={({item}) => (
-                <ContainerList
-                  ref={(ref) => {
-                    isEditing ? ref?.openLeft() : ref?.close();
-                  }}
-                  activeOffsetX={[0, 1]}
-                  renderLeftActions={() => {
-                    return <LeftActionKinshp>{item}</LeftActionKinshp>;
-                  }}>
-                  <ContainerListHeader>
-                    <TitleFinances>{item.name}</TitleFinances>
-                    <ValueFinances>
-                      R$
-                      {item.value
-                        ? item.value
-                            .toFixed(2)
-                            .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')
-                        : 0}
-                    </ValueFinances>
-                  </ContainerListHeader>
-                  <Description>{item.description}</Description>
-                  <Continue
-                    onPress={() => {
-                      navigation.navigate('Continuar', {item});
+            {finance?.List[0] ? (
+              <ItemsList
+                data={finance?.List}
+                keyExtractor={(_, index) => index.toString()}
+                renderItem={({item}) => (
+                  <ContainerList
+                    ref={(ref) => {
+                      isEditing ? ref?.openLeft() : ref?.close();
+                    }}
+                    renderLeftActions={() => {
+                      return <LeftActionKinshp>{item}</LeftActionKinshp>;
                     }}>
-                    <ContinueText>Continuar lendo</ContinueText>
-                  </Continue>
-                </ContainerList>
-              )}
-            />
-
-            <AddDocs
+                    <ContainerListHeader>
+                      <TitleFinances>{item.name}</TitleFinances>
+                      <ValueFinances>
+                        R$
+                        {item.value
+                          ? item.value.toFixed(2).replace('.', ',')
+                          : 0}
+                      </ValueFinances>
+                    </ContainerListHeader>
+                    <Description>{item.description}</Description>
+                    <Continue
+                      onPress={() => {
+                        navigation.navigate('Continuar', {
+                          item,
+                          valor: item.value
+                            ? item.value.toFixed(2).replace('.', ',')
+                            : 0,
+                        });
+                      }}>
+                      <ContinueText>Continuar lendo</ContinueText>
+                    </Continue>
+                  </ContainerList>
+                )}
+              />
+            ) : (
+              <ContainerEmptyList>
+                <ListDisable />
+                <TitleEmpty>Nenhum custo cadastrado</TitleEmpty>
+                <SubtitleEmpty>
+                  Cadastre agora mesmo e tenha o gerenciamento dos seus custos
+                  durante todo o processo.
+                </SubtitleEmpty>
+              </ContainerEmptyList>
+            )}
+          </ListFinances>
+          <ContainerFooter>
+            {/* <AddDocs
               onPress={() => {
                 setModalVisible(true);
               }}>
               <IconList name="plus-circle" size={20} color="#f09d4c" />
               <AddDocsText>Adicionar novo custo</AddDocsText>
-            </AddDocs>
-          </ListFinances>
+            </AddDocs> */}
+            <ButtonContinue
+              onPress={() => {
+                setModalVisible(true);
+              }}>
+              <ButtonContinueText>Adicionar</ButtonContinueText>
+            </ButtonContinue>
+            <ButtonContinue onPress={handleCompartilharPdf}>
+              <ButtonContinueText>Compartilhar</ButtonContinueText>
+            </ButtonContinue>
+          </ContainerFooter>
         </Body>
-        <ButtonContinue onPress={handleCompartilharPdf}>
-          <ButtonContinueText>Compartilhar</ButtonContinueText>
-        </ButtonContinue>
       </Container>
 
       <Banner unitid="ca-app-pub-9617296364015895/2996859856" />

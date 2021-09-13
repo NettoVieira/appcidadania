@@ -1,22 +1,60 @@
 /* eslint-disable react/jsx-closing-bracket-location */
-import React, {useCallback, useEffect, useRef, useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import DeviceInfo from 'react-native-device-info';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {useNavigation} from '@react-navigation/native';
+import {useFocusEffect, useNavigation} from '@react-navigation/native';
 
 import api from '../../services/api';
 import {Container, Title, ButtonContinua, ButtonText} from './styles';
 
 import Input from '../../Components/react-native-input-style/input/Input';
+import Load from '../../Components/Loading';
 
 const Welcome: React.FC = () => {
   const navigate = useNavigation();
   const [name, setName] = useState('');
+  const [loading, setLoading] = useState(true);
+
+  useFocusEffect(
+    useCallback(() => {
+      async function getItem() {
+        const item = DeviceInfo.getAndroidId().then(async (token) => {
+          const data = {
+            Token: '5dej8kij77diek8tqmirkdiploiks4JJSud78G',
+            // TokenDevice:
+            //   '0c8a753f9ba81fa8959d51e9680d1ae3c6489949337a75d538d23a3513c9f487',
+            TokenDevice: token,
+          };
+
+          return data;
+        });
+
+        const data = await item;
+        try {
+          const response = await api.post('getUser', data);
+
+          const {Status} = response.data.Request;
+
+          if (Status !== 'Erro') {
+            await AsyncStorage.multiSet([
+              ['@appcidadania:response', JSON.stringify(response.data)],
+            ]);
+            navigate.navigate('Dashboardroutes');
+          }
+          setLoading(false);
+        } catch (err) {
+          setLoading(false);
+        }
+      }
+
+      getItem();
+    }, [navigate]),
+  );
 
   const handleCreateUser = useCallback(async () => {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     const item = DeviceInfo.getAndroidId().then(async (token) => {
-      console.log(token);
-
+      setLoading(true);
       const data = {
         Token: '5dej8kij77diek8tqmirkdiploiks4JJSud78G',
         // TokenDevice:
@@ -39,14 +77,19 @@ const Welcome: React.FC = () => {
         ['@appcidadania:response', JSON.stringify(response.data)],
       ]);
       navigate.navigate('Appcidadania');
+      setLoading(false);
     } catch (err) {
-      console.log(err);
+      setLoading(false);
     }
   }, [name, navigate]);
 
   const handleGetName = useCallback(async (item) => {
     setName(item);
   }, []);
+
+  if (loading) {
+    <Load />;
+  }
 
   return (
     <>

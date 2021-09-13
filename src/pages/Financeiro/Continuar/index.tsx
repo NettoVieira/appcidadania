@@ -37,6 +37,8 @@ import {
 
 import EditarValorimg from '../../../assets/editarvalor.png';
 import api from '../../../services/api';
+import {maskCurrency} from '../../../utils/masks';
+import routes from '../../../routes';
 
 export interface List {
   description: string;
@@ -48,10 +50,12 @@ export interface List {
 const Continuar: React.FC = ({route}: any) => {
   const navigation = useNavigation();
 
+  console.log();
+
   const [items, _] = useState<List>(route.params.item);
   const [modalVisible, setModalVisible] = useState(false);
   const [name, setName] = useState(route.params.item.name);
-  const [valor, setValor] = useState<number>(route.params.item.value);
+  const [valor, setValor] = useState<string>();
   const [loading, setLoading] = useState(false);
   const [descricao, setDescricao] = useState(route.params.item.description);
 
@@ -66,7 +70,7 @@ const Continuar: React.FC = ({route}: any) => {
         TokenDevice: req.Request.TokenDevice,
         Id: items.id,
         Name: name,
-        Value: valor,
+        Value: parseFloat(valor.replace('.', '').replace(',', '.')),
         Description: descricao,
       };
 
@@ -111,7 +115,7 @@ const Continuar: React.FC = ({route}: any) => {
                 </HeaderModal>
                 <BodyModal>
                   <ContainerTextModal>
-                    <Title>Adicionar custo</Title>
+                    <Title>Editar custo</Title>
                     <Subtitle>
                       Nomeie o motivo do custo para acompanhar seu controle
                       financeiro no andamento do processo.
@@ -140,20 +144,23 @@ const Continuar: React.FC = ({route}: any) => {
                     </Subtitle>
                     <Input
                       id="valor"
-                      label="R$ 0,00"
+                      label="Valor"
                       labelStyle={{
                         fontFamily: 'Poppins-Regular',
                         color: '#b2b2b2',
                       }}
-                      keyboardType="default"
+                      inputStyle={{height: 45}}
+                      keyboardType="number-pad"
                       onInputChange={(item: any) => {
-                        setValor(item);
+                        const value = maskCurrency(item);
+
+                        setValor(value);
                       }}
                       contain=""
-                      initialValue={`${items.value}`}
-                      value=""
+                      initialValue={route.params.valor}
+                      value={valor}
                       outlined
-                      borderColor="#f09d4c"
+                      borderColor="#24211d"
                     />
 
                     <Input
@@ -169,6 +176,8 @@ const Continuar: React.FC = ({route}: any) => {
                         setDescricao(item);
                       }}
                       contain=""
+                      multiline
+                      numberOfLines={4}
                       initialValue={items.description}
                       value=""
                       outlined
@@ -178,7 +187,7 @@ const Continuar: React.FC = ({route}: any) => {
                 </BodyModal>
                 <FooterModal>
                   <ButtonContinua onPress={handleAdicionaCusto}>
-                    <ButtonText>Adicionar custo</ButtonText>
+                    <ButtonText>Salvar</ButtonText>
                   </ButtonContinua>
                 </FooterModal>
               </ScrollView>
@@ -192,7 +201,7 @@ const Continuar: React.FC = ({route}: any) => {
         <Actions>
           <Valor>
             R$
-            {items.value.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')}
+            {items.value.toFixed(2).replace('.', ',')}
           </Valor>
           <ButtonEdit
             onPress={() => {
