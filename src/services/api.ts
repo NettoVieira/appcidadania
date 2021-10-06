@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'https://admin.cidadaniapassoapasso.com.br/api/v1/',
+  baseURL: '',
 
   headers: {
     'Content-Type': 'application/json',
